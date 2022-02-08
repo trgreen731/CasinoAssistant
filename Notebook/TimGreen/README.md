@@ -45,3 +45,11 @@
 ### Risk to Successful Completion
 * Implementing logic within the app to output the proper odds and moves
 * Keeping track of what is on the table and reset after each hand
+## TA Meeting Notes
+* More complex in hardware
+	* Add chargeable battery with battery management system, voltage regulator, and ESD protection
+	* Add central display for dealer instructions and maybe current cards
+* Keep adding to proposal throughout the project
+* For Next Week:
+	* Find specific components
+	* specific requirements for all the modules and components
