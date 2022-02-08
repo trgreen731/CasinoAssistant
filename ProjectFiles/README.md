@@ -1,2 +1,2 @@
 ### File Type Notes
-pure FILEs are used within the Dia diagram editing software.
+.dia files are used within the diagram software Dia
