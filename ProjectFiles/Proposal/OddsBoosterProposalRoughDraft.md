@@ -12,6 +12,7 @@ Note that this is not a block diagram and should explain how the solution is use
 *High Level Requirements List: A list of three quantitative characteristics that this project must exhibit in order to solve the problem. 
 Each high-level requirement must be stated in complete sentences and displayed as a bulleted list. Avoid mentioning "cost" as a high level requirement.*
 
+--------------------
 
 **Design**
 
@@ -29,6 +30,7 @@ the subsystem would fail to function. Good example: Power Subsystem must be able
 *Tolerance Analysis: Identify an aspect of your design that poses a risk to successful completion of the project. 
 Demonstrate the feasibility of this component through mathematical analysis or simulation.*
 
+---------------------
 
 **Ethics & Safety**
 *Assess the ethical and safety issues relevant to your project. Consider both issues arising during the development of your project and those which could arise from the 
