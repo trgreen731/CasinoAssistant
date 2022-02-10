@@ -4,6 +4,8 @@
 
 ***Problem**: One to two paragraphs detailing the problem statement. Include any relevant references to justify the existence or importance of the problem.*
 
+* Using the RFA problem statement
+
 
 ***Solution**: One to two paragraphs describing the solution. Give a high-level idea of what your solution is, then delve into detail as to how it is implemented. 
 You do not have to commit to a particular implementation at this point, but your description should be explicit and concrete.*
