@@ -53,3 +53,7 @@
 * For Next Week:
 	* Find specific components
 	* specific requirements for all the modules and components
+
+# 2/10/2022
+## Proposal Work
+Proposal work all written in proposal file in project files. The finished proposal will be included within this notebook.

@@ -10,14 +10,19 @@
 ***Solution**: One to two paragraphs describing the solution. Give a high-level idea of what your solution is, then delve into detail as to how it is implemented. 
 You do not have to commit to a particular implementation at this point, but your description should be explicit and concrete.*
 
+* Using the RFA solution statement + extra paragraph diving more into how it is used
+
 
 ***Visual Aid**: A pictorial representation of your project that puts your solution in context. Include other external systems relevant to your project 
 (e.g. if your solution connects to a phone via Bluetooth, draw a dotted line between your device and the phone). 
 Note that this is not a block diagram and should explain how the solution is used, not a breakdown of inner components.*
 
+* Made basic one
 
 ***High Level Requirements List**: A list of three quantitative characteristics that this project must exhibit in order to solve the problem. 
 Each high-level requirement must be stated in complete sentences and displayed as a bulleted list. Avoid mentioning "cost" as a high level requirement.*
+
+* Using what we discussed before Tuesday's meeting and adjusting a little based on what Uma said
 
 
 --------------------
