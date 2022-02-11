@@ -25,6 +25,7 @@
 \usepackage[left=1in,top=1in,right=1in,bottom=1in,nohead]{geometry}
 \usepackage{setspace}
 \setstretch{1.15}
+\setlength\parindent{1cm}
 
 % Define the location of your figures in order to avoid writing absolute file location
 \graphicspath{{figures/}}	
@@ -61,7 +62,7 @@ The Odds Booster central device will serve as the hub used by the dealer and all
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.98\textwidth]{ProposalUsageDiagram}
+	\includegraphics[width=0.98\textwidth]{ProposalUsageDiagram.png}
 	\caption{System Usage Diagram}
 	\label{fig:use_dia}
 \end{figure}
@@ -69,21 +70,96 @@ The Odds Booster central device will serve as the hub used by the dealer and all
 \noindent
 The main requirements to ensure the completion and success of this project are as follows.
 \begin{itemize}
-\item The central device must be able to sense and distinguish the 52 different RFID tags associated with each card and show the scanned card as well as the next action on the display.
-\item The central device must be able to send game information (including cards and hands) to a phone app via bluetooth.
-\item The phone app must be able to receive game information info via a bluetooth and use the information to determine the strength of the user's hand and/or the best possible move for the user.
+\item The central device must be able to sense and distinguish the 52 different RFID tags associated with each card.
+\item The central device must be able to display the card and game information for all players to see as well as send the information to a phone app via bluetooth.
+\item The phone app must be able to receive game information information via bluetooth and use the information to determine the strength of the user's hand and/or the best possible move for the user.
 \end{itemize}
 These requirements are broken into more detailed and module specific requirements through the remainder of this proposal.
 
 \section{Design}
 
-words
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Full_Block_Diagram_v3.png}
+	\caption{Block Diagram}
+	\label{fig:block}
+\end{figure}
+
+The block diagram describing each module within the system and their connections is shown in Figure \ref{fig:block}. The design is composed of five main modules or subsystems. Four of the modules are outlined by hardware components and labeled in the block diagram. The fifth module is the Phone App. The purpose, interconnections and requirements of each module are described in detail through this section. The requirements specified in this proposal give an idea of the standards to which we will hold our design, but do not provide testing methods at this time.
+
+\subsection{Power Module}
+
+The power module is made up of a rechargeable battery, a battery management system, and a voltage regulator. This module is responsible for providing power to all other hardware components within the system in a safe manner. Without this module, none of the main requirements could be met as each operation of the system requires power. The power module connects to the other three hardware modules (the card reader, game status display, and communications modules) via a DC voltage provided by the voltage regulator. This DC voltage is dependent on requirements set by specific component models but is likely to be $3.3V$ as this is the nominal operating voltage for most CMOS devices. The battery management system also connects to the game status display module as it provides the microprocessor with battery status information. This signal is used to tell the users important system information such as when the battery is low.
+
+The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that is efficient in energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
+
+The power module has a set of basic requirements that ensure its proper operation. These requirements are as follows.
+
+\begin{itemize}
+\item The battery management system must be able to measure the output voltage of the lithium ion battery to a tolerance of $\pm0.1V$.
+\item The battery management system must be able to measure the current in or out of the lithium ion battery to a tolerance of $\pm1mA$.
+\item The battery management system must be able to disconnect connected components if the lithium ion battery voltage falls too low or moves too high (specific values depend on specific battery safety specifications).
+\item The voltage regulator must be able to maintain a voltage within a safe range of $3.0V$ to $3.6V$ (safe operating range for average CMOS device \cite{TI_inverter}).
+\end{itemize}
+
+\subsection{Card Reader Module}
+
+The card reader module is made up of the microprocessor and the RFID sensor. The module is responsible for reading the card ID of each card swiped past the device. The module is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader module connects to the power module through the provided $3.3V_{DC}$ supply and to the game status display and communication modules through the passing of data within the microprocessor.
+
+The RFID sensor generates a specific frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microprocessor is shared by multiple modules but will receive this serial ID from the sensor via wired serial transmission.
+
+The basic requirements for the card reader module that ensure its proper operation are as follows.
+
+\begin{itemize}
+\item The RFID sensor must be able to accurately determine the serial ID of an RFID tag when held to the surface of the sensor.
+\item The microprocessor must be able to accurately receive the serial ID of the RFID ID tag when serially transmitted from the RFID sensor.
+\end{itemize} 
+
+\subsection{Game Status Display Module}
+
+The game status display module is made up of the microprocessor and the display. The module is responsible for showing the user the game actions and current game information. The module is vital for the second main requirement in displaying to the players and dealer the game status and next actions. The game status display module connects to the power module through the DC supply and the card reader module through the transfer of card data within the microprocessor.
+
+The display within the module is an output device showing the video data provided to it by the microprocessor. As the microprocessor must be able to provide video data to the display via a VGA protocol, the output capabilities of the microprocessor must be high enough to transfer information to the display at a fast enough rate. The microprocessor must also have enough memory to hold the necessary sprites and potentially a screen buffer (depending on the display size and control method used).
+
+The basic requirements for the game status display module that ensure its proper operation are as follows.
+
+\begin{itemize}
+\item The display must be able to show the next action of the game at any given time in the form of text on the screen.
+\item The microprocessor must be able to transmit the video data through VGA protocol to the display at a standard rate of $~30$fps.
+\end{itemize}
+
+\subsection{Communication Module}
+
+The communication module is made up of the microprocessor and the bluetooth transceiver. The module is repsonsible for communicating the card and game data from the central device to the phone app as well as receiving information from the phone app. The module is vital for the second and third main requirements in sending the game data and allowing the use of this data within the phone app. The communication module connects to the power module through the DC supply, to the card reader module through the transfer of card data within the microprocessor, and to the phone app through a 2.4GHz wireless signal.
+
+The bluetooth transceiver is used to generate a 2.4GHz signal (bluetooth protocol frequency) to send card information to the phone app. Likewise, the transceiver receives similar frequency signals and send the signal data to the microprocessor for use by the system in setting game status. The microcontroller will generate the bluetooth packet for use by the transceiver and will follow normal bluetooth protocol in its operation.
+
+The basic requirements for the communication module that ensure its proper operation are as follows.
+
+\begin{itemize}
+\item The microprocessor must be able to follow the bluetooth protocol as specified in \cite{IEEE_bt}.
+\item The communication module must be able to communicate at a distance of 3ft with an average thoughput of 10kbps (small amount of data transfer does not require high throughput).
+\end{itemize}
+
+\subsection{Phone App Module}
+
+The phone app module is made up of solely the application used by the phone. The module is responsible for receiving the communications from the central device and sending control information back to the device. The module is vital for the third main requirement in the receipt of game data by the phone and display of optimal moves or game statistics. The phone app module connects only to the communication module in the wireless transmission of game information.
+
+The phone app relies on the device having bluetooth capabilities. The app receives game data and uses statistics and probability methods to determine the strength of the users hand in relation to other possible hands within the game. The app displays this measurement to the user and will use this strength measure to suggest moves to the user. With enough time and successful work, the app could potentially use a machine learning algorithm to continue to provide better suggestions with more use. 
+
+The basic requirements for the phone app module that ensure its proper operation are as follows.
+
+\begin{itemize}
+\item The app must be able to utilize the bluetooth capabilities of the device to successfully send and receive data with the central device.
+\item The app must be able to use information to accurately calculate the ``strength'' measure. This measure consists of comparing the current hand of the user and comparing the hand to all other possible hands to determine the ranking percentile. (More specific measures may be provided depending on game type).
+\item The app must be able to display the measures and suggestions for the user.
+\end{itemize}
 
 \section{Ethics and Safety}
 
 words
 
-\cite{pozar}
+\cite{Pozar}
 
 % Bibliography (references in separate file)
 \bibliographystyle{IEEEtran}
