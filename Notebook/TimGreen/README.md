@@ -57,3 +57,10 @@
 # 2/10/2022
 ## Proposal Work
 Proposal work all written in proposal file in project files. The finished proposal will be included within this notebook.
+[Finished Proposal](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf)
+
+# 2/14/2022
+## Machine Shop Meeting Notes
+* Project doesn't have too much mechanical complexity besides case so should be easy
+* Machine shop will purchase case and worry about constructing the design so just focus on getting parts list and plan asap
+* Look into getting a separate charging port that can be wired to PCB (don't mount it on PCB)
