@@ -57,3 +57,7 @@
 # 2/10/2022
 ## Proposal Work
 Proposal work all written in proposal file in project files. The finished proposal will be included within this notebook.
+
+# 2/15/2022
+## Circuit Design and Component Search
+All found parts will be in the resources folder along with key points of the part
