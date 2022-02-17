@@ -8,7 +8,7 @@
 	* 128B EPC memory / 96B TID memory
 	* 10-12 mil thickness
 	* 50 x 30mm
-	* RFID reader ICs more expensive at this frequency
+	* RFID reader ICs more expensive and tough to find antennas at this frequency
 
 * [Avery Dennison RF700069](https://www.digikey.com/en/products/detail/avery-dennison-rfid/RF700069/5254225)
 	* $40.48 (100)
@@ -35,6 +35,8 @@
 	* SPI Slave Interface
 	* Power Voltage: 3.3V
 	* 32-QFN Packaging (Hand Solderable?)
+
+### RFID Directional Coupler
 
 ### Graphic Display
 * [AZ Displays ATM0430D19A](https://www.digikey.com/en/products/detail/az-displays/ATM0430D19A/12699402)
@@ -74,7 +76,49 @@
 ### Microcontroller
 *
 
+### DC-DC Boost Converter
+* [Nisshinbo Micro Devices R1207N823B-TR-FE](https://www.digikey.com/en/products/detail/nisshinbo-micro-devices-inc/R1207N823B-TR-FE/10212494)
+	* $1.40
+	* 1.8-5.5V input
+	* Max 24V output
+	* 700mA max current output
+	* feedback regulation
+
+### Voltage Regulator
+* [Texas Instrument LP38511MRX-ADJ/NOPB](https://www.digikey.com/en/products/detail/texas-instruments/LP38511MRX-ADJ-NOPB/2075502)
+	* $2.06
+	* 2.25-5.5V Input
+	* 0.5-3.5V Output
+	* 800mA max current output
+	* feedback regulation
+
+### Battery Protection IC
+* [Diodes Inc AP9101CK-AUTRG1](https://www.digikey.com/en/products/detail/diodes-incorporated/AP9101CK-AUTRG1/10295062)
+	* $0.46
+	* 1.5-5.5V battery supply
+	* 0-5.5V charger supply
+	* Overcharge, Overdischarge Voltage and Current Detection
+	* Specific over voltages by model
+
+### Charge and Discharge MOSFET
+* [Diodes Inc DMG4710SSS-13](https://www.digikey.com/en/products/detail/diodes-incorporated/DMG4710SSS-13/8031197)
+	* $0.99
+	* N-Channel MOSFET with schottky diode
+	* VDS max = 30V
+	* VGS max = 12V
+	* IDS max = 6.3A
+	* Idiode max = 5A
+	* Vthresh = 1.0-2.3V
+	* 1.54W power dissipation
+
+### Current Detection (IC or individual components)
+
 ### Battery
-*
+
+### Still needed
+* matching networks
+* crystal oscillators
+* decoupling capacitors
+* biasing resistors
 
 
