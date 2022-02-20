@@ -73,6 +73,16 @@
 	* Power Voltage: 3.3V
 	* 32-QFN Packaging (Hand Solderable?)
 
+### Bluetooth Lumped Module
+* [Espressif Systems ESP32-WROVER-E-N4R8](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-WROVER-E-N4R8/11613129)
+	* $3.30
+	* Combines bluetooth transceiver, oscillator, and antenna into one component
+	* Avoids high frequency traces, corresponding reflection and effectiveness problems, and discrete component tolerance issues
+	* Programmable with JTAG interface
+	* MCU communication interface through UART interface
+	* Power Voltage: 3.3V
+	* Much more manageable packaging for soldering (not 5x5 QFN packaging) (1.27mm pin pitch)
+
 ### Microcontroller
 *
 

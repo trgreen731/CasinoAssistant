@@ -68,3 +68,27 @@ Proposal work all written in proposal file in project files. The [Finished Propo
 ## Circuit Design and Component Search
 All found parts will be in the resources folder along with key points of the part
 
+# 2/19/2022
+## Bluetooth Module
+* New bluetooth module has been chosen (ESP32-WROVER-E) for the following reasons
+	* Bluetooth RF hardware (2.4GHz) is high frequency and requires precise traces when transmitting signals between components on the PCB. Combined module containing the source of data (MCU) and the bluetooth RF components (antenna) allows for abstraction of those high frequency traces and avoids what would have been the tolerance condition. This also makes the overall device much cheaper requiring fewer purchased components and using the included components more efficiently
+	* ESP modules also have extensive documentation and development tools improving our potential ability to create a working program for the microcontroller to communicate to another device.
+* The ESP32-WROVER-E Operation + Hardware Notes
+	* Boot Mode specified by GPIO0
+		* SPI boot (load program from internal flash) - GPIO0(IO0) = 1, GPIO2(IO2) = X
+		* Download boot (download new program through uart) - GPIO0(IO0) = 0, GPIO2(IO2) = 0
+	* EN pin serves as reset so button (RC filter after this for basic debouncing) (active high so should be GND when pressed and have pull up resistor to Vcc) will control power on and programming (see boot mode above)
+	* USB to UART interface device to allow for use with ESP IDE and development tools to program the microcontroller. This means UART connection pins will be sent to pins accessible by jumper wires.
+	* VSPI connections can be used for communication with the RFID module.
+	* Available JTAG connections for debugging. The JTAG usage operations will have to be investigated further
+	* Registers can be adjusted as part of the boot/programming sequence or as first instructions within the code. This allows for control over the GPIO operations, the defined interfaces (SPI, UART, etc), and clock outputs
+	* Module includes clock that can be output at up to 160MHz allowing for fast operations useful for display control
+
+# 2/20/2020
+## LCD Display Adjustment
+* Current LCD requires 24bit parallel RGB input (MCU does not have that many GPIOs)
+* The output clocks available from the MCU are much faster than the specified clock requirements of the display.
+* Shift registers allow for usage of high clock capabilites with the lower number of GPIOs
+* Will need to determine how to operate the MCU GPIOs to provide data with this speed (similar to the FPGA outputs)
+* Other low pin number options was MIPI DSI but this protocol is not publicly available and has a large learning curve
+

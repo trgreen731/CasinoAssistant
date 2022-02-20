@@ -1,0 +1,34 @@
+ESP32 Reasoning
+* Bluetooth RF hardware (2.4GHz) is high frequency and requires precise traces when transmitting signals between components on the PCB. Combined module containing the source of data (MCU) and the bluetooth RF components (antenna) allows for abstraction of those high frequency traces and avoids what would have been the tolerance condition. This also makes the overall device much cheaper requiring fewer purchased components and using the included components more efficiently
+* ESP modules also have extensive documentation and development tools improving our potential ability to create a working program for the microcontroller to communicate to another device.
+
+ESP32-WROVER-E Operation and Hardware Notes
+
+1. Boot mode specified as download when GPIO0 (IO0) set to ground at power on/reset so switch for that to choose when to program and when to maintain flash (SPI boot) from previous program
+
+	SPI boot - GPIO0(IO0) = 1, GPIO2(IO2) = X
+	Download boot - GPIO0(IO0) = 0, GPIO2(IO2) = 0
+
+2. EN pin serves as reset so button (RC filter after this for basic debouncing) (active high so should be GND when pressed and have pull up resistor to Vcc) will control power on and programming (see boot mode above)
+
+3. USB to UART interface device to allow for use with ESP IDE and development tools to program the microcontroller. This means UART connection pins will be sent to pins accessible by jumper wires.
+
+4. VSPI connections can be used for communication with the RFID module.
+
+5. Need to find LCD that is accessible through the available pins
+
+6. JTAG connection for debugging might be useful but not sure how to set that up
+
+7. Registers can be setup as part of the boot sequence, will have to figure out how to do that
+
+LCD Shift 24bit Idea
+* Shift registers allow for serial input to parallel output (https://www.digikey.com/en/products/detail/texas-instruments/SN74HCS264DR/13562988)
+* Output clock through I2S at 160MHz max
+* LCD has min clock at 5MHz requiring 8 serial values for each period
+* Requires a 40MHz clock (meets I2S and shift register specs) to meet the data transfer requirements and moves from 24 gpio requirement to 3
+* Just have to figure out how to control these pins specifically
+
+New LCD Idea (MIPI DSI seems like pain in the ass)
+* Different LCD (https://www.digikey.com/en/products/detail/focus-lcds/E30RB-I-MW340-N/13683633)
+* Offers serial color input through mipi dsi with 19.5 MHz clock
+* I2S can easily meet this clock value and only need 6 or so gpio pins
