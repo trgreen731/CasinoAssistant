@@ -38,7 +38,7 @@
 {\LARGE \textsc{ECE 445: Senior Design Laboratory} \\ \vspace{8pt}}
 \rule[13pt]{\textwidth}{1pt} \\ \vspace{120pt}
 {\huge \textbf{\textsc{The Odds Booster}} \\ \vspace{8pt}}
-{\LARGE \textbf{\textsc{Project Proposal}} \\ \vspace{30pt}} 
+{\LARGE \textbf{\textsc{Design Document}} \\ \vspace{30pt}} 
 {\large \textit{Authors:} Marco Rojas \\ \vspace{4pt}
 \hspace{48pt} Jack Arndt \\ \vspace{4pt}
 \hspace{48pt} Tim Green \\ \vspace{4pt}
@@ -74,22 +74,48 @@ The main requirements to ensure the completion and success of this project are a
 \item The central device must be able to display the card and game information for all players to see as well as send the information to a phone app via bluetooth.
 \item The phone app must be able to receive game information via bluetooth and use the information to determine the strength of the user's hand and/or the best possible move for the user.
 \end{itemize}
-These requirements are broken into more detailed and module specific requirements through the remainder of this proposal.
+These requirements are broken into more detailed and subsystem specific requirements through the remainder of this proposal.
 
 % Design parts have same structure
 \section{Design}
 
-The block diagram describing each module within the system and their connections is shown in Appendix A along with the list of parts chosen for each block component in Table \ref{tab:block_comps}. The design is composed of five main modules or subsystems. Four of the modules are outlined by hardware components and labeled in the block diagram. The fifth module is the phone app. The purpose, interconnections, and requirements of each module are described in detail through this section. 
+The block diagram describing each subsystem within the system and their connections is shown in Appendix A. The schematic showing the communication subsystem, the display subsystem, and the card reader subsystem is shown in Appendix B. The schematic showing the power subsystem is shown in Appendix C. The design is composed of five main subsystems. Four of the subsystems are outlined by hardware components and labeled in the block diagram. The fifth subsystem is the phone app. The purpose, interconnections, and requirements of each subsystem are described in detail through this section. 
 
 % Each subsystem needs detailed purpose and description, table of parts used for it, circuit schematics, simulations, calculations, coding flow charts, etc.
 % Each subsystem also needs an Requirements & Verification table
-\subsection{Power Module}
+\subsection{Communication Subsystem}
 
-The power module is made up of a rechargeable battery, a battery management system, and a voltage regulator. This module is responsible for providing power to all other hardware components within the system in a safe manner. Without this module, none of the main requirements could be met as each operation of the system requires power. The power module connects to the other three hardware modules (the card reader, game status display, and communications modules) via a DC voltage provided by the voltage regulator. This DC voltage is dependent on requirements set by specific component models but is likely to be $3.3V$ as this is the nominal operating voltage for most CMOS devices. The battery management system also connects to the game status display module as it provides the microprocessor with battery status information. This signal is used to tell the users important system information such as when the battery is low.
+The communication subsystem is made up of the bluetooth transceiver, 2.4GHz antenna and the microcontroller. These components are combined into a single module which can be used as the central microcontroller within the device. The reasoning for using a single module is explained next. This subsystem is repsonsible for communicating the card and game data from the central device to the phone app as well as receiving information from the phone app. The subsystem is vital for the second and third main requirements in sending the game data and allowing the use of this data within the phone app. The communication subsystem connects to the power subsystem through the 3.3V DC supply provided by the voltage regulator of the power system, to the card reader subsystem through the transfer of card data through an SPI interface to the microcontroller, and to the phone app through a 2.4GHz bluetooth v4.2 wireless signal provided by the internal antenna.
+
+This subsystem has been adjusted from previous plans to be consolidated within a single purchaseable component. The component chosen for this purpose is the ESP32-WROVER-E module (henceforth refered to as the MCU module) which combines a microcontroller, flash memory, DRAM, and 2.4GHz antenna into a single surface-mount component. This simplifies the design of the communications subsystem by allowing the bluetooth packets and connections to be initiated by the built-in bluetooth protocol and API of the microcontroller, rather than communicated through a serial communication protocol to a new chip to do the same operations. This also prevents the design of high frequency RF traces and discrete matching networks on our PCB to connect the bluetooth transceiver component to an external antenna. Traces at such a frequency can be heavily affected by tolerances of the PCB manufacturing leading to poor performance as compared to a combined module with guaranteed operation specifications as chosen here. Lastly, the combined module is well documented allowing for a faster development process in getting a functioning connection between this device and a phone app allowing for more focus on other hardware components.
+
+The MCU module is shared by other subsystems requiring embedded C code to function properly and as such the design requirements and reasoning for this device are split among the subsystem descriptions. For the communication subsystem, the MCU module provides an API for generating bluetooth v4.2, a low power alternative to classic bluetooth ideal for battery powered devices with a low required throughput such as this device. As previously mentioned, the MCU module provides a 2.4GHz antenna to transmit the bluetooth packets making this module an ideal choice. The module also has an associated low-cost development kit (ESP-DEVKITC-VE) allowing for easy coding and troubleshooting before programming to our finished board.
+
+The communication subsystem is included within the schematic shown in Appendix B. The subsystem does not require an individual schematic as it is solely comprised of the MCU module and programming circuitry, and the MCU module is shared between multiple subsystems. The reset button shown is used to boot the device. A simple RC circuit with a time constant of $\tau = RC = 1ms$ is applied after the push button to provide debouncing and avoid mutliple resets from a single press. The simulation of this reset button being pressed is shown below in Figure \ref{fig:reset_debounce}. The boot switch is a programming feature as this switch controls if the microcontroller downloads a program through the UART interface on boot (IO0 = low), or if the microcontroller uses the saved program from the flash memory for its instructions (IO0 = high). The boot control also relies on the IO2 pin being low on boot and has been connected to a pull-down resistor for this reason. Simple breakout pins will be included (as shown in the schematic) to connect to a UART interface for programming the microcontroller.
+
+The communication module requires significant software control. A flow diagram explaining the function of the microcontroller firmware is provided in Appendix D as this code also controls aspects of other modules.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{reset_debounce.png}
+	\caption{Reset Button Debounce Simulations}
+	\label{fig:reset_debounce}
+\end{figure}
+
+The requirements and validation methods for the communication subsystem that ensure its proper operation are as follows.
+
+\begin{itemize}
+\item The microcontroller must be able to transmit and receive information following the bluetooth protocol (as specified in \cite{IEEE_bt}) with the phone app.
+\item The communication subsystem must be able to communicate with a device at a distance of 3ft with an average thoughput of 10kbps (small amount of data transfer does not require high throughput).
+\end{itemize}
+
+\subsection{Power Subsystem}
+
+The power subsystem is made up of a rechargeable battery, ESD protection circuitry, a battery management system capable of overvoltage, undervoltage, and overcurrent detection, a voltage regulator, and a boost converter. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display. The battery management system also connects to the communication subsystem as it provides the microcontroller with battery status information in the form of an analog current measurement used for SOC approximation. This signal is used to tell the users important system information such as when the battery is low.
 
 The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have  good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
 
-The power module has a set of basic requirements that ensure its proper operation. These requirements are as follows.
+The power subsystem has a set of basic requirements that ensure its proper operation. These requirements are as follows.
 
 \begin{itemize}
 \item The battery management system must be able to measure the output voltage of the lithium ion battery to a tolerance of $\pm0.1V$.
@@ -99,52 +125,44 @@ The power module has a set of basic requirements that ensure its proper operatio
 \item The power must be able to continously provide at least $500mA$ given the voltage regulator requirements
 \end{itemize}
 
-\subsection{Card Reader Module}
+\subsection{Card Reader Subsystem}
 
-The card reader module is made up of the microprocessor and the RFID sensor. The module is responsible for reading the card ID of each card swiped past the device. The module is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader module connects to the power module through the provided $3.3V_{DC}$ supply, and to the game status display and communication modules through the passing of data within the microprocessor.
+The card reader subsystem is made up of the microcontroller and the RFID sensor. The subsystem is responsible for reading the card ID of each card swiped past the device. The subsystem is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader subsystem connects to the power subsystem through the provided $3.3V_{DC}$ supply, and to the communication subsystem through the passing of card data through an SPI interface to the microcontroller.
 
-The RFID sensor generates a specific frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microprocessor is shared by multiple modules but will receive this serial ID from the sensor via wired serial transmission.
+The RFID sensor generates a specific frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microcontroller is shared by multiple subsystems but will receive this serial ID from the sensor via wired serial transmission.
 
-The basic requirements for the card reader module that ensure its proper operation are as follows.
+The basic requirements for the card reader subsystem that ensure its proper operation are as follows.
 
 \begin{itemize}
 \item The RFID sensor must be able to accurately determine the serial ID of an RFID tag when held to the surface of the sensor.
-\item The microprocessor must be able to accurately receive the serial ID of the RFID tag when serially transmitted from the RFID sensor.
+\item The microcontroller must be able to accurately receive the serial ID of the RFID tag when serially transmitted from the RFID sensor.
 \end{itemize} 
 
-\subsection{Game Status Display Module}
+\subsection{Display Subsystem}
 
-The game status display module is made up of the microprocessor and the display. The module is responsible for showing the user the game actions and current game information. The module is vital for the second main requirement in displaying to the players and dealer the game status and next actions. The game status display module connects to the power module through the DC supply, and the card reader module through the transfer of card data within the microprocessor.
+The display subsystem is made up of the microcontroller and the display. The subsystem is responsible for showing the user the game actions and current game information. The subsystem is vital for the second main requirement in displaying to the players and dealer the game status and next actions. The game status display subsystem connects to the power subsystem through the 3.3V DC logic supply and 9.6V DC LED backlight supply, and the card reader subsystem through the transfer of card data via SPI interface to the microcontroller.
 
-The display within the module is an output device showing the video data provided to it by the microprocessor. As the microprocessor must be able to provide video data to the display via a VGA protocol, the output capabilities of the microprocessor must be high enough to transfer information to the display at a fast enough rate. The microprocessor must also have enough memory to hold the necessary sprites and potentially a screen buffer (depending on the display size and control method used).
+The LCD display within the subsystem is an output device showing the video data provided to it by the microcontroller. The LCD display chosen receives input data through a parallel 24bit RGB input. This input method requires a large number of GPIOs from the microcontroller which is not convenient for any hand-soldering based projects\footnote{Many microcontrollers with a large number of GPIOs come in BGA (Ball Grid Array) packaging or QFP/QFN (Quad Flat Packaging with or without leads) packaging with a very small pin pitch. These packaging formats are very hard to solder with only a hand soldering iron.}. Alternative displays with fewer pins exist that use protocols such as MIPI DSI, but this protocol is not publicly available and requires significant work to design a functioning interface. To handle this issue, high frequency shift registers are used for each color channel. The shift register has a serial input and 8-bit parallel output allowing for the use of three GPIOs to define each pixel color instead of 24 given the microcontroller can generate output signals at a rate at least eight times the specified clock signal.
 
-The basic requirements for the game status display module that ensure its proper operation are as follows.
+The chosen components meet these design requirements as the $320\times240$ pixel LCD specifies a typical data clock frequency of $6.5MHz$. This screen size requires a $230.4kB$ of memory for a full screen buffer. The MCU module can utilize clocks up to $160MHz$ for LCD control (much larger than eight times the LCD clock requirement) and can output up to three clock signals allowing for the control of both the LCD data clock ($6.5MHz$) and faster shift register clocks ($52MHz$). The chosen MCU module also has a large amount of included memory external to the microcontroller. An $8MB$ PSRAM unit is included within the module providing plenty of space for frame buffers. This memory can be accessed at a rate of up to $80MHz$ with up to 32-bit reads and writes. This data size and access rate far exceeds the requirements set by the LCD allowing for efficient and easy writing reading from a potential double-buffered display. An additional level of redudancy is added with included internal memory components. The MCU includes 520kB of internal SRAM to be used in the case of the external PSRAM unit failing to meet the application needs for any reason.
 
-\begin{itemize}
-\item The display must be able to show the next action of the game at any given time in the form of text on the screen.
-\item The microprocessor must be able to transmit the video data through VGA protocol to the display at a standard rate of $\sim30$fps.
-\end{itemize}
+The connections between the LCD, shift registers, and MCU module are shown in the schematic in Appendix B. The LCD control is controlled by firmware and thus is included within the flow diagram shown in Appendix D.
 
-\subsection{Communication Module}
-
-The communication module is made up of the bluetooth transceiver and the microprocessor. The module is repsonsible for communicating the card and game data from the central device to the phone app as well as receiving information from the phone app. The module is vital for the second and third main requirements in sending the game data and allowing the use of this data within the phone app. The communication module connects to the power module through the DC supply, to the card reader module through the transfer of card data within the microprocessor, and to the phone app through a 2.4GHz wireless signal.
-
-The bluetooth transceiver is used to generate a 2.4GHz signal (bluetooth protocol frequency) to send card information to the phone app. Likewise, the transceiver receives similar frequency signals and send the signal data to the microprocessor for use by the system in setting game status. The microcontroller will generate the bluetooth packet for use by the transceiver and will follow normal bluetooth protocol in its operation to ensure compatibility with many devices.
-
-The basic requirements for the communication module that ensure its proper operation are as follows.
+The requirements and verification methods for the display subsystem that ensure its proper operation are as follows.
 
 \begin{itemize}
-\item The microprocessor must follow the bluetooth protocol as specified in \cite{IEEE_bt}.
-\item The communication module must be able to communicate with a device at a distance of 3ft with an average thoughput of 10kbps (small amount of data transfer does not require high throughput).
+\item The microcontroller must be able to generate both 6.5MHz and 52MHz clock signals through its clock output pins.
+\item The microcontroller must be able to output the screen data to the specified GPIO pins for the 3-channel pixel data transfer.
+\item The microcontroller must be able to access external PSRAM to update displayed screen data.
 \end{itemize}
 
-\subsection{Phone App Module}
+\subsection{Phone App Subsystem}
 
-The phone app module is made up of solely the application used by the phone. The module is responsible for receiving the communications from the central device and sending control information back to the device. The module is vital for the third main requirement in the receipt of game data by the phone and display of optimal moves or game statistics. The phone app module connects only to the communication module in the wireless transmission of game information.
+The phone app subsystem is made up of solely the application used by the phone. The subsystem is responsible for receiving the communications from the central device and sending control information back to the device. The subsystem is vital for the third main requirement in the receipt of game data by the phone and display of optimal moves or game statistics. The phone app subsystem connects only to the communication subsystem in the wireless transmission of game information.
 
 The phone app relies on the device having bluetooth capabilities. The app receives game data and uses statistics and probability methods to determine the strength of the users hand in relation to other possible hands within the game. The app displays this measurement to the user and will use this strength measure to suggest moves to the user. With enough time and successful work, the app could potentially use a machine learning algorithm to continue to provide better suggestions with more use. 
 
-The basic requirements for the phone app module that ensure its proper operation are as follows.
+The basic requirements for the phone app subsystem that ensure its proper operation are as follows.
 
 \begin{itemize}
 \item The app must be able to utilize the bluetooth capabilities of the device to successfully send and receive data with the central device.
@@ -170,7 +188,6 @@ The basic requirements for the phone app module that ensure its proper operation
  		\hline
  		1 & Avery Dennison RF700069 & 60 & 30.08 \\
  		2 & Taoglas Limited FXR.06.A & 1 & 3.77 \\
- 		3 & (Directional Coupler) & - & - \\
  		4 & Custom Matching Network & N/A & N/A \\
  		5 & STMicroelectronics CR95HF-VMD5T & 1 & 3.70 \\
  		6 & (Oscillator) & - & - \\
@@ -185,10 +202,6 @@ The basic requirements for the phone app module that ensure its proper operation
  		16 & Texas Instrument LP38511MRX-ADJ/NOPB & 1 & 2.06 \\
  		17 & Nisshinbo Micro Devices R1207N823B-TR-FE & 1 & 1.40 \\
  		18 & Nordic Semiconductor NRF8001-R2Q32-T & 1 & 5.61 \\
- 		19 & (Oscillator) & - & - \\
- 		20 & Custom Matching Network & N/A & N/A \\
- 		21 & Antenova SR4W035 & 1 & 1.25 \\
- 		22 & (Microcontroller) & - & - \\
  		- & Resistors & - & - \\
  		- & Capacitors & - & - \\
  		\hline
@@ -215,7 +228,7 @@ Ethical breaches are primarily prevented due to the design of our project, which
 
 As with any design project, there will always be safety concerns that need to be acknowledged, assessed, and accounted for. In the following section, these concerns are discussed with respect to their associated hazards and potential solutions to minimize any possibilities of risk.
 
-Typically, the primary point of safety concern for any electrical system design stems from the source of power. The power source is not only responsible for the system's overall functionality, but can also work to destroy necessary hardware components (or modules) due to unanticipated variations in power output. To take this into account, our power module consists of a rechargeable battery, a battery management system, and a voltage regulator. As specified in greater detail in the Power Module section, the battery management system and voltage regulator ensure the system's overall immunity to variations in current and voltage such that each individual component can operate at a safe level. It is important to note that the rechargeable battery being used is a lithium ion battery. As per the ECE 445 Safety Guidelines \cite{445_safety}, ``Any group charging or utilizing certain battery chemistries must read, understand, and follow guidelines for safe battery usage.'' All members of the group have read and agreed to follow the course staff's guidance regarding high capacity batteries \cite{Li_safety} and will complete all necessary safety training and adhere to the guidelines set forth in the aforementioned document. 
+Typically, the primary point of safety concern for any electrical system design stems from the source of power. The power source is not only responsible for the system's overall functionality, but can also work to destroy necessary hardware components (or subsystems) due to unanticipated variations in power output. To take this into account, our power subsystem consists of a rechargeable battery, a battery management system, and a voltage regulator. As specified in greater detail in the power subsystem section, the battery management system and voltage regulator ensure the system's overall immunity to variations in current and voltage such that each individual component can operate at a safe level. It is important to note that the rechargeable battery being used is a lithium ion battery. As per the ECE 445 Safety Guidelines \cite{445_safety}, ``Any group charging or utilizing certain battery chemistries must read, understand, and follow guidelines for safe battery usage.'' All members of the group have read and agreed to follow the course staff's guidance regarding high capacity batteries \cite{Li_safety} and will complete all necessary safety training and adhere to the guidelines set forth in the aforementioned document. 
 
 Before moving on, it is worth to note that the maximum voltage our system will operate under is approximately 3.3V - 3.6V. Inherently, we will be working with relatively low voltages and currents. This is reassuring to know that while we may not be as subject to the greater (and more dangerous!) risks posed from working with higher voltage equipment, that does not mean we can neglect basic lab and equipment safety policies and procedures. All members of the group have also completed the required lab safety training to gain access to the lab. 
 
@@ -227,7 +240,31 @@ Overall, this project is considered relatively ``safe'' under the context of adh
 
 % Appendix
 \newpage
-\section{Appendix A}
+\section{Appendix A: Device Block Diagram}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v4.png}
+\end{figure}
+
+\newpage
+\section{Appendix B: Communications, Display, and Card Reader Subsystems Schematic}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=0.86\textheight]{Comms_Display_Schem.png}
+\end{figure}
+
+\newpage
+\section{Appendix C: Power Subsystems Schematic}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v4.png}
+\end{figure}
+
+\newpage
+\section{Appendix D: MCU Firmware Flow Diagram}
 
 \begin{figure}[h!]
 	\centering
