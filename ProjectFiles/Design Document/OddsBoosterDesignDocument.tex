@@ -43,7 +43,7 @@
 {\large \textit{Authors:} Marco Rojas \\ \vspace{4pt}
 \hspace{48pt} Jack Arndt \\ \vspace{4pt}
 \hspace{48pt} Tim Green \\ \vspace{4pt}
-\hspace{8pt} \textit{Date Written:} February 9th, 2022}
+\hspace{8pt} \textit{Date Written:} February 20th, 2022}
 \vfill
 \end{center}
 
@@ -172,23 +172,25 @@ The requirements and verification methods for the display subsystem that ensure 
  		\textbf{Requirements} & \textbf{Verification} \\ 
  		\hline
  		\begin{enumerate}
- 			\item The microcontroller must generate both 6.5MHz and 52MHz clock signals simultaneously through its clock output pins.
+ 			\item The microcontroller must generate both 6.5MHz ($\pm 0.1MHz$) and 52MHz ($\pm 1MHz$) clock signals simultaneously through its clock output pins.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item Connect the ESP32-WROVER-E module to a 3.3V power supply. 
+ 			\item Program the MCU in download mode using the UART interface and set the GPIO control registers to have CLK\_OUT2 at pin 35 and CLK\_OUT3 at pin 34 with frequencies 52MHz and 6.5MHz respectively. 
+ 			\item Connect these pins to separate channels of an oscilloscope. Use the frequency analysis features of the oscilloscope to record the frequency of each output signal .
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{1}
  			\item The microcontroller must output the screen data serially to the three specified GPIO pins with a clock rate of 52MHz.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{2}
  			\item The microcontroller must write to external PSRAM to update displayed screen data while display is active.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
  		\hline
 	\end{tabular}
@@ -217,21 +219,21 @@ The basic requirements for the phone app subsystem that ensure its proper operat
  		\begin{enumerate}
  			\item The app will utilize the Bluetooth capabilities of the device to send and receive data with the central device.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{1}
  			\item The app will use card information to accurately calculate the ``strength'' measure or the percent of possible alternate hands against which the user's hand will win.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{2}
  			\item The app will display the measures and suggestions in the form of text for the user.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
  		\hline
 	\end{tabular}
@@ -255,31 +257,25 @@ The basic requirements for the phone app subsystem that ensure its proper operat
  		\hline
  		\multicolumn{3}{|c|}{Power Subsystem} \\
  		\hline
- 		(Li Battery) & - & - \\
- 		Custom ESD Protection & N/A & N/A \\
- 		Diodes Inc AP9101CK-AUTRG1 & 1 & 0.46 \\
- 		Diodes Inc DMG4710SSS-13 & 2 & 1.98 \\
- 		(Current Measurement) & - & - \\
- 		(3-way Switch) & - & - \\
- 		(Charging Port) & - & - \\
- 		Texas Instrument LP38511MRX-ADJ/NOPB & 1 & 2.06 \\
- 		Nisshinbo Micro Devices R1207N823B-TR-FE & 1 & 1.40 \\
+ 		
  		\hline
  		\multicolumn{3}{|c|}{Communication Subsystem} \\
  		\hline
- 		Nordic Semiconductor NRF8001-R2Q32-T & 1 & 5.61 \\
+ 		ESP32-WROVER-E & 2 & 7.20 \\
+ 		ESP32-DEVKITC-VE & 1 & 11.00 \\
+ 		Paialu CP2102 USB to UART Interface & 1 & 8.76 \\
+ 		10k 0805 Resistor & 6 & 0.90 \\
+ 		0.1u 0805 Capacitor & 2 & 0.30 \\
  		\hline
  		\multicolumn{3}{|c|}{Card Reader Subsystem} \\
  		\hline
- 		Avery Dennison RF700069 RFID Tag& 60 & 30.08 \\
- 		Taoglas Limited FXR.06.A & 1 & 3.77 \\
- 		Custom Matching Network & N/A & N/A \\
- 		STMicroelectronics CR95HF-VMD5T & 1 & 3.70 \\
- 		(Oscillator) & - & - \\
+ 		
  		\hline
  		\multicolumn{3}{|c|}{Display Subsystem} \\
  		\hline
- 		AZ Displays ATM0430D19A & 1 & 9.85 \\
+ 		Orient Display AFY320240A0-3.5N6NTN-R & 1 & 11.53 \\
+ 		Hirose FH40-40S-0.5SV Connector & 2 & 5.50 \\
+ 		Nexperia 74LV164D Shift Register & 5 & 2.15 \\
  		\hline
 	\end{tabular}
 \end{table}
@@ -320,11 +316,11 @@ Overall, this project is considered relatively ``safe'' under the context of adh
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v4.png}
+	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v5.png}
 \end{figure}
 
 \newpage
-\section{Appendix B: Communications, Display, and Card Reader Subsystems Schematic}
+\section{Appendix B: Communications and Display Subsystems Schematic}
 
 \begin{figure}[h!]
 	\centering
@@ -334,17 +330,11 @@ Overall, this project is considered relatively ``safe'' under the context of adh
 \newpage
 \section{Appendix C: Power Subsystems Schematic}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v4.png}
-\end{figure}
+
 
 \newpage
 \section{Appendix D: MCU Firmware Flow Diagram}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v4.png}
-\end{figure}
+
 
 \end{document}
