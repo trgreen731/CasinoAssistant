@@ -116,4 +116,14 @@ This block diagram is adjusted to consider that the power system is going to be 
 
 # 2/23/2022
 ## Current Requirement Analysis
+* ESP32-WROVER-E = 500mA min required (600mA safe)
+* Shift Reg = 3x0.52mA
+* RFID reader = 150mA
+* LCD = 40mA at 9.6V (210mA at 3.3V input with 70% efficient boost converter)
+Total: 961.5mA at full operations
 
+Suggested Battery: MIKROE-4474 (MLP805660)
+* 3Ah capacity
+* 0.5C continuous discharge (1.5A)
+* 1C peak discharge (3A)
+* 3.7V output

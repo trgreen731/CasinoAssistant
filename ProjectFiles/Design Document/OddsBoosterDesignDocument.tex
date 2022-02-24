@@ -59,7 +59,7 @@ Before heading to the casino, individuals need to assess how much money they are
 
 The Odds Booster is an automated casino game assistant designed to help players learn and manage casino games such as Blackjack or Texas Hold'em. The kit involves a central communicable device along with a custom deck of cards which will be used to determine the best possible move for each player along with the outcome of each hand of the game. This device is an innovation as it brings both the ease and simplicity as well as the ability to learn the game that can be provided by a virtual game into the superior enjoyment and atmosphere of a physical game. Digital poker tables that provide a similar experience exist but cost thousands of dollars. Our design achieves this functionality without an expensive custom table and while allowing for physical cards and chips.
 
-The Odds Booster central device will serve as the hub used by the dealer and all players of the game. The dealer will swipe each card being distributed to the players over the central device and said device will determine the specific card being dealt using an RFID sensor and thin passive RFID tags placed on the cards. This central device will also contain a display detailing the next actions and outcomes for each hand of the game helping each player and the dealer learn the rules of the game. This main device will be paired via Bluetooth to a user's phone app. The card information will be shared with the app and the app will tell the player the strength of their hand or what move will have the best outcome within the context of the game. It is important to note that knowledge of the hands of the other players within the game provides an unfair advantage to the user and such information will be ignored when determining moves for the user. The ethics of the game will be discussed further later in this proposal. The device itself will be battery powered and rechargeable for easy use and mobility. The usage of the device is portrayed in the diagram shown in Figure \ref{fig:use_dia}.
+The Odds Booster central device will serve as the hub used by the dealer and all players of the game. The dealer will swipe each card being distributed to the players over the central device and said device will determine the specific card being dealt using an RFID sensor and thin passive RFID tags placed on the cards. It may be asked, ``Why the more expensive RFID tags when a camera could be used to detect the card?'' Implementing a camera to read a QR code or implementing computer vision to ``see'' the card being swiped requires more specific card orientation, takes more time, and requires a lighting source. All these are not ideal for a dealer trying to swipe and pass out cards quickly. This central device will also contain a display detailing the next actions and outcomes for each hand of the game helping each player and the dealer learn the rules of the game. This main device will be paired via Bluetooth to a user's phone app. The card information will be shared with the app and the app will tell the player the strength of their hand or what move will have the best outcome within the context of the game. It is important to note that knowledge of the hands of the other players within the game provides an unfair advantage to the user and such information will be ignored when determining moves for the user. The ethics of the game will be discussed further later in this proposal. The device itself will be battery powered and rechargeable for easy use and mobility. The usage of the device is portrayed in the diagram shown in Figure \ref{fig:use_dia}.
 
 \begin{figure}[h!]
 	\centering
@@ -80,7 +80,14 @@ These requirements are broken into more detailed and subsystem specific requirem
 % Design parts have same structure
 \section{Design}
 
-The block diagram describing each subsystem within the system and their connections is shown in Appendix A. The schematic showing the communication subsystem, the display subsystem, and the card reader subsystem is shown in Appendix B. The schematic showing the power subsystem is shown in Appendix C. The design is composed of five main subsystems. Four of the subsystems are outlined by hardware components and labeled in the block diagram. The fifth subsystem is the phone app. The purpose, interconnections, and requirements of each subsystem are described in detail through this section. 
+The block diagram describing each subsystem within the system and their connections is shown in Figure \ref{fig:block}. The design is composed of five main subsystems. Four of the subsystems are outlined by hardware components and labeled in the block diagram. The fifth subsystem is the phone app. The purpose, interconnections, and requirements of each subsystem are described in detail through this section.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Full_Block_Diagram_v6.png}
+	\caption{Block Diagram}
+	\label{fig:block}
+\end{figure}
 
 % Each subsystem needs detailed purpose and description, table of parts used for it, circuit schematics, simulations, calculations, coding flow charts, etc.
 % Each subsystem also needs an Requirements & Verification table
@@ -89,6 +96,13 @@ The block diagram describing each subsystem within the system and their connecti
 The power subsystem is made up of a rechargeable battery, ESD protection circuitry, a battery management system capable of overvoltage, undervoltage, and overcurrent detection, a voltage regulator, and a boost converter. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display. The battery management system also connects to the communication subsystem as it provides the microcontroller with battery status information in the form of an analog current measurement used for SOC approximation. This signal is used to tell the users important system information such as when the battery is low.
 
 The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have  good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Power_Boost_Schem.png}
+	\caption{Power Subsystem Boost Converter Schematic}
+	\label{fig:boost_schem}
+\end{figure}
 
 The power subsystem has a set of basic requirements that ensure its proper operation. These requirements are as follows.
 
@@ -108,9 +122,14 @@ This subsystem has been adjusted from previous plans to be consolidated within a
 
 The MCU module is shared by other subsystems requiring embedded C code to function properly and as such the design requirements and reasoning for this device are split among the subsystem descriptions. For the communication subsystem, the MCU module provides an API for generating Bluetooth v4.2, a low power alternative to classic Bluetooth ideal for battery powered devices with a low required throughput such as this device. As previously mentioned, the MCU module provides a 2.4GHz antenna to transmit the Bluetooth packets making this module an ideal choice. The module also has an associated low-cost development kit (ESP-DEVKITC-VE) allowing for easy coding and troubleshooting before programming to our finished board.
 
-The communication subsystem is included within the schematic shown in Appendix B. The subsystem does not require an individual schematic as it is solely comprised of the MCU module and programming circuitry, and the MCU module is shared between multiple subsystems. The reset button shown is used to boot the device. A simple RC circuit with a time constant of $\tau = RC = 1ms$ is applied after the push button to provide debouncing and avoid multiple resets from a single press. The simulation of this reset button being pressed is shown below in Figure \ref{fig:reset_debounce}. The boot switch is a programming feature as this switch controls if the microcontroller downloads a program through the UART interface on boot (IO0 = low), or if the microcontroller uses the saved program from the flash memory for its instructions (IO0 = high). The boot control also relies on the IO2 pin being low on boot and has been connected to a pull-down resistor for this reason. Simple breakout pins will be included (as shown in the schematic) to connect to a UART interface for programming the microcontroller.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Comms_Schem.png}
+	\caption{Communication Subsystem Schematic}
+	\label{fig:comm_schem}
+\end{figure}
 
-The communication module requires significant software control. A flow diagram explaining the function of the microcontroller firmware is provided in Appendix D as this code also controls aspects of other modules.
+The communication subsystem is included within the schematic shown in Figure \ref{fig:comm_schem}. The subsystem does not require an individual schematic as it is solely comprised of the MCU module and programming circuitry, and the MCU module is shared between multiple subsystems. The reset button shown is used to boot the device. A simple RC circuit with a time constant of $\tau = RC = 1ms$ is applied after the push button to provide debouncing and avoid multiple resets from a single press. The simulation of this reset button being pressed is shown below in Figure \ref{fig:reset_debounce}. The boot switch is a programming feature as this switch controls if the microcontroller downloads a program through the UART interface on boot (IO0 = low), or if the microcontroller uses the saved program from the flash memory for its instructions (IO0 = high). The boot control also relies on the IO2 pin being low on boot and has been connected to a pull-down resistor for this reason. Simple breakout pins will be included (as shown in the schematic) to connect to a UART interface for programming the microcontroller.
 
 \begin{figure}[h!]
 	\centering
@@ -118,6 +137,8 @@ The communication module requires significant software control. A flow diagram e
 	\caption{Reset Button Debounce Simulations}
 	\label{fig:reset_debounce}
 \end{figure}
+
+The communication module requires significant software control. The firmware loaded to the MCU will have several main functions pertaining to the different subsystems. The communication functions include creating bluetooth packets and using the ESP32 API to send the packets to a connected device as well as checking for any received packets from a device. More information is shown in the flow diagram explaining the function of the microcontroller firmware provided in Figure \ref{fig:firmware}.
 
 The requirements and validation methods for the communication subsystem that ensure its proper operation are shown in Table \ref{tab:comms_rv} Notice that there are no requirements for latency of information transmission. As this device is sending very low amounts of information and the actions are not time sensitive, latency is not included as a requirement.
 
@@ -132,7 +153,7 @@ The requirements and validation methods for the communication subsystem that ens
  		\begin{enumerate}
  			\item The communication subsystem must use Bluetooth v4.2 \cite{IEEE_bt} to transmit and receive information to and from the phone app at a distance of 3ft with an average throughput of 10kbps.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item Somin
+ 			\item A
 		\end{enumerate} \\
  		\hline
 	\end{tabular}
@@ -159,7 +180,14 @@ The LCD display within the subsystem is an output device showing the video data 
 
 The chosen components meet these design requirements as the $320\times240$ pixel LCD specifies a typical data clock frequency of $6.5MHz$. This screen size requires a $230.4kB$ of memory for a full screen buffer. The MCU module can utilize clocks up to $160MHz$ for LCD control (much larger than eight times the LCD clock requirement) and can output up to three clock signals allowing for the control of both the LCD data clock ($6.5MHz$) and faster shift register clocks ($52MHz$). The chosen MCU module also has a large amount of included memory external to the microcontroller. An $8MB$ PSRAM unit is included within the module providing plenty of space for frame buffers. This memory can be accessed at a rate of up to $80MHz$ with up to 32-bit reads and writes. This data size and access rate far exceeds the requirements set by the LCD allowing for efficient and easy writing reading from a potential double-buffered display. An additional level of redundancy is added with included internal memory components. The MCU includes 520kB of internal SRAM to be used in the case of the external PSRAM unit failing to meet the application needs for any reason.
 
-The connections between the LCD, shift registers, and MCU module are shown in the schematic in Appendix B. The LCD control is controlled by firmware and thus is included within the flow diagram shown in Appendix D.
+The connections between the LCD, shift registers, and MCU module are shown in the schematic in Figure \ref{fig:display_schem}. The LCD is controlled by firmware through RGB data output pins and clock outputs and thus is included within the flow diagram shown in Figure \ref{fig:firmware}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Display_Schem.png}
+	\caption{Display Subsystem Schematic}
+	\label{fig:display_schem}
+\end{figure}
 
 The requirements and verification methods for the display subsystem that ensure its proper operation are shown below in Table \ref{tab:display_rv}
 
@@ -251,36 +279,57 @@ The basic requirements for the phone app subsystem that ensure its proper operat
 	\caption{Bill of Materials}
 	\label{tab:block_comps}
 	\centering
-	\begin{tabular}{ |c|c|c| } 
+	{\small
+	\begin{tabular}{ |c|c|c|c| } 
  		\hline
- 		\textbf{Component Name} & \textbf{Quantity} & \textbf{Total Cost} ($\$$) \\
+ 		\textbf{Part} & \textbf{Component Name} & \textbf{Quantity} & \textbf{Total Cost} ($\$$) \\
  		\hline
- 		\multicolumn{3}{|c|}{Power Subsystem} \\
  		\hline
+ 		\multicolumn{4}{|c|}{Power Subsystem} \\
+ 		\hline
+ 		Battery & Mikro-4474 & 1 & 14.50 \\
+ 		Boost Controller & ABLIC S-8337ABIA-T8T1U & 1 & 1.52 \\
+ 		10$\mu$ Inductor & Bourns SRP0415-100K & 1 & 1.12 \\
+ 		Diode & Panasonic DB2X20700L & 2 & 0.50 \\
+ 		N-MOS & Nexperia BSH105,215 & 2 & 0.76 \\
+ 		280k Resistor & Panasonic ERJ-PB6D2803V & 1 & 0.25 \\
+ 		240k Resistor & Panasonic ERJ-P06J244V & 1 & 0.13 \\
+ 		200k Resistor & Panasonic ERJ-P06J204V & 1 & 0.13 \\
+ 		82k Resistor & Panasonic ERJ-P06J823V & 2 & 0.38 \\
+ 		8.2k Resistor & Panasonic ERJ-P06J822V & 2 & 0.26 \\
+ 		2k Potentiometer & Bourns 3361P-1-202GLF & 1 & 1.27 \\
+ 		180p Capacitor & KEMET C0805C181J3HAC7800 & 2 & 0.22 \\
+ 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 3 & 0.30 \\
+ 		10$\mu$ Capacitor & Samsung CL21A106KOQNNNE & 2 & 0.22 \\
  		
  		\hline
- 		\multicolumn{3}{|c|}{Communication Subsystem} \\
+ 		\multicolumn{4}{|c|}{Communication Subsystem} \\
  		\hline
- 		ESP32-WROVER-E & 2 & 7.20 \\
- 		ESP32-DEVKITC-VE & 1 & 11.00 \\
- 		Paialu CP2102 USB to UART Interface & 1 & 8.76 \\
- 		10k 0805 Resistor & 6 & 0.90 \\
- 		0.1u 0805 Capacitor & 2 & 0.30 \\
+ 		Microcontroller & ESP32-WROVER-E & 1 & 3.60 \\
+ 		Development Board & ESP32-DEVKITC-VE & 1 & 11.00 \\
+ 		USB to UART & Paialu CP2102 & 1 & 8.76 \\
+ 		10k Resistor & Panasonic ERJ-P06J103V & 6 & 0.78 \\
+ 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 2 & 0.20 \\
  		\hline
- 		\multicolumn{3}{|c|}{Card Reader Subsystem} \\
+ 		\multicolumn{4}{|c|}{Card Reader Subsystem} \\
  		\hline
- 		
+ 		RFID Reader & NXP MRFC500 & 1 & 13.96 \\
+ 		13.56MHz Antenna & PulseLarsen Antennas W3102 & 2 & 3.54 \\
  		\hline
- 		\multicolumn{3}{|c|}{Display Subsystem} \\
+ 		\multicolumn{4}{|c|}{Display Subsystem} \\
  		\hline
- 		Orient Display AFY320240A0-3.5N6NTN-R & 1 & 11.53 \\
- 		Hirose FH40-40S-0.5SV Connector & 2 & 5.50 \\
- 		Nexperia 74LV164D Shift Register & 5 & 2.15 \\
+ 		LCD & Orient Display AFY320240A0-3.5N6NTN-R & 1 & 11.53 \\
+ 		FCP Connector & Hirose FH40-40S-0.5SV & 2 & 5.50 \\
+ 		 Shift Register & Nexperia 74LV164D & 4 & 1.72 \\
+ 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 4 & 0.40 \\
  		\hline
 	\end{tabular}
+	}
 \end{table}
 
 \subsection{Schedule}
+
+A complete schedule showing the breakdown of work by week and group member as well as important deadlines is shown in Appendix A.
 
 \section{Ethics and Safety}
 
@@ -310,31 +359,11 @@ Overall, this project is considered relatively ``safe'' under the context of adh
 \bibliographystyle{IEEEtran}
 \bibliography{references.bib}
 
-% Appendix
 \newpage
-\section{Appendix A: Device Block Diagram}
-
+\section{Appendix A: Schedule}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[height=0.93\textheight]{Full_Block_Diagram_v5.png}
+	\includegraphics[height=0.93\textheight]{Schedule.png}
 \end{figure}
-
-\newpage
-\section{Appendix B: Communications and Display Subsystems Schematic}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[height=0.86\textheight]{Comms_Display_Schem.png}
-\end{figure}
-
-\newpage
-\section{Appendix C: Power Subsystems Schematic}
-
-
-
-\newpage
-\section{Appendix D: MCU Firmware Flow Diagram}
-
-
 
 \end{document}
