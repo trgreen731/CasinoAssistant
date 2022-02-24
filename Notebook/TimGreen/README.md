@@ -84,11 +84,36 @@ All found parts will be in the resources folder along with key points of the par
 	* Registers can be adjusted as part of the boot/programming sequence or as first instructions within the code. This allows for control over the GPIO operations, the defined interfaces (SPI, UART, etc), and clock outputs
 	* Module includes clock that can be output at up to 160MHz allowing for fast operations useful for display control
 
-# 2/20/2020
+# 2/20/2022
 ## LCD Display Adjustment
 * Current LCD requires 24bit parallel RGB input (MCU does not have that many GPIOs)
 * The output clocks available from the MCU are much faster than the specified clock requirements of the display.
 * Shift registers allow for usage of high clock capabilites with the lower number of GPIOs
 * Will need to determine how to operate the MCU GPIOs to provide data with this speed (similar to the FPGA outputs)
 * Other low pin number options was MIPI DSI but this protocol is not publicly available and has a large learning curve
+## New Block Diagram (v5)
+This block diagram is updated with the new communications and display module ideas
+[Full Block v5](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v5.png)
+
+# 2/22/2022
+## Design Document Check Presentation Notes
+* Include reasoning for why RFID cards over QR code or other within the intro of the design as competing item.
+* Include a table of contents
+* Perform power consumption analysis
+
+# Still Needed Items for Thursday
+* Power Subsystem - Jack
+* Card Reader Subsystem - Marco
+* MCU Firmware Diagram
+* App Firmware Diagram
+* Schedule
+* Cost Analysis
+* Tolerance Analysis (RF equations for trace sizing)
+
+## New Block Diagram (v6)
+This block diagram is adjusted to consider that the power system is going to be designed from scratch so our current and voltage measurements can communicate directly from the battery protection block to the MCU (no additional current measurement needed)
+[Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v6.png)
+
+# 2/23/2022
+## Current Requirement Analysis
 
