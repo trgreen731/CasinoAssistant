@@ -95,20 +95,16 @@ The block diagram describing each subsystem within the system and their connecti
 
 The power subsystem is made up of a rechargeable battery, a battery management system capable of overcharge voltage, overdischarge voltage and overcurrent detection, a linear voltage regulator, a boost converter, and a buck converter for charging. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display.
 
-This linear voltage regultor is a low-dropout linear regulator used to convert from the 3.0V-3.7V input from the battery management system to the 3.3V output (when the input is lower than 3.3V, the output follows it directly). This type of regulator was chosen as it is good for dropping small voltage levels (such as from 3.7V to 3.3V) and has a much lower noise and EMI profile than switching converters which is ideal for operation on a board with high frequency digital operations and RF traces. The LDO voltage regulators tend to have lower efficiencies than switching converters, so to combat these effects, an existing adjustable LDO was utilized. The biasing and protection capacitors included with this component are shown in Figure \ref{fig:LDO_Schem.png}. The most important biasing aspect of this block are the feedback resistors. The resistor value calculation sets $R_1 = 10k\Omega$ and calculates
-\[ R_2 = R_1 (\frac{V_out}{1.216} - 1) = 17.14k\Omega.\]
-This value will not be acheivable with a single component so two $33k\Omega$ resistors are used in parallel along with a $2k\Omega$ potentiometer to allow for fine tuning of the output voltage to the desired value. Another reason for choosing the LDO is that once the battery voltage drops below 3.3V, the output voltage will simply follow the input voltage. This lower voltage is acceptable to all of the components requiring this power bus and as such is allowed for power usage. The battery management system then cuts the output off at 3.0V.
-
-The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. A small inductor value for this circuit leads to higher stability but greater current fluctations. A lower inductor value increases the efficiency with less stability. The chosen inductor is a midpoint of the suggestions proposed in \cite{boost}.
-
-The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
-
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.65\textwidth]{BatteryProtection-Schematic.png}
 	\caption{Power Subsystem Battery Protection Schematic}
 	\label{fig:prot_schem}
 \end{figure}
+
+This linear voltage regultor is a low-dropout linear regulator used to convert from the 3.0V-3.7V input from the battery management system to the 3.3V output (when the input is lower than 3.3V, the output follows it directly). This type of regulator was chosen as it is good for dropping small voltage levels (such as from 3.7V to 3.3V) and has a much lower noise and EMI profile than switching converters which is ideal for operation on a board with high frequency digital operations and RF traces. The LDO voltage regulators tend to have lower efficiencies than switching converters, so to combat these effects, an existing adjustable LDO was utilized. The biasing and protection capacitors included with this component are shown in Figure \ref{fig:LDO_Schem.png}. The most important biasing aspect of this block are the feedback resistors. The resistor value calculation sets $R_1 = 10k\Omega$ and calculates
+\[ R_2 = R_1 (\frac{V_out}{1.216} - 1) = 17.14k\Omega.\]
+This value will not be acheivable with a single component so two $33k\Omega$ resistors are used in parallel along with a $2k\Omega$ potentiometer to allow for fine tuning of the output voltage to the desired value. Another reason for choosing the LDO is that once the battery voltage drops below 3.3V, the output voltage will simply follow the input voltage. This lower voltage is acceptable to all of the components requiring this power bus and as such is allowed for power usage. The battery management system then cuts the output off at 3.0V.
 
 \begin{figure}[!h]
 	\centering
@@ -117,12 +113,16 @@ The rechargeable battery will be a lithium ion battery. This is a popular rechar
 	\label{fig:boost_schem}
 \end{figure}
 
+The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. A small inductor value for this circuit leads to higher stability but greater current fluctations. A lower inductor value increases the efficiency with less stability. The chosen inductor is a midpoint of the suggestions proposed in \cite{boost}. The feedback biasing is also implemented to be adjustable. Here $R_{FB1}$ is set at $82k\Omega$ and $R_{FB1}$ is calculated to be $9.5k\Omega$ implemented with a $8.2k\Omega$ resistor and a $2k\Omega$ potentiometer.
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.95\textwidth]{Power_Boost_Schem.png}
 	\caption{Power Subsystem Boost Converter Schematic}
 	\label{fig:boost_schem}
 \end{figure}
+
+The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
 
 \begin{figure}[!h]
 	\centering
@@ -248,7 +248,7 @@ The LCD display within the subsystem is an output device showing the video data 
 
 The chosen components meet these design requirements as the $320\times240$ pixel LCD specifies a typical data clock frequency of $6.5MHz$. This screen size requires a $230.4kB$ of memory for a full screen buffer. The MCU module can utilize clocks up to $160MHz$ for LCD control (much larger than eight times the LCD clock requirement) and can output up to three clock signals allowing for the control of both the LCD data clock ($6.5MHz$) and faster shift register clocks ($52MHz$). The chosen MCU module also has a large amount of included memory external to the microcontroller. An $8MB$ PSRAM unit is included within the module providing plenty of space for frame buffers. This memory can be accessed at a rate of up to $80MHz$ with up to 32-bit reads and writes. This data size and access rate far exceeds the requirements set by the LCD allowing for efficient and easy writing reading from a potential double-buffered display. An additional level of redundancy is added with included internal memory components. The MCU includes 520kB of internal SRAM to be used in the case of the external PSRAM unit failing to meet the application needs for any reason.
 
-The connections between the LCD, shift registers, and MCU module are shown in the schematic in Figure \ref{fig:display_schem}. The LCD is controlled by firmware through RGB data output pins and clock outputs and thus is included within the flow diagram shown in Figure \ref{fig:firmware}.
+The connections between the LCD, shift registers, and MCU module are shown in the schematic in Figure \ref{fig:display_schem}. The LCD is controlled by firmware through RGB data output pins and clock outputs and thus is included within the flow diagram .
 
 The requirements and verification methods for the display subsystem that ensure its proper operation are shown below in Table \ref{tab:display_rv} and \ref{tab:display_rv_cont}
 
@@ -347,17 +347,45 @@ The basic requirements for the phone app subsystem that ensure its proper operat
 
 The success of the Odds Booster relies heavily on the ease and accuracy of cards being dealt to the players. Our project depends on the usage of Radio-Frequency Identification technology to correctly ascertain the card that is being dealt to a specific player at the table. Not only is this supposed to be easy, it's supposed to be reliable. With any misreading or failure to transmit, the player is lost and will have to reshuffle and redeal the hand. From both a manufacturing and physical realm, the use of RF technology/trace tapering and matching networks is the most critical part of the project.
 
-First and foremost, the playing cards must have an RFID NFC tag on each and every one of them, able to communicate with our card-reader module to eventually send to our central MCU and Bluetooth unit and finally transmit the data to the phone app in the end. The card-reader module requires precise circuitry to ensure preserved signal integrity and speed; an antenna, matching network, RFID IC with an oscillator, and potentially the usage of RF trace tapering. Below is an example of a taper increasing impedance by decreasing the trace width, as well as showcasing the quality needed for a smooth taper.
+First and foremost, the playing cards must have an RFID NFC tag on each and every one of them, able to communicate with our card-reader module to eventually send to our central MCU and Bluetooth unit and finally transmit the data to the phone app in the end. The card-reader module requires precise circuitry to ensure preserved signal integrity and speed; an antenna, matching network, RFID IC with an oscillator, and potentially the usage of RF trace tapering. Figure \ref{fig:taper} shows an example of a taper increasing impedance by decreasing the trace width, as well as showcasing the quality needed for a smooth taper.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{image6.png}
+	\caption{RF Taper Trace Example}
+	\label{fig:taper}
+\end{figure}
 
 The region in between the antenna and the RFID Reader IC must account for the difference in intrinsic impedances between the two devices. This region will be where we will match the impedances, whether it be through trace tapering, a lumped-component matching network, or a combination of the two. Trace impedance ($Z_o$) is a critical factor in the effort to control reflections/dampening in our RF signal; however, in traces shorter than 1/20th of a wavelength long, impedance matching is usually not important. 
 
 At 13.56MHz, we have our 1/20th wavelength measurement at around 1.1m and we are not intending to have a transmission line of that length in our PCB. Lumped components will likely be used to exactly match our impedance levels, since our transmission line is relatively tiny at the frequency we are operating at. 
 
-Below is a figure taken from the RFID Reader IC that showcases an application example circuit diagram with a directly matched antenna, and below that is taken from an active antenna concept for the MFRC500 (the RFID Reader IC we've chosen) with the correct lumped component values for the receiving circuitry and matching circuitry. Since the transmission line isn't long enough to have serious concern for mismatched loads, we can assume a 10\% tolerance on these components will preserve signal integrity.
+Figure \ref{fig:reader} is taken from the RFID Reader IC that showcases an application example circuit diagram with a directly matched antenna, and Figure \ref{fig:antenna} is taken from an active antenna concept for the MFRC500 (the RFID Reader IC we've chosen) with the correct lumped component values for the receiving circuitry and matching circuitry. Since the transmission line isn't long enough to have serious concern for mismatched loads, we can assume a 10\% tolerance on these components will preserve signal integrity.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{image7.png}
+	\caption{RF Reader IC Typical Application}
+	\label{fig:reader}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{image3.png}
+	\caption{Antenna Application Circuit Example}
+	\label{fig:antenna}
+\end{figure}
 
 In the datasheet for the RFID Reader IC we have chosen, Section 9.8 covers the Oscillator circuit in which they explicitly remark that an external clock source is not recommended and that an internal oscillator buffer is provided to complement the minimization of clock jitter. 
 
-Calculating jitter from phase noise is highly dependent on the quality of the oscillator. In the figure below, the oscillator frequency is chosen to be 100MHz for discussion purposes, and the graph shows the phase noise curve is approximated by several tranches indicating different data points relevant to the calculation of jitter.
+Calculating jitter from phase noise is highly dependent on the quality of the oscillator. In Figure \ref{fig:noise}, the oscillator frequency is chosen to be 100MHz for discussion purposes, and the graph shows the phase noise curve is approximated by several tranches indicating different data points relevant to the calculation of jitter.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{image5.png}
+	\caption{Phase Noise vs Frequency Offset for 100MHz Oscillation}
+	\label{fig:noise}
+\end{figure}
 
 \section{Cost and Schedule}
 
