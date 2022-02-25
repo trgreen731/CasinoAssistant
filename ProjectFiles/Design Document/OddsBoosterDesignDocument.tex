@@ -93,9 +93,22 @@ The block diagram describing each subsystem within the system and their connecti
 % Each subsystem also needs an Requirements & Verification table
 \subsection{Power Subsystem}
 
-The power subsystem is made up of a rechargeable battery, ESD protection circuitry, a battery management system capable of overvoltage, undervoltage, and overcurrent detection, a voltage regulator, and a boost converter. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display. The battery management system also connects to the communication subsystem as it provides the microcontroller with battery status information in the form of an analog current measurement used for SOC approximation. This signal is used to tell the users important system information such as when the battery is low.
+The power subsystem is made up of a rechargeable battery, a battery management system capable of overcharge voltage, overdischarge voltage and overcurrent detection, a linear voltage regulator, a boost converter, and a buck converter for charging. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display.
 
-The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have  good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
+This linear voltage regultor is a low-dropout linear regulator used to convert from the 3.0V-3.7V input from the battery management system to the 3.3V output (when the input is lower than 3.3V, the output follows it directly). This type of regulator was chosen as it is good for dropping small voltage levels (such as from 3.7V to 3.3V) and has a much lower noise and EMI profile than switching converters which is ideal for operation on a board with high frequency digital operations and RF traces. The LDO voltage regulators tend to have lower efficiencies than switching converters, so to combat these effects, an existing adjustable LDO was utilized. The biasing and protection capacitors included with this component are shown in Figure \ref{fig:LDO_Schem.png}. The most important biasing aspect of this block are the feedback resistors. The resistor value calculation sets $R_1 = 10k\Omega$ and calculates
+\[ R_2 = R_1 (\frac{V_out}{1.216} - 1) = 17.14k\Omega.\]
+This value will not be acheivable with a single component so two $33k\Omega$ resistors are used in parallel along with a $2k\Omega$ potentiometer to allow for fine tuning of the output voltage to the desired value. Another reason for choosing the LDO is that once the battery voltage drops below 3.3V, the output voltage will simply follow the input voltage. This lower voltage is acceptable to all of the components requiring this power bus and as such is allowed for power usage. The battery management system then cuts the output off at 3.0V.
+
+The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. The chosen component
+
+The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{LDO_Schem.png}
+	\caption{Power Subsystem LDO Linear Voltage Regulator Schematic}
+	\label{fig:boost_schem}
+\end{figure}
 
 \begin{figure}[!h]
 	\centering
@@ -104,12 +117,17 @@ The rechargeable battery will be a lithium ion battery. This is a popular rechar
 	\label{fig:boost_schem}
 \end{figure}
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Power_Buck_Schem.png}
+	\caption{Power Subsystem Buck Converter Schematic}
+	\label{fig:buck_schem}
+\end{figure}
+
 The power subsystem has a set of basic requirements that ensure its proper operation. These requirements are as follows.
 
 \begin{itemize}
-\item The battery management system must be able to measure the output voltage of the lithium ion battery to a tolerance of $\pm0.1V$.
-\item The battery management system must be able to measure the current in or out of the lithium ion battery to a tolerance of $\pm10mA$.
-\item The battery management system must be able to disconnect connected components if the lithium ion battery voltage falls too low or moves too high (specific boundaries depend on specific battery model safety specifications).
+\item The battery management system must be able to disconnect connected loads if the lithium ion battery voltage falls below 3.0V ($\pm$0.2V) or above 4.2V ($\pm$0.2V).
 \item The voltage regulator must be able to maintain a voltage within a safe range of $3.1V$ to $3.5V$ (safe operating range for average CMOS device \cite{TI_inverter}).
 \item The power must be able to continuously provide at least $500mA$ given the voltage regulator requirements
 \end{itemize}
@@ -138,7 +156,7 @@ The MCU module is shared by other subsystems requiring embedded C code to functi
 
 The communication subsystem is included within the schematic shown in Figure \ref{fig:comm_schem}. The subsystem does not require an individual schematic as it is solely comprised of the MCU module and programming circuitry, and the MCU module is shared between multiple subsystems. The reset button shown is used to boot the device. A simple RC circuit with a time constant of $\tau = RC = 1ms$ is applied after the push button to provide debouncing and avoid multiple resets from a single press. The simulation of this reset button being pressed is shown below in Figure \ref{fig:reset_debounce}. The boot switch is a programming feature as this switch controls if the microcontroller downloads a program through the UART interface on boot (IO0 = low), or if the microcontroller uses the saved program from the flash memory for its instructions (IO0 = high). The boot control also relies on the IO2 pin being low on boot and has been connected to a pull-down resistor for this reason. Simple breakout pins will be included (as shown in the schematic) to connect to a UART interface for programming the microcontroller.
 
-The communication module requires significant software control. The firmware loaded to the MCU will have several main functions pertaining to the different subsystems. The communication functions include creating bluetooth packets and using the ESP32 API to send the packets to a connected device as well as checking for any received packets from a device. More information is shown in the flow diagram explaining the function of the microcontroller firmware provided in Figure \ref{fig:firmware}.
+The communication module requires significant software control. The firmware loaded to the MCU will have several main functions pertaining to the different subsystems. The communication functions include creating bluetooth packets and using the ESP32 API to send the packets to a connected device as well as checking for any received packets from a device.
 
 The requirements and validation methods for the communication subsystem that ensure its proper operation are shown in Table \ref{tab:comms_rv} Notice that there are no requirements for latency. As this device is sending very low amounts of information (such as card IDs which can be transmitted in a single byte) and the actions are not time sensitive, latency is not included as a requirement. The throughput requirements are very low for Bluetooth standards. This is again to account for the low data transfer required and to give space in our firmware and hardware components in the case they are less efficient than state-of-the-art designs.
 
@@ -163,16 +181,50 @@ The requirements and validation methods for the communication subsystem that ens
 
 \subsection{Card Reader Subsystem}
 
-The card reader subsystem is made up of the microcontroller and the RFID sensor. The subsystem is responsible for reading the card ID of each card swiped past the device. The subsystem is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader subsystem connects to the power subsystem through the provided $3.3V_{DC}$ supply, and to the communication subsystem through the passing of card data through an SPI interface to the microcontroller.
+The card reader subsystem is made up of the microcontroller, the RFID sensor, and the antenna. The subsystem is responsible for reading the card ID of each card swiped past the device. The subsystem is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader subsystem connects to the power subsystem through the provided $3.3V_{DC}$ supply, and to the communication subsystem through the passing of card data through an SPI interface to the microcontroller.
 
-The RFID sensor generates a specific frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microcontroller is shared by multiple subsystems but will receive this serial ID from the sensor via wired serial transmission.
+The RFID sensor generates a 13.56MHz frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microcontroller is shared by multiple subsystems but will receive this serial ID from the sensor via wired serial transmission.
 
-The basic requirements for the card reader subsystem that ensure its proper operation are as follows.
+The basic requirements for the card reader subsystem that ensure its proper operation are shown in the table below.
 
-\begin{itemize}
-\item The RFID sensor must be able to accurately determine the serial ID of an RFID tag when held to the surface of the sensor.
-\item The microcontroller must be able to accurately receive the serial ID of the RFID tag when serially transmitted from the RFID sensor.
-\end{itemize} 
+\begin{table}[!h]
+	\caption{Card Reader Subsystem Requirements and Verification}
+	\label{tab:card_rv}
+	\centering
+	\begin{tabular}{| p{0.45\linewidth} | p{0.45\linewidth} |} 
+ 		\hline
+ 		\textbf{Requirements} & \textbf{Verification} \\ 
+ 		\hline
+ 		\begin{enumerate}
+ 			\item Tags must reliably be able to be read quickly and accurately, independent of the RFID Reader IC/Antenna portion of the module.
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item Either embed the tags in the middle of the card or stick the tags on the outside without severely affecting the overall thickness and feel of the cards. We have chosen tags that will be thin and flexible enough to be almost unnoticeable from a different deck's dimensions. Each deck will be stress-tested with multiple shuffles and leafings.
+ 			\item Phone apps are able to pick up these RFID tags, courtesy of Avery-Dennison (the company selling the RFID tags) and we will ensure that these tags work properly upon purchase and delivery.
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{1}
+ 			\item Reliably pick up 13.56MHz signals from <17mm distance with little to no reflection
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item Measure the antenna VSWR using a spectrum analyzer, signal generator, and directional coupler to find out how much energy sent to the antenna is reflected back. The s-parameter simulation will give an idea of how well the antenna is impedance matched to the transmission line. A VSWR under 2 will be suitable for this application.
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{2}
+ 			\item Ensure the internal impedances of the RFID Reader IC (which can be set between 1 and 100$\Omega$) and the RF Antenna (50 or 80 $\Omega$) will have matched loads along the transmission line.
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item Run simulations using ADS plugging in terminals at both ends representing the antenna and IC and with the lumped components in between. Tolerances of 10\% and 5\% will be tested to determine the quality of components we will need.
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{3}
+ 			\item Properly transmit RFID tag info to MCU at Pin 5 at 13.56MHz.
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item Probe pin 5 to an oscilloscope and scan RFID tag for the reader to pick up. Note the tag scanned and recognize its reading value on the oscilloscope at 13.56MHz.
+		\end{enumerate} \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Display Subsystem}
 
@@ -286,6 +338,20 @@ The basic requirements for the phone app subsystem that ensure its proper operat
 % Tolerance analysis for the hardest part of the design (most likely to fail or cause problems)
 \subsection{Tolerance Analysis}
 
+The success of the Odds Booster relies heavily on the ease and accuracy of cards being dealt to the players. Our project depends on the usage of Radio-Frequency Identification technology to correctly ascertain the card that is being dealt to a specific player at the table. Not only is this supposed to be easy, it's supposed to be reliable. With any misreading or failure to transmit, the player is lost and will have to reshuffle and redeal the hand. From both a manufacturing and physical realm, the use of RF technology/trace tapering and matching networks is the most critical part of the project.
+
+First and foremost, the playing cards must have an RFID NFC tag on each and every one of them, able to communicate with our card-reader module to eventually send to our central MCU and Bluetooth unit and finally transmit the data to the phone app in the end. The card-reader module requires precise circuitry to ensure preserved signal integrity and speed; an antenna, matching network, RFID IC with an oscillator, and potentially the usage of RF trace tapering. Below is an example of a taper increasing impedance by decreasing the trace width, as well as showcasing the quality needed for a smooth taper.
+
+The region in between the antenna and the RFID Reader IC must account for the difference in intrinsic impedances between the two devices. This region will be where we will match the impedances, whether it be through trace tapering, a lumped-component matching network, or a combination of the two. Trace impedance ($Z_o$) is a critical factor in the effort to control reflections/dampening in our RF signal; however, in traces shorter than 1/20th of a wavelength long, impedance matching is usually not important. 
+
+At 13.56MHz, we have our 1/20th wavelength measurement at around 1.1m and we are not intending to have a transmission line of that length in our PCB. Lumped components will likely be used to exactly match our impedance levels, since our transmission line is relatively tiny at the frequency we are operating at. 
+
+Below is a figure taken from the RFID Reader IC that showcases an application example circuit diagram with a directly matched antenna, and below that is taken from an active antenna concept for the MFRC500 (the RFID Reader IC we've chosen) with the correct lumped component values for the receiving circuitry and matching circuitry. Since the transmission line isn't long enough to have serious concern for mismatched loads, we can assume a 10\% tolerance on these components will preserve signal integrity.
+
+In the datasheet for the RFID Reader IC we have chosen, Section 9.8 covers the Oscillator circuit in which they explicitly remark that an external clock source is not recommended and that an internal oscillator buffer is provided to complement the minimization of clock jitter. 
+
+Calculating jitter from phase noise is highly dependent on the quality of the oscillator. In the figure below, the oscillator frequency is chosen to be 100MHz for discussion purposes, and the graph shows the phase noise curve is approximated by several tranches indicating different data points relevant to the calculation of jitter.
+
 \section{Cost and Schedule}
 
 \subsection{Cost Analysis}
@@ -304,7 +370,8 @@ The basic requirements for the phone app subsystem that ensure its proper operat
  		\multicolumn{4}{|c|}{Power Subsystem} \\
  		\hline
  		Battery & Mikro-4474 & 1 & 14.50 \\
- 		Boost Controller & ABLIC S-8337ABIA-T8T1U & 1 & 1.52 \\
+ 		USB Micro-B Port & GCT USB3505-30-A-KIT & 1 & 2.81 \\
+ 		Boost Gate Driver & ABLIC S-8337ABIA-T8T1U & 1 & 1.52 \\
  		10$\mu$ Inductor & Bourns SRP0415-100K & 1 & 1.12 \\
  		Diode & Panasonic DB2X20700L & 2 & 0.50 \\
  		N-MOS & Nexperia BSH105,215 & 2 & 0.76 \\
@@ -312,12 +379,45 @@ The basic requirements for the phone app subsystem that ensure its proper operat
  		240k Resistor & Panasonic ERJ-P06J244V & 1 & 0.13 \\
  		200k Resistor & Panasonic ERJ-P06J204V & 1 & 0.13 \\
  		82k Resistor & Panasonic ERJ-P06J823V & 2 & 0.38 \\
- 		8.2k Resistor & Panasonic ERJ-P06J822V & 2 & 0.26 \\
- 		2k Potentiometer & Bourns 3361P-1-202GLF & 1 & 1.27 \\
+ 		8.2k Resistor & Panasonic ERJ-P06J822V & 3 & 0.39 \\
+ 		2k Potentiometer & Bourns 3361P-1-202GLF & 2 & 2.54 \\
  		180p Capacitor & KEMET C0805C181J3HAC7800 & 2 & 0.22 \\
- 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 3 & 0.30 \\
+ 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 5 & 0.50 \\
  		10$\mu$ Capacitor & Samsung CL21A106KOQNNNE & 2 & 0.22 \\
- 		
+ 		Linear Voltage Regulator & TI LP3965ESX-ADJ/NOPB & 1 & 4.62 \\
+ 		68$\mu$ Capacitor & TDK C3216X5R0J686M160AB & 1 & 0.85 \\
+ 		33$\mu$ Tantalum Capacitor & Nemco PCT33/10CK & 1 & 0.26 \\
+ 		100p Capacitor & Samsung CL21C101JBANNNC & 2 & 0.20 \\
+ 		10k Resistor & Panasonic ERJ-P06J103V & 3 & 0.39 \\
+ 		33k Resistor & Panasonic ERJ-P06J333V & 3 & 0.39 \\
+ 		Buck Gate Driver & Microchip MIC2169YMM & 1 & 2.52 \\
+ 		N-MOS & Diodes DMG2302UQ-13 & 3 & 1.32 \\
+ 		3.3$\mu$ Inductor & Bourns SRP0610-3R3K & 1 & 1.09 \\
+ 		100$\mu$ Capacitor & Samsung CL32A107MPVNNNE & 1 & 1.14 \\
+ 		150$\mu$ Tantalum Capacitor & KEMET T491X157K020AT & 1 & 2.53 \\
+ 		4.7$\mu$ Capacitor & Samsung CL10A475KP8NNNC & 1 & 0.10 \\
+ 		150p Capacitor & Samsung CL05C151JB5NNNC & 1 & 0.10 \\
+ 		0.1p Capacitor & Murata GRM0335C1HR10WA01D & 1 & 0.10 \\
+ 		2 Resistor & Panasonic ERJ-6DQJ2R0V & 1 & 0.24 \\
+ 		560 Resistor & Panasonic ERJ-P06J561V & 1 & 0.13 \\
+ 		1.5k Resistor & Panasonic ERJ-P06J152V & 1 & 0.13 \\
+ 		4.7k Resistor & Panasonic ERJ-P06J472V & 1 & 0.13 \\
+ 		1k Potentiometer & Bourns 3361S-1-102GLF & 1 & 1.68 \\
+ 		Diode & Surge SL34A & 2 & 0.68 \\
+ 		\hline
+	\end{tabular}
+	}
+\end{table}
+
+\begin{table}[!h]
+	\caption{Bill of Materials Continued}
+	\label{tab:block_comps_cont}
+	\centering
+	{\small
+	\begin{tabular}{ |c|c|c|c| } 
+ 		\hline
+ 		\textbf{Part} & \textbf{Component Name} & \textbf{Quantity} & \textbf{Total Cost} ($\$$) \\
+ 		\hline
  		\hline
  		\multicolumn{4}{|c|}{Communication Subsystem} \\
  		\hline
