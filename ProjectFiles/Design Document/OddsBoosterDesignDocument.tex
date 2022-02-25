@@ -95,13 +95,6 @@ The block diagram describing each subsystem within the system and their connecti
 
 The power subsystem is made up of a rechargeable battery, a battery management system capable of overcharge voltage, overdischarge voltage and overcurrent detection, a linear voltage regulator, a boost converter, and a buck converter for charging. This subsystem is responsible for providing power to all other hardware components within the system in a safe manner. Without this subsystem, none of the main requirements could be met as each operation of the system requires power. The power subsystem connects to the other three hardware subsystems (the card reader, display, and communication subsystems) via a 3.3V DC voltage used for logic powering provided by the voltage regulator. The power subsystem connects to the display subsystem through an additional 9.6V DC voltage used for the LED backlighting of the LCD display.
 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.65\textwidth]{BatteryProtection-Schematic.png}
-	\caption{Power Subsystem Battery Protection Schematic}
-	\label{fig:prot_schem}
-\end{figure}
-
 This linear voltage regultor is a low-dropout linear regulator used to convert from the 3.0V-3.7V input from the battery management system to the 3.3V output (when the input is lower than 3.3V, the output follows it directly). This type of regulator was chosen as it is good for dropping small voltage levels (such as from 3.7V to 3.3V) and has a much lower noise and EMI profile than switching converters which is ideal for operation on a board with high frequency digital operations and RF traces. The LDO voltage regulators tend to have lower efficiencies than switching converters, so to combat these effects, an existing adjustable LDO was utilized. The biasing and protection capacitors included with this component are shown in Figure \ref{fig:LDO_Schem.png}. The most important biasing aspect of this block are the feedback resistors. The resistor value calculation sets $R_1 = 10k\Omega$ and calculates
 \[ R_2 = R_1 (\frac{V_out}{1.216} - 1) = 17.14k\Omega.\]
 This value will not be acheivable with a single component so two $33k\Omega$ resistors are used in parallel along with a $2k\Omega$ potentiometer to allow for fine tuning of the output voltage to the desired value. Another reason for choosing the LDO is that once the battery voltage drops below 3.3V, the output voltage will simply follow the input voltage. This lower voltage is acceptable to all of the components requiring this power bus and as such is allowed for power usage. The battery management system then cuts the output off at 3.0V.
@@ -113,7 +106,7 @@ This value will not be acheivable with a single component so two $33k\Omega$ res
 	\label{fig:boost_schem}
 \end{figure}
 
-The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. A small inductor value for this circuit leads to higher stability but greater current fluctations. A lower inductor value increases the efficiency with less stability. The chosen inductor is a midpoint of the suggestions proposed in \cite{boost}. The feedback biasing is also implemented to be adjustable. Here $R_{FB1}$ is set at $82k\Omega$ and $R_{FB1}$ is calculated to be $9.5k\Omega$ implemented with a $8.2k\Omega$ resistor and a $2k\Omega$ potentiometer.
+The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. A small inductor value for this circuit leads to higher stability but greater current fluctations. A lower inductor value increases the efficiency with less stability. The chosen inductor is a midpoint of the suggestions proposed in \cite{boost}. The feedback biasing is also implemented to be adjustable. Here $R_{FB1}$ is set at $82k\Omega$ and $R_{FB1}$ is calculated to be $9.5k\Omega$ implemented with a $8.2k\Omega$ resistor and a $2k\Omega$ potentiometer. The buck converter is a switching converter use to take the 5.0V USB input to the 4.2V charging voltage of the battery. The buck converter is shown in Figure \ref{fig:buck_schem}. A buck converter operates very similarly to a boost converter running in reverse. This module includes a second MOSFET for switching to avoid unintended floating effects. This module also is designed to be tuned using the included potentiometer.
 
 \begin{figure}[!h]
 	\centering
@@ -122,8 +115,6 @@ The boost converter is a switching converter used to take the 3.0-3.7V input fro
 	\label{fig:boost_schem}
 \end{figure}
 
-The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
-
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.95\textwidth]{Power_Buck_Schem.png}
@@ -131,13 +122,61 @@ The rechargeable battery will be a lithium ion battery. This is a popular rechar
 	\label{fig:buck_schem}
 \end{figure}
 
-The power subsystem has a set of basic requirements that ensure its proper operation. These requirements are as follows.
+The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. The main battery draw components are the MCU module (500mA max), the RFID reader (150mA max), and the display (210 mA max) leading to a total current draw of 960mA. This battery has a rated output of 1.5A continuous within this range. The lithium ion battery output will be connected to a battery protection IC. The battery protection is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The battery protection circuit is shown in Figure \ref{fig:prot_schem}
 
-\begin{itemize}
-\item The battery management system must be able to disconnect connected loads if the lithium ion battery voltage falls below 3.0V ($\pm$0.2V) or above 4.2V ($\pm$0.2V).
-\item The voltage regulator must be able to maintain a voltage within a safe range of $3.1V$ to $3.5V$ (safe operating range for average CMOS device \cite{TI_inverter}).
-\item The power must be able to continuously provide at least $500mA$ given the voltage regulator requirements
-\end{itemize}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{BatteryProtection-Schematic.png}
+	\caption{Power Subsystem Battery Protection Schematic}
+	\label{fig:prot_schem}
+\end{figure}
+
+The power subsystem has a set of basic requirements that ensure its proper operation. These requirements are as shown in Table \ref{tab:p}
+
+\begin{table}[!h]
+	\caption{Power Subsystem Requirements and Verification}
+	\label{tab:p}
+	\centering
+	\begin{tabular}{| p{0.45\linewidth} | p{0.45\linewidth} |} 
+ 		\hline
+ 		\textbf{Requirements} & \textbf{Verification} \\ 
+ 		\hline
+ 		\begin{enumerate}
+ 			\item When the voltage of the lithium ion battery cell exceeds the overcharge protection voltage of 4.25V (within a tolerance of $\pm$0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit charging by turning off the charge control MOSFET. 
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item 
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{1}
+ 			\item When the voltage of the lithium ion battery cell falls below the overdischarge protection voltage of 2.40V (within a tolerance of $\pm$0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit discharging by turning off the discharge control MOSFET.
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item 
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{2}
+ 			\item The voltage regulator circuit must be able to maintain a voltage within a safe operating range of 3.3V $\pm$ 0.1V (safe operating range for average CMOS device [1]). If the voltage falls below this range, the voltage regulator circuit must then match the lithium ion battery voltage of 3.7V. 
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item 
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{3}
+ 			\item The boost converter circuit must step up the lithium ion battery voltage of 3.7V to a DC voltage of 9.6V ($\pm$ 0.2V) as to provide enough power to the LED backlighting of the LCD display.
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item 
+		\end{enumerate} \\
+		\hline
+		\begin{enumerate}
+		\setcounter{enumi}{4}
+ 			\item The buck converter circuit must step down the USB charging port DC voltage from 5V to 4.2V $\pm$ (0.1V).
+		\end{enumerate} & \begin{enumerate}[label=\alph*)]
+ 			\item 
+		\end{enumerate} \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Communication Subsystem}
 
@@ -188,11 +227,18 @@ The requirements and validation methods for the communication subsystem that ens
 
 \subsection{Card Reader Subsystem}
 
-The card reader subsystem is made up of the microcontroller, the RFID sensor, and the antenna. The subsystem is responsible for reading the card ID of each card swiped past the device. The subsystem is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader subsystem connects to the power subsystem through the provided $3.3V_{DC}$ supply, and to the communication subsystem through the passing of card data through an SPI interface to the microcontroller.
+The card reader subsystem is made up of the microcontroller, the RFID sensor, and the antenna. The subsystem is responsible for reading the card ID of each card swiped past the device. The subsystem is vital for the first main requirement of sensing and distinguishing each of the 52 cards. The card reader subsystem connects to the power subsystem through the provided $3.3V_{DC}$ supply, and to the communication subsystem through the passing of card data through an 8-bit parallel interface to the microcontroller.
 
-The RFID sensor generates a 13.56MHz frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. The frequency of the sensor depends on the selected RFID tags operating frequency. The microcontroller is shared by multiple subsystems but will receive this serial ID from the sensor via wired serial transmission.
+The RFID sensor generates a 13.56MHz frequency signal that powers the RFID tags on the cards and results in the cards transmitting a signal containing the serial ID of the tag. This tag data reception is controled using the ISO 14443A RFID protocol. The microcontroller will communicate with the reader to receive the serial ID. Additionally, the card reader IC requires a matching circuit to correct against return power transfer from the antenna to the reader during transmission. The schematic for this susbsystem is shown in Figure \ref{fig:card_schem}
 
-The basic requirements for the card reader subsystem that ensure its proper operation are shown in the table below.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{unknown.png}
+	\caption{Card Reader Subsystem Schematic}
+	\label{fig:card_schem}
+\end{figure}
+
+The basic requirements for the card reader subsystem that ensure its proper operation are shown in Table \ref{tab:card_rv}.
 
 \begin{table}[!h]
 	\caption{Card Reader Subsystem Requirements and Verification}
@@ -382,7 +428,7 @@ Calculating jitter from phase noise is highly dependent on the quality of the os
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{image5.png}
+	\includegraphics[width=0.6\textwidth]{image4.png}
 	\caption{Phase Noise vs Frequency Offset for 100MHz Oscillation}
 	\label{fig:noise}
 \end{figure}
@@ -390,6 +436,9 @@ Calculating jitter from phase noise is highly dependent on the quality of the os
 \section{Cost and Schedule}
 
 \subsection{Cost Analysis}
+
+The typical graduate from ECE at Illinois typically makes around \$35/hour, so that is the hourly pay we will roll with. For 12 weeks at around 15 hours per week, with the 2.5x factor, we arrive at a total of \$15,750 per person. With three people in our group, the total employee cost is \$47,250. All necessary parts are included within Table \ref{tab:block_comps} and \ref{tab:block_comps_cont}. The communication subsystem will total up to \$33.15, the card reader subsystem will total up to \$17.50, and the display subsystem will total up to \$31.01. In total, the parts add up to \$81.66
+Total sum: $\$47,250+\$81.66 = \$47,331.66$.
 
 % table holds any purchasble parts and (if they serve as a block within the block diagram) the block label they correspond with
 \begin{table}[!h]
