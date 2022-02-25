@@ -99,9 +99,16 @@ This linear voltage regultor is a low-dropout linear regulator used to convert f
 \[ R_2 = R_1 (\frac{V_out}{1.216} - 1) = 17.14k\Omega.\]
 This value will not be acheivable with a single component so two $33k\Omega$ resistors are used in parallel along with a $2k\Omega$ potentiometer to allow for fine tuning of the output voltage to the desired value. Another reason for choosing the LDO is that once the battery voltage drops below 3.3V, the output voltage will simply follow the input voltage. This lower voltage is acceptable to all of the components requiring this power bus and as such is allowed for power usage. The battery management system then cuts the output off at 3.0V.
 
-The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. The chosen component
+The boost converter is a switching converter used to take the 3.0-3.7V input from the battery management system and produce a 9.6V output. The boost converter block is shown in Figure \ref{fig:boost_schem}. This boost converter requires a PWM signal to control a MOSFET which enables and disables current from the input to the output. The boost converter functions by storing power within the capacitor and inductor bank and transfering this power at a rate defined by the duty cycle of the PWM signal to the MOSFET. A small inductor value for this circuit leads to higher stability but greater current fluctations. A lower inductor value increases the efficiency with less stability. The chosen inductor is a midpoint of the suggestions proposed in \cite{boost}.
 
 The rechargeable battery will be a lithium ion battery. This is a popular rechargeable battery that tends to have a good energy and power density. More research will be needed on expected power draw to determine the battery capacity sizing. The lithium ion battery output will be connected to a battery management system. The battery management system (BMS) is used to monitor the status of the battery in terms of output voltage and current draw. This protects the battery from being over or undercharged and from being overdrawn by being able to cut power connections. This allows for a longer battery life and a safer device. The BMS is then connected to the voltage regulator. The voltage regulator ensures the voltage of the battery remains at a safe level for each component in the system.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{BatteryProtection-Schematic.png}
+	\caption{Power Subsystem Battery Protection Schematic}
+	\label{fig:prot_schem}
+\end{figure}
 
 \begin{figure}[!h]
 	\centering
@@ -382,7 +389,7 @@ Calculating jitter from phase noise is highly dependent on the quality of the os
  		8.2k Resistor & Panasonic ERJ-P06J822V & 3 & 0.39 \\
  		2k Potentiometer & Bourns 3361P-1-202GLF & 2 & 2.54 \\
  		180p Capacitor & KEMET C0805C181J3HAC7800 & 2 & 0.22 \\
- 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 5 & 0.50 \\
+ 		0.1$\mu$ Capacitor & Samsung CL21B104KACNNNC & 6 & 0.60 \\
  		10$\mu$ Capacitor & Samsung CL21A106KOQNNNE & 2 & 0.22 \\
  		Linear Voltage Regulator & TI LP3965ESX-ADJ/NOPB & 1 & 4.62 \\
  		68$\mu$ Capacitor & TDK C3216X5R0J686M160AB & 1 & 0.85 \\
@@ -391,7 +398,7 @@ Calculating jitter from phase noise is highly dependent on the quality of the os
  		10k Resistor & Panasonic ERJ-P06J103V & 3 & 0.39 \\
  		33k Resistor & Panasonic ERJ-P06J333V & 3 & 0.39 \\
  		Buck Gate Driver & Microchip MIC2169YMM & 1 & 2.52 \\
- 		N-MOS & Diodes DMG2302UQ-13 & 3 & 1.32 \\
+ 		N-MOS & Diodes DMG2302UQ-13 & 5 & 2.20 \\
  		3.3$\mu$ Inductor & Bourns SRP0610-3R3K & 1 & 1.09 \\
  		100$\mu$ Capacitor & Samsung CL32A107MPVNNNE & 1 & 1.14 \\
  		150$\mu$ Tantalum Capacitor & KEMET T491X157K020AT & 1 & 2.53 \\
@@ -404,6 +411,8 @@ Calculating jitter from phase noise is highly dependent on the quality of the os
  		4.7k Resistor & Panasonic ERJ-P06J472V & 1 & 0.13 \\
  		1k Potentiometer & Bourns 3361S-1-102GLF & 1 & 1.68 \\
  		Diode & Surge SL34A & 2 & 0.68 \\
+ 		100 Resistor & Panasonic ERJ-P06J101V & 1 & 0.13 \\
+ 		1k Resistor & Panasonic ERJ-P06J102V & 1 & 0.13 \\
  		\hline
 	\end{tabular}
 	}
