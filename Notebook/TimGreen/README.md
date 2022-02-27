@@ -127,3 +127,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 * 0.5C continuous discharge (1.5A)
 * 1C peak discharge (3A)
 * 3.7V output
+
+# 2/24/2022
+## Design Document
+* The design for the boost converter, buck converter, and voltage regulator are done by me. See the design document in the project files. See the data sheets in the resources.
