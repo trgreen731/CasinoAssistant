@@ -13159,7 +13159,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="CSP" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="0.1u"/>
 <part name="CZ" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="0.01u"/>
 <part name="C_OUT" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="10u"/>
-<part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-2X4" device="" package3d_urn="urn:adsk.eagle:package:22461/2"/>
+<part name="S-8337ABIA-T8T1U" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-2X4" device="" package3d_urn="urn:adsk.eagle:package:22461/2"/>
 <part name="D1" library="ngspice-simulation" library_urn="urn:adsk.eagle:library:527439" deviceset="DIODE" device=""/>
 <part name="M1" library="transistor-power" library_urn="urn:adsk.eagle:library:400" deviceset="N-MOSFET_SYMBOL" device=""/>
 <part name="L" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="L-US" device="L1812" package3d_urn="urn:adsk.eagle:package:23494/2" value="10u"/>
@@ -13208,8 +13208,8 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <attribute name="NAME" x="145.796" y="84.455" size="1.778" layer="95"/>
 <attribute name="VALUE" x="145.796" y="79.629" size="1.778" layer="96"/>
 </instance>
-<instance part="JP1" gate="A" x="63.5" y="91.44" smashed="yes">
-<attribute name="NAME" x="57.15" y="99.695" size="1.778" layer="95"/>
+<instance part="S-8337ABIA-T8T1U" gate="A" x="63.5" y="91.44" smashed="yes">
+<attribute name="NAME" x="54.61" y="99.695" size="1.778" layer="95"/>
 <attribute name="VALUE" x="57.15" y="83.82" size="1.778" layer="96"/>
 </instance>
 <instance part="D1" gate="G$1" x="60.96" y="109.22" smashed="yes">
@@ -13217,7 +13217,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <attribute name="VALUE" x="55.88" y="104.14" size="1.778" layer="96"/>
 </instance>
 <instance part="M1" gate="G$1" x="30.48" y="104.14" smashed="yes" rot="MR0">
-<attribute name="NAME" x="25.4" y="106.68" size="1.778" layer="95" rot="MR0"/>
+<attribute name="NAME" x="25.4" y="104.14" size="1.778" layer="95" rot="MR0"/>
 </instance>
 <instance part="L" gate="G$1" x="10.16" y="109.22" smashed="yes" rot="R90">
 <attribute name="NAME" x="15.24" y="107.95" size="1.778" layer="95" rot="R180"/>
@@ -13267,14 +13267,14 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <net name="N$6" class="0">
 <segment>
 <pinref part="CSP" gate="G$1" pin="1"/>
-<pinref part="JP1" gate="A" pin="5"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="5"/>
 <wire x1="50.8" y1="73.66" x2="50.8" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="50.8" y1="91.44" x2="60.96" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="JP1" gate="A" pin="8"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="8"/>
 <wire x1="68.58" y1="88.9" x2="78.74" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="88.9" x2="78.74" y2="101.6" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="101.6" x2="33.02" y2="101.6" width="0.1524" layer="91"/>
@@ -13296,7 +13296,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <segment>
 <pinref part="RZ" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="83.82" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
-<pinref part="JP1" gate="A" pin="1"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="1"/>
 <wire x1="40.64" y1="96.52" x2="60.96" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -13305,7 +13305,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <pinref part="RFB2" gate="G$1" pin="2"/>
 <pinref part="RFB1" gate="G$1" pin="1"/>
 <wire x1="127" y1="78.74" x2="127" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="JP1" gate="A" pin="3"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="3"/>
 <wire x1="127" y1="81.28" x2="127" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="60.96" y1="93.98" x2="55.88" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="93.98" x2="55.88" y2="81.28" width="0.1524" layer="91"/>
@@ -13321,7 +13321,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <segment>
 <pinref part="L" gate="G$1" pin="1"/>
 <wire x1="2.54" y1="109.22" x2="-2.54" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="JP1" gate="A" pin="7"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="7"/>
 <wire x1="60.96" y1="88.9" x2="-2.54" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="109.22" x2="-2.54" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="109.22" x2="-12.7" y2="109.22" width="0.1524" layer="91"/>
@@ -13335,7 +13335,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <net name="N$4" class="0">
 <segment>
 <pinref part="ROSC" gate="G$1" pin="2"/>
-<pinref part="JP1" gate="A" pin="4"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="4"/>
 <wire x1="91.44" y1="76.2" x2="91.44" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="93.98" x2="68.58" y2="93.98" width="0.1524" layer="91"/>
 </segment>
@@ -13343,7 +13343,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <net name="N$12" class="0">
 <segment>
 <pinref part="RDUTY" gate="G$1" pin="2"/>
-<pinref part="JP1" gate="A" pin="2"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="2"/>
 <wire x1="104.14" y1="76.2" x2="104.14" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="96.52" x2="68.58" y2="96.52" width="0.1524" layer="91"/>
 </segment>
@@ -13354,7 +13354,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <wire x1="104.14" y1="66.04" x2="104.14" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="ROSC" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="66.04" x2="91.44" y2="48.26" width="0.1524" layer="91"/>
-<pinref part="JP1" gate="A" pin="6"/>
+<pinref part="S-8337ABIA-T8T1U" gate="A" pin="6"/>
 <wire x1="68.58" y1="91.44" x2="76.2" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="91.44" x2="76.2" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="CSP" gate="G$1" pin="2"/>

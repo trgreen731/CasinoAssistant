@@ -137,45 +137,63 @@ The power subsystem has a set of basic requirements that ensure its proper opera
 	\caption{Power Subsystem Requirements and Verification}
 	\label{tab:p}
 	\centering
-	\begin{tabular}{| p{0.45\linewidth} | p{0.45\linewidth} |} 
+	{\small
+	\begin{tabular}{| p{0.45\linewidth} | p{0.45\linewidth} |}
  		\hline
  		\textbf{Requirements} & \textbf{Verification} \\ 
  		\hline
  		\begin{enumerate}
  			\item When the voltage of the lithium ion battery cell exceeds the overcharge protection voltage of 4.25V (within a tolerance of $\pm$0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit charging by turning off the charge control MOSFET. 
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item A
+ 			\item To verify the correction functionality of the overcharge battery protection circuit, we can replace the lithium ion battery cell with a ramp DC voltage source, starting from the nominal 3.7V battery voltage and slowly ``ramping up'' the voltage by 0.1V increments to the rated 4.25V overcharge protection voltage. During this test, we can probe the gate (voltage measurement), drain and source (current measurement) terminals using an oscilloscope to confirm that the charge control MOSFET enters the cutoff region, as intended. Further, we must also probe the load of this circuit and take a resistance measurement between the two output terminals to confirm there is a very high impedance (i.e. the load is disconnected from the circuitry).
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{1}
  			\item When the voltage of the lithium ion battery cell falls below the overdischarge protection voltage of 2.40V (within a tolerance of $\pm$0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit discharging by turning off the discharge control MOSFET.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item A
+ 			\item To verify the correction functionality of the overdischarge battery protection circuit, we can replace the lithium ion battery cell with a ramp DC voltage source, starting from the nominal 3.7V battery voltage and slowly ``ramping down'' the voltage by 0.1V increments to the rated 2.40V overdischarge protection voltage. During this test, we can probe the gate (voltage measurement), drain and source (current measurement) terminals using an oscilloscope to confirm that the discharge control MOSFET enters the cutoff region, as intended. Further, we must also probe the load of this circuit and take a resistance measurement between the two output terminals to confirm there is a very high impedance (i.e. the load is disconnected from the circuitry).
 		\end{enumerate} \\
+		\hline
+	\end{tabular}
+	}
+\end{table}
+
+\begin{table}[!h]
+	\caption{Power Subsystem Requirements and Verification Continued}
+	\label{tab:p_cont}
+	\centering
+	{\small
+	\begin{tabular}{| p{0.45\linewidth} | p{0.45\linewidth} |} 
+ 		\hline
+ 		\textbf{Requirements} & \textbf{Verification} \\ 
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{2}
- 			\item The voltage regulator circuit must be able to maintain a voltage within a safe operating range of 3.3V $\pm$ 0.1V (safe operating range for average CMOS device [1]). If the voltage falls below this range, the voltage regulator circuit must then match the lithium ion battery voltage of 3.7V. 
-		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item A
+ 			\item The voltage regulator circuit must be able to maintain a voltage within a safe operating range of 3.3V $\pm$ 0.1V (safe operating range for average CMOS device \cite{TI_inverter}). If the input voltage falls below this range, the voltage regulator circuit must then match (follow) the input voltage signal to the LDO regulator (< 3.3V). Otherwise, the LDO regulator must output a constant voltage 3.3V
+		\end{enumerate} & 
+			To verify the correction functionality of the voltage regulator circuit, we can, again, test the operation of the circuitry under various conditions, which are as follows: (1) variations in the input voltage signal, variations in the load conditions.
+			\begin{enumerate}[label=\alph*)]
+			\item Using a waveform generator, we can apply a step-wave that varies between 3V and 3.7V, with a DC offset of 3.3V. Then, we can simply probe the output voltage of the LDO regulator to confirm that when the input voltage signal falls below 3.3V, the output will follow the input voltage signal. Any voltage $\geq$ 3.3V, MUST output 3.3V. 
+			\item The MCU is rated to have a maximum current draw of 500mA. Therefore, while keeping the input voltage constant at 3.7V (output from the battery protection circuit), we can connect the LDO regulator to a load power supply and induce variable current draw (from 100mA to 500mA) and confirm that regardless of variations in current draw, the output voltage remains as intended.
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{3}
  			\item The boost converter circuit must step up the lithium ion battery voltage of 3.7V to a DC voltage of 9.6V ($\pm$ 0.2V) as to provide enough power to the LED backlighting of the LCD display.
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item A
+ 			\item To verify the correction functionality of the boost converter circuit, we can probe the VIN and VOUT terminals using 2 channels on an oscilloscope. Then, we can confirm that the input and output voltages are at the intended values of 3.7V and 9.6V, respectively.
 		\end{enumerate} \\
 		\hline
 		\begin{enumerate}
 		\setcounter{enumi}{4}
  			\item The buck converter circuit must step down the USB charging port DC voltage from 5V to 4.2V $\pm$ (0.1V).
 		\end{enumerate} & \begin{enumerate}[label=\alph*)]
- 			\item A
+ 			\item To verify the correction functionality of the buck converter circuit, we can probe the VIN and VOUT terminals using 2 channels on an oscilloscope. Then, we can confirm that the input and output voltages are at the intended values of 5V and 4.2V, respectively.
 		\end{enumerate} \\
 		\hline
 	\end{tabular}
+	}
 \end{table}
 
 \subsection{Communication Subsystem}
@@ -202,7 +220,14 @@ The MCU module is shared by other subsystems requiring embedded C code to functi
 
 The communication subsystem is included within the schematic shown in Figure \ref{fig:comm_schem}. The subsystem does not require an individual schematic as it is solely comprised of the MCU module and programming circuitry, and the MCU module is shared between multiple subsystems. The reset button shown is used to boot the device. A simple RC circuit with a time constant of $\tau = RC = 1ms$ is applied after the push button to provide debouncing and avoid multiple resets from a single press. The simulation of this reset button being pressed is shown below in Figure \ref{fig:reset_debounce}. The boot switch is a programming feature as this switch controls if the microcontroller downloads a program through the UART interface on boot (IO0 = low), or if the microcontroller uses the saved program from the flash memory for its instructions (IO0 = high). The boot control also relies on the IO2 pin being low on boot and has been connected to a pull-down resistor for this reason. Simple breakout pins will be included (as shown in the schematic) to connect to a UART interface for programming the microcontroller.
 
-The communication module requires significant software control. The firmware loaded to the MCU will have several main functions pertaining to the different subsystems. The communication functions include creating bluetooth packets and using the ESP32 API to send the packets to a connected device as well as checking for any received packets from a device.
+The communication module requires significant software control. The firmware loaded to the MCU will have several main functions pertaining to the different subsystems. The communication functions include creating bluetooth packets and using the ESP32 API to send the packets to a connected device as well as checking for any received packets from a device. The flow chart showing these operations is in Figure \ref{fig:MCU_flow}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{MCU_Flow.png}
+	\caption{MCU Firmware Flow Chart}
+	\label{fig:MCU_flow}
+\end{figure}
 
 The requirements and validation methods for the communication subsystem that ensure its proper operation are shown in Table \ref{tab:comms_rv} Notice that there are no requirements for latency. As this device is sending very low amounts of information (such as card IDs which can be transmitted in a single byte) and the actions are not time sensitive, latency is not included as a requirement. The throughput requirements are very low for Bluetooth standards. This is again to account for the low data transfer required and to give space in our firmware and hardware components in the case they are less efficient than state-of-the-art designs.
 
@@ -384,7 +409,14 @@ The phone app relies on the device having Bluetooth capabilities. Most modern de
 
 The app receives game data from the communications system through Bluetooth packets. The app then uses the information of the cards within the player's hand and all other cards showing on the board and uses to determine the strength of the users hand in relation to other possible hands in the current scenario. The strength measurement is calculated as the hand percentile indicating the percentage of currently possible hands against which the user's hand will win. The app displays this strength measurement to the user and will use it to suggest moves to the user. As a baseline, this suggestion will be implemented off a measurement threshold where higher strength measurements lead to more aggressive moves (betting) and lower measurements lead to less aggressive moves (folding). With enough time and successful work, the app could potentially use a deep network model to continue to provide better suggestions with more use.
 
-The app will also be able to provide control information to the central device. The phone app will set the game type and the number of players within the game. This information is important to the functionality of the display module to provide the correct actions of for the dealer/players. The phone app will also be able to reset the hand in the case of a dealing issue. 
+The app will also be able to provide control information to the central device. The phone app will set the game type and the number of players within the game. This information is important to the functionality of the display module to provide the correct actions of for the dealer/players. The phone app will also be able to reset the hand in the case of a dealing issue. The operations of the app are shown in the flow chart in Figure \ref{fig:app_flow}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{app_flow.png}
+	\caption{App Flow Chart}
+	\label{fig:app_flow}
+\end{figure}
 
 The basic requirements for the phone app subsystem that ensure its proper operation are shown in Table \ref{tab:app_rv}. As can be seen, the Bluetooth capabilities do not have the same strict requirements as specified in the communications subsystem. The phone hardware and bluetooth protocol are much more optimized than our custom built device leading to a much higher expected performance if viewed individually. Within our system, the central device will be the bottleneck for bluetooth communication rates and thus are only measured in the communications subsystem.
 
