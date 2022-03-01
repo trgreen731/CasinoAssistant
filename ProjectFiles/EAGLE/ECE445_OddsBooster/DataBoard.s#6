@@ -9458,7 +9458,7 @@ Source: &lt;a href= "http://www.hirose.co.jp/cataloge_hp/e58605370.pdf"&gt;Data 
 <wire x1="27.94" y1="83.82" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="83.82" x2="22.86" y2="83.82" width="0.1524" layer="91"/>
 <junction x="27.94" y="83.82"/>
-<label x="12.7" y="81.28" size="1.778" layer="95"/>
+<label x="12.7" y="83.82" size="1.778" layer="95"/>
 <pinref part="SUPPLY10" gate="G$1" pin="VCC"/>
 </segment>
 </net>
@@ -10068,18 +10068,25 @@ Source: &lt;a href= "http://www.hirose.co.jp/cataloge_hp/e58605370.pdf"&gt;Data 
 <label x="22.86" y="22.86" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="D7" class="0">
-<segment>
-<pinref part="U1" gate="G$1" pin="IO13"/>
-<wire x1="35.56" y1="12.7" x2="25.4" y2="12.7" width="0.1524" layer="91"/>
-<label x="22.86" y="12.7" size="1.778" layer="95"/>
-</segment>
-</net>
 <net name="D6" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="IO4"/>
 <wire x1="93.98" y1="27.94" x2="101.6" y2="27.94" width="0.1524" layer="91"/>
 <label x="99.06" y="27.94" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="D7" class="0">
+<segment>
+<pinref part="U1" gate="G$1" pin="IO15"/>
+<wire x1="93.98" y1="12.7" x2="101.6" y2="12.7" width="0.1524" layer="91"/>
+<label x="99.06" y="12.7" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="IRQ" class="0">
+<segment>
+<pinref part="U1" gate="G$1" pin="IO13"/>
+<wire x1="35.56" y1="12.7" x2="25.4" y2="12.7" width="0.1524" layer="91"/>
+<label x="22.86" y="12.7" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
