@@ -1,2 +1,6 @@
 # Dia Files
 *.dia~
+
+#Eagle Files
+*.s#*
+*.b#*
