@@ -9458,7 +9458,7 @@ Source: &lt;a href= "http://www.hirose.co.jp/cataloge_hp/e58605370.pdf"&gt;Data 
 <wire x1="27.94" y1="83.82" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="83.82" x2="22.86" y2="83.82" width="0.1524" layer="91"/>
 <junction x="27.94" y="83.82"/>
-<label x="12.7" y="81.28" size="1.778" layer="95"/>
+<label x="12.7" y="83.82" size="1.778" layer="95"/>
 <pinref part="SUPPLY10" gate="G$1" pin="VCC"/>
 </segment>
 </net>
