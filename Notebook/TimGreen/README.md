@@ -130,7 +130,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 
 # 2/24/2022
 ## Design Document
-* The design for the boost converter, buck converter, and voltage regulator are done by me. See the design document in the project files. See the data sheets in the resources for the reasoning behind component values. Additionally, see the notes here for some of the block sketches, design ideas, and equations used to design portions of the project and determine component values for circuit designs.
+* The design for the boost converter, buck converter, and voltage regulator are done by me. See the design document in the project files. See the data sheets in the resources for the reasoning behind component values. Additionally, see the notes [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/2-24-2022-DesignDocNotes.pdf) for some of the block sketches, design ideas, and equations used to design portions of the project and determine component values for circuit designs.
 
 # 3/1/2022
 ## Design Review
@@ -148,5 +148,9 @@ The following notes were received at the board review
 * Upload gerber files to PCBWay for a method of auditing
 The communications and display layout first draft I completed can be seen here.
 
+![comms display layout draft 1](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-1-2022-CommsDisplayLayout.PNG)
+
 # 3/7/2022
 The comms and display layout was adjusted to meet the new trace width requirements and the PCBWay DRC. The new layout can be seen here. Significant work was done on the creation of footprints for the other portions of the design (again, not my part) which can be seen in the Eagle library called OddsBooster. I will try to take a step back and not do my partners assigned work and be a little more firm with that now.
+
+![comms display layout draft 2](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-7-2022-CommsDisplayLayout.PNG)
