@@ -1,6 +1,6 @@
 # Dia Files
-*.dia~
+**/*.dia~
 
 #Eagle Files
-*.s#*
-*.b#*
+**/*.s#?
+**/*.b#?
