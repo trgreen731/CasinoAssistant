@@ -93,7 +93,7 @@ All found parts will be in the resources folder along with key points of the par
 * Other low pin number options was MIPI DSI but this protocol is not publicly available and has a large learning curve
 ## New Block Diagram (v5)
 This block diagram is updated with the new communications and display module ideas
-[Full Block v5](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v5.png)
+![Full Block v5](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v5.png)
 
 # 2/22/2022
 ## Design Document Check Presentation Notes
@@ -112,7 +112,7 @@ This block diagram is updated with the new communications and display module ide
 
 ## New Block Diagram (v6)
 This block diagram is adjusted to consider that the power system is going to be designed from scratch so our current and voltage measurements can communicate directly from the battery protection block to the MCU (no additional current measurement needed)
-[Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v6.png)
+![Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v6.png)
 
 # 2/23/2022
 ## Current Requirement Analysis
