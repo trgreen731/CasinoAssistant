@@ -130,4 +130,23 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 
 # 2/24/2022
 ## Design Document
-* The design for the boost converter, buck converter, and voltage regulator are done by me. See the design document in the project files. See the data sheets in the resources.
+* The design for the boost converter, buck converter, and voltage regulator are done by me. See the design document in the project files. See the data sheets in the resources for the reasoning behind component values. Additionally, see the notes here for some of the block sketches, design ideas, and equations used to design portions of the project and determine component values for circuit designs.
+
+# 3/1/2022
+## Design Review
+* Updated version of the Design Document has been included. Major changes provided by me include the block diagram for the MCU firmware and a better parts list for the communications, display, and power subsystems. The current version of the Design Document is available [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/OddsBoosterDesignDocument.pdf). The majority of the changes were made by my partners after they missed their requirements for the original design document deadline.
+
+## PCB Review
+The following notes were received at the board review
+* Make sure to add PCBWay DRC check
+* Remove component values from the silkscreen
+* Increase the spacing between components and traces
+* Make sure that data signals are at least 10 mil and power are at least 20 mil.
+	* According to https://www.4pcb.com/trace-width-calculator.html a trace of 20 mil can safely support 1.2A which meets the requirements for the communications and display portion
+	* The power portion may need to have larger traces, but that portion is not assigned to me.
+* Make sure to add test points throughout the layout
+* Upload gerber files to PCBWay for a method of auditing
+The communications and display layout first draft I completed can be seen here.
+
+# 3/7/2022
+The comms and display layout was adjusted to meet the new trace width requirements and the PCBWay DRC. The new layout can be seen here. Significant work was done on the creation of footprints for the other portions of the design (again, not my part) which can be seen in the Eagle library called OddsBooster. I will try to take a step back and not do my partners assigned work and be a little more firm with that now.
