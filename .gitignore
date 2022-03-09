@@ -1,0 +1,10 @@
+# Dia Files
+*.dia~
+
+#Eagle Backup Files
+*.s#?
+*.b#?
+*.l#?
+*.b$?
+*.s$?
+*.l$?
