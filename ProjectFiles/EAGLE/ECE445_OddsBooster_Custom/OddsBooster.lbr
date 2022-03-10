@@ -60,64 +60,6 @@
 </layers>
 <library>
 <packages>
-<package name="ESP32-WROVER-E">
-<smd name="1" x="0" y="0" dx="1.5" dy="0.9" layer="1"/>
-<smd name="2" x="0" y="-1.27" dx="1.5" dy="0.9" layer="1"/>
-<smd name="3" x="0" y="-2.54" dx="1.5" dy="0.9" layer="1"/>
-<smd name="4" x="0" y="-3.81" dx="1.5" dy="0.9" layer="1"/>
-<smd name="5" x="0" y="-5.08" dx="1.5" dy="0.9" layer="1"/>
-<smd name="6" x="0" y="-6.35" dx="1.5" dy="0.9" layer="1"/>
-<smd name="7" x="0" y="-7.62" dx="1.5" dy="0.9" layer="1"/>
-<smd name="8" x="0" y="-8.89" dx="1.5" dy="0.9" layer="1"/>
-<smd name="9" x="0" y="-10.16" dx="1.5" dy="0.9" layer="1"/>
-<smd name="10" x="0" y="-11.43" dx="1.5" dy="0.9" layer="1"/>
-<smd name="11" x="0" y="-12.7" dx="1.5" dy="0.9" layer="1"/>
-<smd name="12" x="0" y="-13.97" dx="1.5" dy="0.9" layer="1"/>
-<smd name="13" x="0" y="-15.24" dx="1.5" dy="0.9" layer="1"/>
-<smd name="14" x="0" y="-16.51" dx="1.5" dy="0.9" layer="1"/>
-<smd name="15" x="0" y="-17.78" dx="1.5" dy="0.9" layer="1"/>
-<smd name="16" x="0" y="-19.05" dx="1.5" dy="0.9" layer="1"/>
-<smd name="17" x="0" y="-20.32" dx="1.5" dy="0.9" layer="1"/>
-<smd name="18" x="0" y="-21.59" dx="1.5" dy="0.9" layer="1"/>
-<smd name="19" x="0" y="-22.86" dx="1.5" dy="0.9" layer="1"/>
-<smd name="40" x="5.85" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
-<smd name="41" x="7.25" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
-<smd name="42" x="8.65" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
-<smd name="43" x="5.85" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
-<smd name="39" x="7.25" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
-<smd name="44" x="8.65" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
-<smd name="45" x="5.85" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
-<smd name="46" x="7.25" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
-<smd name="47" x="8.65" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
-<smd name="38" x="17.5" y="0" dx="1.5" dy="0.9" layer="1"/>
-<smd name="37" x="17.5" y="-1.27" dx="1.5" dy="0.9" layer="1"/>
-<smd name="36" x="17.5" y="-2.54" dx="1.5" dy="0.9" layer="1"/>
-<smd name="35" x="17.5" y="-3.81" dx="1.5" dy="0.9" layer="1"/>
-<smd name="34" x="17.5" y="-5.08" dx="1.5" dy="0.9" layer="1"/>
-<smd name="33" x="17.5" y="-6.35" dx="1.5" dy="0.9" layer="1"/>
-<smd name="32" x="17.5" y="-7.62" dx="1.5" dy="0.9" layer="1"/>
-<smd name="31" x="17.5" y="-8.89" dx="1.5" dy="0.9" layer="1"/>
-<smd name="30" x="17.5" y="-10.16" dx="1.5" dy="0.9" layer="1"/>
-<smd name="29" x="17.5" y="-11.43" dx="1.5" dy="0.9" layer="1"/>
-<smd name="28" x="17.5" y="-12.7" dx="1.5" dy="0.9" layer="1"/>
-<smd name="27" x="17.5" y="-13.97" dx="1.5" dy="0.9" layer="1"/>
-<smd name="26" x="17.5" y="-15.24" dx="1.5" dy="0.9" layer="1"/>
-<smd name="25" x="17.5" y="-16.51" dx="1.5" dy="0.9" layer="1"/>
-<smd name="24" x="17.5" y="-17.78" dx="1.5" dy="0.9" layer="1"/>
-<smd name="23" x="17.5" y="-19.05" dx="1.5" dy="0.9" layer="1"/>
-<smd name="22" x="17.5" y="-20.32" dx="1.5" dy="0.9" layer="1"/>
-<smd name="21" x="17.5" y="-21.59" dx="1.5" dy="0.9" layer="1"/>
-<smd name="20" x="17.5" y="-22.86" dx="1.5" dy="0.9" layer="1"/>
-<circle x="-0.6" y="-0.3" radius="0.114015625" width="0" layer="21"/>
-<wire x1="-0.25" y1="-23.96" x2="17.75" y2="-23.96" width="0.127" layer="51"/>
-<wire x1="-0.25" y1="-23.38" x2="-0.25" y2="-23.96" width="0.127" layer="21"/>
-<wire x1="17.75" y1="-23.96" x2="17.75" y2="-23.38" width="0.127" layer="21"/>
-<text x="0.14" y="2.172" size="1.27" layer="25">&gt;NAME</text>
-<text x="0.4" y="-25.49" size="1.27" layer="27">&gt;VALUE</text>
-<wire x1="-0.254" y1="0.635" x2="-0.254" y2="1.143" width="0.1524" layer="21"/>
-<wire x1="-0.254" y1="1.143" x2="17.78" y2="1.143" width="0.1524" layer="21"/>
-<wire x1="17.78" y1="1.143" x2="17.78" y2="0.635" width="0.1524" layer="21"/>
-</package>
 <package name="C&amp;K-JS202011SCQN-SWITCH">
 <smd name="P$1" x="0" y="5.5" dx="1.2" dy="2.5" layer="1"/>
 <smd name="P$2" x="2.5" y="5.5" dx="1.2" dy="2.5" layer="1"/>
@@ -323,55 +265,76 @@
 <text x="-1.651" y="2.032" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.905" y="-3.429" size="1.27" layer="25">&gt;VALUE</text>
 </package>
+<package name="865080640004-ELECTROLYTIC-CAP">
+<smd name="1+" x="0" y="0" dx="2.6" dy="1.6" layer="1"/>
+<smd name="2-" x="3.6" y="0" dx="2.6" dy="1.6" layer="1"/>
+</package>
+<package name="CFPX-180-XTAL-OSCILLATOR">
+<smd name="1" x="0" y="0" dx="1.4" dy="1.15" layer="1"/>
+<smd name="2" x="2.2" y="0" dx="1.4" dy="1.15" layer="1"/>
+<smd name="3" x="2.2" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
+<smd name="4" x="0" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
+</package>
+<package name="ESP32-WROVER-E">
+<smd name="1" x="0" y="0" dx="1.5" dy="0.9" layer="1"/>
+<smd name="2" x="0" y="-1.27" dx="1.5" dy="0.9" layer="1"/>
+<smd name="3" x="0" y="-2.54" dx="1.5" dy="0.9" layer="1"/>
+<smd name="4" x="0" y="-3.81" dx="1.5" dy="0.9" layer="1"/>
+<smd name="5" x="0" y="-5.08" dx="1.5" dy="0.9" layer="1"/>
+<smd name="6" x="0" y="-6.35" dx="1.5" dy="0.9" layer="1"/>
+<smd name="7" x="0" y="-7.62" dx="1.5" dy="0.9" layer="1"/>
+<smd name="8" x="0" y="-8.89" dx="1.5" dy="0.9" layer="1"/>
+<smd name="9" x="0" y="-10.16" dx="1.5" dy="0.9" layer="1"/>
+<smd name="10" x="0" y="-11.43" dx="1.5" dy="0.9" layer="1"/>
+<smd name="11" x="0" y="-12.7" dx="1.5" dy="0.9" layer="1"/>
+<smd name="12" x="0" y="-13.97" dx="1.5" dy="0.9" layer="1"/>
+<smd name="13" x="0" y="-15.24" dx="1.5" dy="0.9" layer="1"/>
+<smd name="14" x="0" y="-16.51" dx="1.5" dy="0.9" layer="1"/>
+<smd name="15" x="0" y="-17.78" dx="1.5" dy="0.9" layer="1"/>
+<smd name="16" x="0" y="-19.05" dx="1.5" dy="0.9" layer="1"/>
+<smd name="17" x="0" y="-20.32" dx="1.5" dy="0.9" layer="1"/>
+<smd name="18" x="0" y="-21.59" dx="1.5" dy="0.9" layer="1"/>
+<smd name="19" x="0" y="-22.86" dx="1.5" dy="0.9" layer="1"/>
+<smd name="40" x="5.85" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
+<smd name="41" x="7.25" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
+<smd name="42" x="8.65" y="-6.4" dx="0.9" dy="0.9" layer="1"/>
+<smd name="43" x="5.85" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
+<smd name="39" x="7.25" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
+<smd name="44" x="8.65" y="-7.8" dx="0.9" dy="0.9" layer="1"/>
+<smd name="45" x="5.85" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
+<smd name="46" x="7.25" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
+<smd name="47" x="8.65" y="-9.2" dx="0.9" dy="0.9" layer="1"/>
+<smd name="38" x="17.5" y="0" dx="1.5" dy="0.9" layer="1"/>
+<smd name="37" x="17.5" y="-1.27" dx="1.5" dy="0.9" layer="1"/>
+<smd name="36" x="17.5" y="-2.54" dx="1.5" dy="0.9" layer="1"/>
+<smd name="35" x="17.5" y="-3.81" dx="1.5" dy="0.9" layer="1"/>
+<smd name="34" x="17.5" y="-5.08" dx="1.5" dy="0.9" layer="1"/>
+<smd name="33" x="17.5" y="-6.35" dx="1.5" dy="0.9" layer="1"/>
+<smd name="32" x="17.5" y="-7.62" dx="1.5" dy="0.9" layer="1"/>
+<smd name="31" x="17.5" y="-8.89" dx="1.5" dy="0.9" layer="1"/>
+<smd name="30" x="17.5" y="-10.16" dx="1.5" dy="0.9" layer="1"/>
+<smd name="29" x="17.5" y="-11.43" dx="1.5" dy="0.9" layer="1"/>
+<smd name="28" x="17.5" y="-12.7" dx="1.5" dy="0.9" layer="1"/>
+<smd name="27" x="17.5" y="-13.97" dx="1.5" dy="0.9" layer="1"/>
+<smd name="26" x="17.5" y="-15.24" dx="1.5" dy="0.9" layer="1"/>
+<smd name="25" x="17.5" y="-16.51" dx="1.5" dy="0.9" layer="1"/>
+<smd name="24" x="17.5" y="-17.78" dx="1.5" dy="0.9" layer="1"/>
+<smd name="23" x="17.5" y="-19.05" dx="1.5" dy="0.9" layer="1"/>
+<smd name="22" x="17.5" y="-20.32" dx="1.5" dy="0.9" layer="1"/>
+<smd name="21" x="17.5" y="-21.59" dx="1.5" dy="0.9" layer="1"/>
+<smd name="20" x="17.5" y="-22.86" dx="1.5" dy="0.9" layer="1"/>
+<circle x="-0.6" y="-0.3" radius="0.114015625" width="0" layer="21"/>
+<wire x1="-0.25" y1="-23.96" x2="17.75" y2="-23.96" width="0.127" layer="51"/>
+<wire x1="-0.25" y1="-23.38" x2="-0.25" y2="-23.96" width="0.127" layer="21"/>
+<wire x1="17.75" y1="-23.96" x2="17.75" y2="-23.38" width="0.127" layer="21"/>
+<text x="0.14" y="2.172" size="1.27" layer="25">&gt;NAME</text>
+<text x="0.4" y="-25.49" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="-0.254" y1="0.635" x2="-0.254" y2="1.143" width="0.1524" layer="21"/>
+<wire x1="-0.254" y1="1.143" x2="17.78" y2="1.143" width="0.1524" layer="21"/>
+<wire x1="17.78" y1="1.143" x2="17.78" y2="0.635" width="0.1524" layer="21"/>
+</package>
 </packages>
 <symbols>
-<symbol name="ESP32-WROVER-E">
-<pin name="GND1" x="-30.48" y="40.64" length="middle" direction="pwr"/>
-<pin name="3V3" x="-30.48" y="35.56" length="middle" direction="pwr"/>
-<pin name="EN" x="-30.48" y="30.48" length="middle" direction="in"/>
-<pin name="SENSOR_VP" x="-30.48" y="25.4" length="middle" direction="in"/>
-<pin name="SENSOR_VN" x="-30.48" y="20.32" length="middle" direction="in"/>
-<pin name="IO34" x="-30.48" y="15.24" length="middle" direction="in"/>
-<pin name="IO35" x="-30.48" y="10.16" length="middle" direction="in"/>
-<pin name="IO32" x="-30.48" y="5.08" length="middle"/>
-<pin name="IO33" x="-30.48" y="0" length="middle"/>
-<pin name="IO25" x="-30.48" y="-5.08" length="middle"/>
-<pin name="IO26" x="-30.48" y="-10.16" length="middle"/>
-<pin name="IO27" x="-30.48" y="-15.24" length="middle"/>
-<pin name="IO14" x="-30.48" y="-20.32" length="middle"/>
-<pin name="IO12" x="-30.48" y="-25.4" length="middle"/>
-<pin name="GND15" x="-30.48" y="-30.48" length="middle" direction="pwr"/>
-<pin name="IO13" x="-30.48" y="-35.56" length="middle"/>
-<pin name="NC17" x="-30.48" y="-40.64" length="middle" direction="nc"/>
-<pin name="NC18" x="-30.48" y="-45.72" length="middle" direction="nc"/>
-<pin name="NC19" x="-30.48" y="-50.8" length="middle" direction="nc"/>
-<pin name="NC20" x="27.94" y="-50.8" length="middle" direction="nc" rot="R180"/>
-<pin name="NC21" x="27.94" y="-45.72" length="middle" direction="nc" rot="R180"/>
-<pin name="NC22" x="27.94" y="-40.64" length="middle" direction="nc" rot="R180"/>
-<pin name="IO15" x="27.94" y="-35.56" length="middle" rot="R180"/>
-<pin name="IO2" x="27.94" y="-30.48" length="middle" rot="R180"/>
-<pin name="IO0" x="27.94" y="-25.4" length="middle" rot="R180"/>
-<pin name="IO4" x="27.94" y="-20.32" length="middle" rot="R180"/>
-<pin name="NC27" x="27.94" y="-15.24" length="middle" direction="nc" rot="R180"/>
-<pin name="NC28" x="27.94" y="-10.16" length="middle" direction="nc" rot="R180"/>
-<pin name="IO5" x="27.94" y="-5.08" length="middle" rot="R180"/>
-<pin name="IO18" x="27.94" y="0" length="middle" rot="R180"/>
-<pin name="IO19" x="27.94" y="5.08" length="middle" rot="R180"/>
-<pin name="NC32" x="27.94" y="10.16" length="middle" direction="nc" rot="R180"/>
-<pin name="IO21" x="27.94" y="15.24" length="middle" rot="R180"/>
-<pin name="RXD0" x="27.94" y="20.32" length="middle" rot="R180"/>
-<pin name="TXD0" x="27.94" y="25.4" length="middle" rot="R180"/>
-<pin name="IO22" x="27.94" y="30.48" length="middle" rot="R180"/>
-<pin name="IO23" x="27.94" y="35.56" length="middle" rot="R180"/>
-<pin name="GND38" x="27.94" y="40.64" length="middle" direction="pwr" rot="R180"/>
-<pin name="GND39" x="0" y="-60.96" length="middle" direction="pwr" rot="R90"/>
-<wire x1="-25.4" y1="-55.88" x2="22.86" y2="-55.88" width="0.254" layer="94"/>
-<wire x1="22.86" y1="-55.88" x2="22.86" y2="43.18" width="0.254" layer="94"/>
-<wire x1="22.86" y1="43.18" x2="-25.4" y2="43.18" width="0.254" layer="94"/>
-<wire x1="-25.4" y1="43.18" x2="-25.4" y2="-55.88" width="0.254" layer="94"/>
-<text x="-25.4" y="45.72" size="1.778" layer="95">&gt;Name</text>
-<text x="2.54" y="45.72" size="1.778" layer="96">&gt;Value</text>
-</symbol>
 <symbol name="C&amp;K-JS202011SCQN-SWITCH">
 <pin name="1H" x="-10.16" y="27.94" length="middle" rot="R270"/>
 <pin name="0H" x="0" y="27.94" length="middle" rot="R270"/>
@@ -613,62 +576,103 @@
 <wire x1="-8.636" y1="10.16" x2="-8.636" y2="8.636" width="0.254" layer="94"/>
 <wire x1="-9.652" y1="9.398" x2="-7.62" y2="9.398" width="0.254" layer="94"/>
 </symbol>
+<symbol name="865080640004-ELECTROLYTIC-CAP">
+<rectangle x1="-2.032" y1="0.508" x2="2.032" y2="1.016" layer="94"/>
+<rectangle x1="-2.032" y1="1.524" x2="2.032" y2="2.032" layer="94"/>
+<wire x1="0" y1="2.54" x2="0" y2="2.032" width="0.1524" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="0.508" width="0.1524" layer="94"/>
+<pin name="1" x="0" y="5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R270"/>
+<pin name="2" x="0" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
+<text x="2.54" y="5.08" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="2.54" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.54" y="2.54" size="1.27" layer="95">+</text>
+<text x="-2.54" y="0" size="1.27" layer="95">-</text>
+</symbol>
+<symbol name="CFPX-180-XTAL-OSCILLATOR">
+<wire x1="1.016" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="0" x2="-1.016" y2="0" width="0.1524" layer="94"/>
+<wire x1="-0.381" y1="1.524" x2="-0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="-0.381" y1="-1.524" x2="0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="-1.524" x2="0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="1.524" x2="-0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="1.016" y1="1.778" x2="1.016" y2="-1.778" width="0.254" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="-1.778" width="0.254" layer="94"/>
+<text x="2.54" y="1.016" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.159" y="-1.143" size="0.8636" layer="93">1</text>
+<text x="1.524" y="-1.143" size="0.8636" layer="93">2</text>
+<pin name="2" x="2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="1" x="-2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1"/>
+</symbol>
+<symbol name="W3102-ANTENNA-1">
+<wire x1="-2.54" y1="5.08" x2="0" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="5.08" x2="0" y2="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="0" y2="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="2.54" y2="5.08" width="0.254" layer="94"/>
+<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="0" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="1" x="0" y="0" visible="off" length="short" direction="out" rot="R90"/>
+<wire x1="0" y1="2.54" x2="-2.54" y2="2.54" width="0.254" layer="94"/>
+<pin name="P$1" x="-2.54" y="-2.54" length="middle" direction="out" rot="R90"/>
+</symbol>
+<symbol name="ESP32-WROVER-E">
+<pin name="GND1" x="-30.48" y="40.64" length="middle" direction="pwr"/>
+<pin name="3V3" x="-30.48" y="35.56" length="middle" direction="pwr"/>
+<pin name="EN" x="-30.48" y="30.48" length="middle" direction="in"/>
+<pin name="SENSOR_VP" x="-30.48" y="25.4" length="middle" direction="in"/>
+<pin name="SENSOR_VN" x="-30.48" y="20.32" length="middle" direction="in"/>
+<pin name="IO34" x="-30.48" y="15.24" length="middle" direction="in"/>
+<pin name="IO35" x="-30.48" y="10.16" length="middle" direction="in"/>
+<pin name="IO32" x="-30.48" y="5.08" length="middle"/>
+<pin name="IO33" x="-30.48" y="0" length="middle"/>
+<pin name="IO25" x="-30.48" y="-5.08" length="middle"/>
+<pin name="IO26" x="-30.48" y="-10.16" length="middle"/>
+<pin name="IO27" x="-30.48" y="-15.24" length="middle"/>
+<pin name="IO14" x="-30.48" y="-20.32" length="middle"/>
+<pin name="IO12" x="-30.48" y="-25.4" length="middle"/>
+<pin name="GND15" x="-30.48" y="-30.48" length="middle" direction="pwr"/>
+<pin name="IO13" x="-30.48" y="-35.56" length="middle"/>
+<pin name="NC17" x="-30.48" y="-40.64" length="middle" direction="nc"/>
+<pin name="NC18" x="-30.48" y="-45.72" length="middle" direction="nc"/>
+<pin name="NC19" x="-30.48" y="-50.8" length="middle" direction="nc"/>
+<pin name="NC20" x="27.94" y="-50.8" length="middle" direction="nc" rot="R180"/>
+<pin name="NC21" x="27.94" y="-45.72" length="middle" direction="nc" rot="R180"/>
+<pin name="NC22" x="27.94" y="-40.64" length="middle" direction="nc" rot="R180"/>
+<pin name="IO15" x="27.94" y="-35.56" length="middle" rot="R180"/>
+<pin name="IO2" x="27.94" y="-30.48" length="middle" rot="R180"/>
+<pin name="IO0" x="27.94" y="-25.4" length="middle" rot="R180"/>
+<pin name="IO4" x="27.94" y="-20.32" length="middle" rot="R180"/>
+<pin name="NC27" x="27.94" y="-15.24" length="middle" direction="nc" rot="R180"/>
+<pin name="NC28" x="27.94" y="-10.16" length="middle" direction="nc" rot="R180"/>
+<pin name="IO5" x="27.94" y="-5.08" length="middle" rot="R180"/>
+<pin name="IO18" x="27.94" y="0" length="middle" rot="R180"/>
+<pin name="IO19" x="27.94" y="5.08" length="middle" rot="R180"/>
+<pin name="NC32" x="27.94" y="10.16" length="middle" direction="nc" rot="R180"/>
+<pin name="IO21" x="27.94" y="15.24" length="middle" rot="R180"/>
+<pin name="RXD0" x="27.94" y="20.32" length="middle" rot="R180"/>
+<pin name="TXD0" x="27.94" y="25.4" length="middle" rot="R180"/>
+<pin name="IO22" x="27.94" y="30.48" length="middle" rot="R180"/>
+<pin name="IO23" x="27.94" y="35.56" length="middle" rot="R180"/>
+<pin name="GND38" x="27.94" y="40.64" length="middle" direction="pwr" rot="R180"/>
+<pin name="GND43" x="0" y="-60.96" length="middle" direction="pwr" rot="R90"/>
+<wire x1="-25.4" y1="-55.88" x2="22.86" y2="-55.88" width="0.254" layer="94"/>
+<wire x1="22.86" y1="-55.88" x2="22.86" y2="43.18" width="0.254" layer="94"/>
+<wire x1="22.86" y1="43.18" x2="-25.4" y2="43.18" width="0.254" layer="94"/>
+<wire x1="-25.4" y1="43.18" x2="-25.4" y2="-55.88" width="0.254" layer="94"/>
+<text x="-25.4" y="45.72" size="1.778" layer="95">&gt;Name</text>
+<text x="2.54" y="45.72" size="1.778" layer="96">&gt;Value</text>
+<pin name="GND44" x="2.54" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND45" x="5.08" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND46" x="7.62" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND47" x="10.16" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND42" x="-2.54" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND41" x="-5.08" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND40" x="-7.62" y="-60.96" length="middle" rot="R90"/>
+<pin name="GND39" x="-10.16" y="-60.96" length="middle" rot="R90"/>
+</symbol>
 </symbols>
 <devicesets>
-<deviceset name="ESP32-WROVER-E" prefix="U" uservalue="yes">
-<description>ESP32-WROVER-E Module used for Bluetooth and Wifi commmunications. Includes Transceiver IC, MCU, Antenna, and Xtal Oscillators.</description>
-<gates>
-<gate name="G$1" symbol="ESP32-WROVER-E" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="ESP32-WROVER-E">
-<connects>
-<connect gate="G$1" pin="3V3" pad="2"/>
-<connect gate="G$1" pin="EN" pad="3"/>
-<connect gate="G$1" pin="GND1" pad="1"/>
-<connect gate="G$1" pin="GND15" pad="15"/>
-<connect gate="G$1" pin="GND38" pad="38"/>
-<connect gate="G$1" pin="GND39" pad="39"/>
-<connect gate="G$1" pin="IO0" pad="25"/>
-<connect gate="G$1" pin="IO12" pad="14"/>
-<connect gate="G$1" pin="IO13" pad="16"/>
-<connect gate="G$1" pin="IO14" pad="13"/>
-<connect gate="G$1" pin="IO15" pad="23"/>
-<connect gate="G$1" pin="IO18" pad="30"/>
-<connect gate="G$1" pin="IO19" pad="31"/>
-<connect gate="G$1" pin="IO2" pad="24"/>
-<connect gate="G$1" pin="IO21" pad="33"/>
-<connect gate="G$1" pin="IO22" pad="36"/>
-<connect gate="G$1" pin="IO23" pad="37"/>
-<connect gate="G$1" pin="IO25" pad="10"/>
-<connect gate="G$1" pin="IO26" pad="11"/>
-<connect gate="G$1" pin="IO27" pad="12"/>
-<connect gate="G$1" pin="IO32" pad="8"/>
-<connect gate="G$1" pin="IO33" pad="9"/>
-<connect gate="G$1" pin="IO34" pad="6"/>
-<connect gate="G$1" pin="IO35" pad="7"/>
-<connect gate="G$1" pin="IO4" pad="26"/>
-<connect gate="G$1" pin="IO5" pad="29"/>
-<connect gate="G$1" pin="NC17" pad="17"/>
-<connect gate="G$1" pin="NC18" pad="18"/>
-<connect gate="G$1" pin="NC19" pad="19"/>
-<connect gate="G$1" pin="NC20" pad="20"/>
-<connect gate="G$1" pin="NC21" pad="21"/>
-<connect gate="G$1" pin="NC22" pad="22"/>
-<connect gate="G$1" pin="NC27" pad="27"/>
-<connect gate="G$1" pin="NC28" pad="28"/>
-<connect gate="G$1" pin="NC32" pad="32"/>
-<connect gate="G$1" pin="RXD0" pad="34"/>
-<connect gate="G$1" pin="SENSOR_VN" pad="5"/>
-<connect gate="G$1" pin="SENSOR_VP" pad="4"/>
-<connect gate="G$1" pin="TXD0" pad="35"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="C&amp;K-JS202011SCQN-SWITCH" prefix="S">
 <gates>
 <gate name="G$1" symbol="C&amp;K-JS202011SCQN-SWITCH" x="-10.16" y="-10.16"/>
@@ -893,18 +897,6 @@
 </device>
 </devices>
 </deviceset>
-<deviceset name="W3102-ANTENNA" prefix="AE">
-<gates>
-<gate name="G$1" symbol="W3102-ANTENNA" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="W3102-ANTENNA">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="SRP0415-BOURNS-100K-10U" prefix="L">
 <gates>
 <gate name="G$1" symbol="SRP0415-BOURNS-100K-10U" x="12.7" y="-10.16"/>
@@ -979,6 +971,116 @@
 <connects>
 <connect gate="G$1" pin="P$1" pad="P$1"/>
 <connect gate="G$1" pin="P$2" pad="P$2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="865080640004-ELECTROLYTIC-CAP" prefix="C">
+<gates>
+<gate name="G$1" symbol="865080640004-ELECTROLYTIC-CAP" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="865080640004-ELECTROLYTIC-CAP">
+<connects>
+<connect gate="G$1" pin="1" pad="1+"/>
+<connect gate="G$1" pin="2" pad="2-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="CFPX-180-XTAL-OSCILLATOR" prefix="X">
+<gates>
+<gate name="G$1" symbol="CFPX-180-XTAL-OSCILLATOR" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="CFPX-180-XTAL-OSCILLATOR">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="W3102-ANTENNA" prefix="AE">
+<gates>
+<gate name="G$1" symbol="W3102-ANTENNA-1" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="W3102-ANTENNA">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="P$1" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="ESP32-WROVER-E" prefix="U" uservalue="yes">
+<description>ESP32-WROVER-E Module used for Bluetooth and Wifi commmunications. Includes Transceiver IC, MCU, Antenna, and Xtal Oscillators.</description>
+<gates>
+<gate name="G$1" symbol="ESP32-WROVER-E" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="ESP32-WROVER-E">
+<connects>
+<connect gate="G$1" pin="3V3" pad="2"/>
+<connect gate="G$1" pin="EN" pad="3"/>
+<connect gate="G$1" pin="GND1" pad="1"/>
+<connect gate="G$1" pin="GND15" pad="15"/>
+<connect gate="G$1" pin="GND38" pad="38"/>
+<connect gate="G$1" pin="GND39" pad="39"/>
+<connect gate="G$1" pin="GND40" pad="40"/>
+<connect gate="G$1" pin="GND41" pad="41"/>
+<connect gate="G$1" pin="GND42" pad="42"/>
+<connect gate="G$1" pin="GND43" pad="43"/>
+<connect gate="G$1" pin="GND44" pad="44"/>
+<connect gate="G$1" pin="GND45" pad="45"/>
+<connect gate="G$1" pin="GND46" pad="46"/>
+<connect gate="G$1" pin="GND47" pad="47"/>
+<connect gate="G$1" pin="IO0" pad="25"/>
+<connect gate="G$1" pin="IO12" pad="14"/>
+<connect gate="G$1" pin="IO13" pad="16"/>
+<connect gate="G$1" pin="IO14" pad="13"/>
+<connect gate="G$1" pin="IO15" pad="23"/>
+<connect gate="G$1" pin="IO18" pad="30"/>
+<connect gate="G$1" pin="IO19" pad="31"/>
+<connect gate="G$1" pin="IO2" pad="24"/>
+<connect gate="G$1" pin="IO21" pad="33"/>
+<connect gate="G$1" pin="IO22" pad="36"/>
+<connect gate="G$1" pin="IO23" pad="37"/>
+<connect gate="G$1" pin="IO25" pad="10"/>
+<connect gate="G$1" pin="IO26" pad="11"/>
+<connect gate="G$1" pin="IO27" pad="12"/>
+<connect gate="G$1" pin="IO32" pad="8"/>
+<connect gate="G$1" pin="IO33" pad="9"/>
+<connect gate="G$1" pin="IO34" pad="6"/>
+<connect gate="G$1" pin="IO35" pad="7"/>
+<connect gate="G$1" pin="IO4" pad="26"/>
+<connect gate="G$1" pin="IO5" pad="29"/>
+<connect gate="G$1" pin="NC17" pad="17"/>
+<connect gate="G$1" pin="NC18" pad="18"/>
+<connect gate="G$1" pin="NC19" pad="19"/>
+<connect gate="G$1" pin="NC20" pad="20"/>
+<connect gate="G$1" pin="NC21" pad="21"/>
+<connect gate="G$1" pin="NC22" pad="22"/>
+<connect gate="G$1" pin="NC27" pad="27"/>
+<connect gate="G$1" pin="NC28" pad="28"/>
+<connect gate="G$1" pin="NC32" pad="32"/>
+<connect gate="G$1" pin="RXD0" pad="34"/>
+<connect gate="G$1" pin="SENSOR_VN" pad="5"/>
+<connect gate="G$1" pin="SENSOR_VP" pad="4"/>
+<connect gate="G$1" pin="TXD0" pad="35"/>
 </connects>
 <technologies>
 <technology name=""/>
