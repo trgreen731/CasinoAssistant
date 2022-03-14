@@ -8686,6 +8686,20 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <text x="-1.651" y="2.032" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.905" y="-3.429" size="1.27" layer="25">&gt;VALUE</text>
 </package>
+<package name="CFPX-180-XTAL-OSCILLATOR">
+<smd name="1" x="0" y="0" dx="1.4" dy="1.15" layer="1"/>
+<smd name="2" x="2.2" y="0" dx="1.4" dy="1.15" layer="1"/>
+<smd name="3" x="2.2" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
+<smd name="4" x="0" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
+<text x="-1.27" y="1.27" size="0.6096" layer="25">&gt;NAME</text>
+<text x="-1.27" y="-3.81" size="0.6096" layer="27">&gt;VALUE</text>
+</package>
+<package name="865080640004-ELECTROLYTIC-CAP">
+<smd name="1+" x="0" y="0" dx="2.6" dy="1.6" layer="1"/>
+<smd name="2-" x="3.6" y="0" dx="2.6" dy="1.6" layer="1"/>
+<text x="-1.27" y="1.27" size="0.8128" layer="25">&gt;NAME</text>
+<text x="-1.27" y="-2.54" size="0.8128" layer="27">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="C&amp;K-JS202011SCQN-SWITCH">
@@ -8978,6 +8992,34 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <text x="-12.7" y="-7.62" size="1.27" layer="95">&gt;VALUE</text>
 <wire x1="-8.636" y1="10.16" x2="-8.636" y2="8.636" width="0.254" layer="94"/>
 <wire x1="-9.652" y1="9.398" x2="-7.62" y2="9.398" width="0.254" layer="94"/>
+</symbol>
+<symbol name="CFPX-180-XTAL-OSCILLATOR">
+<wire x1="1.016" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="0" x2="-1.016" y2="0" width="0.1524" layer="94"/>
+<wire x1="-0.381" y1="1.524" x2="-0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="-0.381" y1="-1.524" x2="0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="-1.524" x2="0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="1.524" x2="-0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="1.016" y1="1.778" x2="1.016" y2="-1.778" width="0.254" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="-1.778" width="0.254" layer="94"/>
+<text x="2.54" y="1.016" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.159" y="-1.143" size="0.8636" layer="93">1</text>
+<text x="1.524" y="-1.143" size="0.8636" layer="93">2</text>
+<pin name="2" x="2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="1" x="-2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1"/>
+</symbol>
+<symbol name="865080640004-ELECTROLYTIC-CAP">
+<rectangle x1="-2.032" y1="0.508" x2="2.032" y2="1.016" layer="94"/>
+<rectangle x1="-2.032" y1="1.524" x2="2.032" y2="2.032" layer="94"/>
+<wire x1="0" y1="2.54" x2="0" y2="2.032" width="0.1524" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="0.508" width="0.1524" layer="94"/>
+<pin name="1" x="0" y="5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R270"/>
+<pin name="2" x="0" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
+<text x="2.54" y="5.08" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="2.54" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.54" y="2.54" size="1.27" layer="95">+</text>
+<text x="-2.54" y="0" size="1.27" layer="95">-</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -9349,6 +9391,38 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <connects>
 <connect gate="G$1" pin="P$1" pad="P$1"/>
 <connect gate="G$1" pin="P$2" pad="P$2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="CFPX-180-XTAL-OSCILLATOR" prefix="X">
+<gates>
+<gate name="G$1" symbol="CFPX-180-XTAL-OSCILLATOR" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="CFPX-180-XTAL-OSCILLATOR">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="865080640004-ELECTROLYTIC-CAP" prefix="C">
+<gates>
+<gate name="G$1" symbol="865080640004-ELECTROLYTIC-CAP" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="865080640004-ELECTROLYTIC-CAP">
+<connects>
+<connect gate="G$1" pin="1" pad="1+"/>
+<connect gate="G$1" pin="2" pad="2-"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -12073,21 +12147,11 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <text x="5.09" y="2.19" size="0.6096" layer="25">&gt;NAME</text>
 <text x="11.01" y="2.24" size="0.6096" layer="27">&gt;VALUE</text>
 </package>
-<package name="865080640004-ELECTROLYTIC-CAP">
-<smd name="1+" x="0" y="0" dx="2.6" dy="1.6" layer="1"/>
-<smd name="2-" x="3.6" y="0" dx="2.6" dy="1.6" layer="1"/>
-</package>
 <package name="SRP0415-BOURNS-100K-10U">
 <smd name="P$1" x="0" y="0" dx="1.4" dy="2.85" layer="1"/>
 <smd name="P$2" x="3.4" y="0" dx="1.4" dy="2.85" layer="1"/>
 <text x="-1.27" y="2.54" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.27" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
-</package>
-<package name="CFPX-180-XTAL-OSCILLATOR">
-<smd name="1" x="0" y="0" dx="1.4" dy="1.15" layer="1"/>
-<smd name="2" x="2.2" y="0" dx="1.4" dy="1.15" layer="1"/>
-<smd name="3" x="2.2" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
-<smd name="4" x="0" y="-1.6" dx="1.4" dy="1.15" layer="1"/>
 </package>
 </packages>
 <symbols>
@@ -12143,18 +12207,6 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <text x="0" y="2.54" size="1.778" layer="95">&gt;Name</text>
 <text x="15.24" y="2.54" size="1.778" layer="96">&gt;Value</text>
 </symbol>
-<symbol name="865080640004-ELECTROLYTIC-CAP">
-<rectangle x1="-2.032" y1="0.508" x2="2.032" y2="1.016" layer="94"/>
-<rectangle x1="-2.032" y1="1.524" x2="2.032" y2="2.032" layer="94"/>
-<wire x1="0" y1="2.54" x2="0" y2="2.032" width="0.1524" layer="94"/>
-<wire x1="0" y1="0" x2="0" y2="0.508" width="0.1524" layer="94"/>
-<pin name="1" x="0" y="5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R270"/>
-<pin name="2" x="0" y="-2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
-<text x="2.54" y="5.08" size="1.778" layer="95">&gt;NAME</text>
-<text x="2.54" y="2.54" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-2.54" y="2.54" size="1.27" layer="95">+</text>
-<text x="-2.54" y="0" size="1.27" layer="95">-</text>
-</symbol>
 <symbol name="SRP0415-BOURNS-100K-10U">
 <pin name="P$1" x="-25.4" y="10.16" length="middle"/>
 <pin name="P$2" x="-2.54" y="10.16" length="middle" rot="R180"/>
@@ -12167,22 +12219,6 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <wire x1="-12.7" y1="10.16" x2="-7.62" y2="10.16" width="0.254" layer="94" curve="-180"/>
 <text x="-25.4" y="15.24" size="1.27" layer="95">&gt;NAME</text>
 <text x="-7.62" y="15.24" size="1.27" layer="96">&gt;VALUE</text>
-</symbol>
-<symbol name="CFPX-180-XTAL-OSCILLATOR">
-<wire x1="1.016" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="0" x2="-1.016" y2="0" width="0.1524" layer="94"/>
-<wire x1="-0.381" y1="1.524" x2="-0.381" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="-0.381" y1="-1.524" x2="0.381" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="0.381" y1="-1.524" x2="0.381" y2="1.524" width="0.254" layer="94"/>
-<wire x1="0.381" y1="1.524" x2="-0.381" y2="1.524" width="0.254" layer="94"/>
-<wire x1="1.016" y1="1.778" x2="1.016" y2="-1.778" width="0.254" layer="94"/>
-<wire x1="-1.016" y1="1.778" x2="-1.016" y2="-1.778" width="0.254" layer="94"/>
-<text x="2.54" y="1.016" size="1.778" layer="95">&gt;NAME</text>
-<text x="2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-2.159" y="-1.143" size="0.8636" layer="93">1</text>
-<text x="1.524" y="-1.143" size="0.8636" layer="93">2</text>
-<pin name="2" x="2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="1" x="-2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -12248,22 +12284,6 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="865080640004-ELECTROLYTIC-CAP" prefix="C">
-<gates>
-<gate name="G$1" symbol="865080640004-ELECTROLYTIC-CAP" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="865080640004-ELECTROLYTIC-CAP">
-<connects>
-<connect gate="G$1" pin="1" pad="1+"/>
-<connect gate="G$1" pin="2" pad="2-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="SRP0415-BOURNS-100K-10U" prefix="L">
 <gates>
 <gate name="G$1" symbol="SRP0415-BOURNS-100K-10U" x="12.7" y="-10.16"/>
@@ -12273,22 +12293,6 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <connects>
 <connect gate="G$1" pin="P$1" pad="P$1"/>
 <connect gate="G$1" pin="P$2" pad="P$2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="CFPX-180-XTAL-OSCILLATOR" prefix="X">
-<gates>
-<gate name="G$1" symbol="CFPX-180-XTAL-OSCILLATOR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="CFPX-180-XTAL-OSCILLATOR">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -12459,7 +12463,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="SUPPLY17" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
 <part name="AE1" library="OddsBooster_3_8_6PM" deviceset="W3102-ANTENNA" device=""/>
 <part name="U8" library="OddsBooster_3_8_6PM" deviceset="MFRC500" device=""/>
-<part name="C2" library="OddsBooster_3_8_6PM" deviceset="865080640004-ELECTROLYTIC-CAP" device="" value="4.7uF"/>
+<part name="C2" library="OddsBooster" deviceset="865080640004-ELECTROLYTIC-CAP" device="" value="4.7uF"/>
 <part name="L3" library="OddsBooster_3_8_6PM" deviceset="SRP0415-BOURNS-100K-10U" device="" value="0.1uF"/>
 <part name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="0.1uF"/>
 <part name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805K" package3d_urn="urn:adsk.eagle:package:23681/2" value="15pF"/>
@@ -12468,7 +12472,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="R12" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="820"/>
 <part name="R13" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="2.7k"/>
 <part name="C12" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.22uF"/>
-<part name="X3" library="OddsBooster_3_8_6PM" deviceset="CFPX-180-XTAL-OSCILLATOR" device=""/>
+<part name="X3" library="OddsBooster" deviceset="CFPX-180-XTAL-OSCILLATOR" device=""/>
 <part name="C15" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0805K" package3d_urn="urn:adsk.eagle:package:23681/2" value="15pF"/>
 <part name="X_1" library="ngspice-simulation" library_urn="urn:adsk.eagle:library:527439" deviceset="GND" device=""/>
 <part name="X_2" library="ngspice-simulation" library_urn="urn:adsk.eagle:library:527439" deviceset="GND" device=""/>
