@@ -8,6 +8,3 @@
 *.b$?
 *.s$?
 *.l$?
-
-#MacOS system files
-*.DS_Store
