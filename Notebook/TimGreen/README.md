@@ -154,3 +154,11 @@ The communications and display layout first draft I completed can be seen here.
 The comms and display layout was adjusted to meet the new trace width requirements and the PCBWay DRC. The new layout can be seen here. Significant work was done on the creation of footprints for the other portions of the design (again, not my part) which can be seen in the Eagle library called OddsBooster. I will try to take a step back and not do my partners assigned work and be a little more firm with that now.
 
 ![comms display layout draft 2](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-7-2022-CommsDisplayLayout.PNG)
+
+# 3/12/2022
+Finished PCB
+Parts Ordering and full list
+
+# 3/25/2022
+Decisions on android emulation then on computer program only
+Plans for programming
