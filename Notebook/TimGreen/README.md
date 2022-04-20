@@ -162,3 +162,11 @@ Parts Ordering and full list
 # 3/25/2022
 Decisions on android emulation then on computer program only
 Plans for programming
+
+# 3/29/2022
+Wrote the individual progress report which can be linked
+
+# 4/3/2022
+Working with Visual Studio and Windows samples for bluetooth on computer.
+Working with Visual Studio Code, ESP-IDF extension, and samples for bluetooth on devkit.
+Some problems with the pairing between the two (accessible but timeout on the devkit after seemingly successful pair for devkit and not for pc)
