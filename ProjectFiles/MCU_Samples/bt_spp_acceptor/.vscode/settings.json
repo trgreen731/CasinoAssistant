@@ -1,0 +1,17 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "idf.portWin": "COM3",
+  "idf.adapterTargetName": "esp32",
+  "idf.openOcdConfigs": [
+    "interface/ftdi/esp32_devkitj_v1.cfg",
+    "target/esp32.cfg"
+  ],
+  "idf.flashType": "UART",
+  "files.associations": {
+    "gpio.h": "c",
+    "gpio_types.h": "c",
+    "esp_intr_alloc.h": "c",
+    "system_error": "c",
+    "*.ipp": "c"
+  }
+}

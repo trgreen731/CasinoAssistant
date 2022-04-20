@@ -12453,7 +12453,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="C6" library="OddsBooster" deviceset="NEMCO-33U-TANT-CAP" device="" value="33u"/>
 <part name="DMG1" library="OddsBooster" deviceset="DMG2302UQ-AND-BSH105-NMOS" device=""/>
 <part name="DMG2" library="OddsBooster" deviceset="DMG2302UQ-AND-BSH105-NMOS" device=""/>
-<part name="L2" library="OddsBooster" deviceset="SRP0415-BOURNS-100K-10U" device="" value="10u"/>
+<part name="L2" library="OddsBooster" deviceset="SRP0415-BOURNS-100K-10U" device="" value="3.3u"/>
 <part name="C7" library="OddsBooster" deviceset="KEMET-T491-150U-TANT" device="" value="150u"/>
 <part name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="4.7u"/>
 <part name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1p"/>

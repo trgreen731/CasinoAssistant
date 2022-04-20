@@ -1,0 +1,19 @@
+5V input to the USB header pins from power supply
+	Measured at the buck output of 2mV
+	PWM generation not working correctly
+	HSD and LSD control gates of MOSFETs for switching (control the PWM gate signals that adjust voltage level)
+	These pins are around 0 with small spikes and low duty cycle
+	Likely error in the Duty Cycle generation or the feedback regulation but not sure which
+
+Battery Connected to the battery terminal
+	Properly transmitted to the switch at 3.8V
+	Connect the battery to the LDO and buck input (on switch spot) and record Vcc (adjust pot) reaches 3.3V (range of 3.280 to 3.320)
+	Record Vcc at the input to the MCU (3.35V)
+	Record Vdd with the same setup (adjust pot) reaches 9.6V (range of 9.58 to 9.70)
+
+Classic Bluetooth SPP Acceptor code running on the soldered MCU downloaded through the UART header pins
+	Successful download to the PSRAM (need to enable it in sdk config)
+	Init BT fails when connected to VCC provided by the UART pins because the current draw too high for the USB port of the computer or the LDO to sustain at stable voltage
+	Disconnect VCC from UART and connect battery with LDO support leads to successful BT Init
+	Program can be loaded with UART then switch Boot switch to load from PSRAM
+	Successful pairing and expected bluetooth operation
