@@ -209,4 +209,18 @@ This has been shown to work with the devkit but needs to be configured to meet o
 Problems with the loading of new programs onto the MCU
 GPIO 12 needs a pull down resistor or the flash will be configured for a higher input power voltage within the module and will fail. (hasn't been a problem until now)
 
+# 4/22/2022
+Confirmed the operation of the Bluetooth communication (video)
+Confirmed operation of the LDO (video)
+Confirmed operation of the Boost (video)
+
+Work towards functioning LCD
+Utilize the parallel i2s interface with tied color pins to change to monochrome (github)
+* couldn't handle the high clock frequency at the MCU (divide from 80MHz and no decimal so no 52MHz, no synchronization method with a secondary clock, only one clock off the 80MHz master others must be off lower frequency master)
+* Additionally the required setup and hold time on the LCD longer than the period if were to use shift registers and 52MHz clock
+Adjusting this code to work with the LCD we have:
+* Reconfigure DMA to store single pixel value in each byte instead of 4 pixel values
+* Adjust sizing and add space for the front and back porches
+* Change the clear screen to set data to 0 on porches, control the h and v syncs, and control the de
+* Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
 
