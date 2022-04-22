@@ -156,17 +156,57 @@ The comms and display layout was adjusted to meet the new trace width requiremen
 ![comms display layout draft 2](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-7-2022-CommsDisplayLayout.PNG)
 
 # 3/12/2022
-Finished PCB
-Parts Ordering and full list
+The full design of the PCB was completed. I was responsible for many of the footprints within the power section while my partners were responsible for much of the wiring and layout shown. Splitting up the specific pieces we each completed is not a good use of time. The finished PCB that is ordered is shown below.
+
+![PCB_Ordered](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/PCB-layout-v2(ordered).PNG)
+
+I also finalized the parts list to be ordered for the project. This full list is ordered through digikey and shown in the Design Document [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/OddsBoosterDesignDocument.pdf). 
 
 # 3/25/2022
-Decisions on android emulation then on computer program only
-Plans for programming
+While waiting for the parts and PCB to arrive, more considerations have been made to the development of the App. Each member of the team has an Apple mobile device but does not have an apple computer. This means we cannot develop applications for iOS. We have the software to develop Android apps but do not have any devices to run these Android apps. Reaching out to William Null, there are no available Android devices for us to use. Looking through our requirements and verification table, nothing specifies the app must run on a mobile device. With this in mind, we will move towards an application to run on a computer for showing the functionality of our project. In a real setting, it would be better to have a mobile app, but lack of supplies stopped us here.
+
+We are hoping to look into using a C++ library for developing the GUI of the app called SFML. C++ is a coding language we are all familiar with and can be transfered to Android applications in the case of extending this prototype to a full product. The bluetooth portion of the code will require some baseline to allow for classic bluetooth connections.
 
 # 3/29/2022
-Wrote the individual progress report which can be linked
+The individual progress report was completed today. All the information about my contributions to the project has been expressed. It does not need to be repeated here and instead can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/ProgressReport/TimothyGreenProgressReport.pdf).
 
 # 4/3/2022
-Working with Visual Studio and Windows samples for bluetooth on computer.
-Working with Visual Studio Code, ESP-IDF extension, and samples for bluetooth on devkit.
-Some problems with the pairing between the two (accessible but timeout on the devkit after seemingly successful pair for devkit and not for pc)
+ESP-IDF Visual Studio Code Getting Started
+BLE GATT Server Example Tests
+Kolban github repo failure due to not updated and so many unresolved items (github repo)
+Windows Development App Bluetooth Visual Studio Program
+Pairing Problems
+
+# 4/5/2022
+Classic Bluetooth Fallback
+First with Arduino
+SPP Acceptor Example Test
+Attempt to Program Own Bluetooth App
+Terminal App (github repo)
+
+# 4/6/2022
+Started soldering components (buck converter, boost converter, LDO)
+
+# 4/9/2022
+Testing the LDO, buck, and boost
+
+# 4/12/2022
+Successful communication between the app and the MCU on the devkit
+
+# 4/14/2022
+Soldering the MCU, MFRC, shift registers on the board
+First test with the soldered board and the bluetooth code
+
+# 4/15/2022
+Cannot determine method to get both the 52MHz clock and the 6.5 MHz clock
+Fallback on the 6.5MHz clock with tied input pins for 8 color options but full functionality
+
+# 4/19/2022
+Problems with the RGB support for the ESP32 chip being used so have to configure the i2s output of the board to work with the LCD (github repo)
+This has been shown to work with the devkit but needs to be configured to meet our needs
+
+# 4/21/2022
+Problems with the loading of new programs onto the MCU
+GPIO 12 needs a pull down resistor or the flash will be configured for a higher input power voltage within the module and will fail. (hasn't been a problem until now)
+
+
