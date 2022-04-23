@@ -230,4 +230,6 @@ The LCD backlight does not work due to a misinterpretation of the data sheet on 
 Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
 * Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
 * Dynamically allocate the frame buffer at runtime instead of statically allocating it (no automatic way of freeing this which is worrying)
+	* We can place the .bss in the external PSRAM through the sdkconfig ESP32-specifc SPIRAM settings and not dynamically allocate the frame buffer if notice strange behavior
+	* Can also try to allocate WiFi and LWIP in SPIRAM since neither used but might be taking up internal memory
 
