@@ -224,3 +224,10 @@ Adjusting this code to work with the LCD we have:
 * Change the clear screen to set data to 0 on porches, control the h and v syncs, and control the de
 * Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
 
+# 4/23/2022
+The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
+
+Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
+* Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
+* Dynamically allocate the frame buffer at runtime instead of statically allocating it (no automatic way of freeing this which is worrying)
+
