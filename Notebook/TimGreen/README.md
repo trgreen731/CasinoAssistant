@@ -230,6 +230,41 @@ The LCD backlight does not work due to a misinterpretation of the data sheet on 
 Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
 * Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
 * Dynamically allocate the frame buffer at runtime instead of statically allocating it (no automatic way of freeing this which is worrying)
+* These steps fixed exceed size problem but caused stack overflow on the CPU 1 with the LCD task running on it (where the frame buffer malloc occurred but malloc should go to heap not stack)
 	* We can place the .bss in the external PSRAM through the sdkconfig ESP32-specifc SPIRAM settings and not dynamically allocate the frame buffer if notice strange behavior
 	* Can also try to allocate WiFi and LWIP in SPIRAM since neither used but might be taking up internal memory
+
+Today's problems:
+* VDD and GND swapped on LCD
+* shorting vcc when resoldered
+* unreliable switch connections means random loss of power
+* connected uart pins while powering leads vdd to drop to 3.9V
+* backlight with reworking of the vdd pins works but now the data signals are getting lost along the way (don't have another connector to redo it again)
+* the synch signals from the mcu still work but don't seem to be controlling the lcd properly as they once did
+* running the bluetooth and lcd code at same time leads to overflow of dram from the frame buffer allocation so need to dynamically allocate it at runtime (still problems because its data and psram isn't dma accessible) (will just run them modularly and can do mfrc and bluetooth together then lcd on its own if needed)
+* mfrc layout has separate ground signal from the ground plane due to different symbols in schematic and separate building of the layout (fix with simple jumper wire)
+
+Today's outcomes:
+* LDO works (most times)
+* Boost works (most times)
+* Buck doesn't work (duty cycle regulation is my theory or small soldering problems)
+* Bluetooth from MCU works (sending is reliable but not up to speed requirements)
+* LCD clock output works (only 6.5MHz not 52 MHz due to MCU and LCD limitations)
+* Writing to the buffer while operating works (show the no backlight test)
+* Output data for LCD can be changed fast enough (fill the buffer with vertical stripes maybe)
+* Interface with MFRC works (doesn't get out of startup phase)
+* ID stored on RFID tags works
+* Reading with the MFRC (in progress)
+* App communication through bluetooth works
+* App calculating best move (in progress)
+* App displaying this move to the user in text (in progress)
+
+To Do:
+* Vertical Stripe LCD coding (maybe)
+* MFRC interface (start with jump wire to the grounds)
+* App Calculation (just get the output in text format)
+* Polish up notebook a little bit
+* Consolidate the testing evidence
+* Print out the block diagram, HL requirements, and RV points
+* Review technical information and plan out tests to do
 
