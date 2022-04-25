@@ -232,34 +232,52 @@ The following tests were run today now that the power system soldering was compl
 	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4454.jpg)
 
 # 4/15/2022
-Cannot determine method to get both the 52MHz clock and the 6.5 MHz clock
-Fallback on the 6.5MHz clock with tied input pins for 8 color options but full functionality
+* Clock outputs on the MCU are not easy to program. The MCU has RGB parallel display support through the esp examples. https://github.com/espressif/esp-idf/tree/master/examples/peripherals/lcd/rgb_panel.
+	* 52 MHz clock corresponds to a period of 19ns for the data signals assuming no setup or tear down time. The LCD requires a setup time of 12ns and a hold time of 12ns. The combination of this is longer than the perfect period of the data meaning it won't be properyly transmitted to the LCD.
+	* Setting the clock output using the SPI LCD control example shows that this clock must be a division of the 80MHz master internal clock. The devision factor of this clock cannot be a decimal as stated in the datasheet suggesting 52MHz clock cannot be generated for external use anyways.
+	* Easy fix to the problem is use the 6.5MHz clock output as expected with the 3 bits of data pins at this rate. The 8 input color pins can be tied together to get a lower color depth but still acheive functionlity.
 
 # 4/19/2022
-Problems with the RGB support for the ESP32 chip being used so have to configure the i2s output of the board to work with the LCD (github repo)
-This has been shown to work with the devkit but needs to be configured to meet our needs
+* Unfortunately the RGB code is only accessible for ESP32-S3 chips which is not compatible with our MCU. The same problems occur when trying to fix this as the old bluetooth work, the includes and references do not trace and the support is not provided. I have tried for very long to shift the support but I cannot get it to work.
+* To fix this, I have found alternate examples of people using a parallel setup of a I2S interface (normally used for audio) to control a display. The baseline code for this is found here. https://github.com/har-in-air/ESP32-LCD-I2S
+* This code can be compiled on the devkit but needs to be configured to our purposes.
 
 # 4/21/2022
-Problems with the loading of new programs onto the MCU
-GPIO 12 needs a pull down resistor or the flash will be configured for a higher input power voltage within the module and will fail. (hasn't been a problem until now)
+* For the first time, the UART loading of the MCU is not working. The flash method checks the download of the code using an md5 value of the sent file and the file on the flash memory. These are not matching. The file on the flash has the same md5 file each time indicating write permissions not granted.
+* GPIO 12 needs a pull down resistor during startup or the flash will be configured for a higher input power voltage within the module and will fail. This is fixed by attaching a 560 Ohm resistor between the pin and ground.
+* The loading of the bluetooth files work again.
 
 # 4/22/2022
-Confirmed the operation of the Bluetooth communication (video)
-Confirmed operation of the LDO (video)
-Confirmed operation of the Boost (video)
+The following functions are tested and the videos are kept with partners.
+* Confirmed the operation of the Bluetooth communication (video)
+* Confirmed operation of the LDO (video)
+* Confirmed operation of the Boost (video)
 
 Work towards functioning LCD
-Utilize the parallel i2s interface with tied color pins to change to monochrome (github)
+* Utilize the parallel i2s interface with tied color pins to change to monochrome (this simplifies the parallel i2s interface as well)
+	* the red and green output pins of the MCU aren't able to be configured to output pins (input pins only) which is strange for a pin labeled GPIO
 * couldn't handle the high clock frequency at the MCU (divide from 80MHz and no decimal so no 52MHz, no synchronization method with a secondary clock, only one clock off the 80MHz master others must be off lower frequency master)
 * Additionally the required setup and hold time on the LCD longer than the period if were to use shift registers and 52MHz clock
+
 Adjusting this code to work with the LCD we have:
 * Reconfigure DMA to store single pixel value in each byte instead of 4 pixel values
 * Adjust sizing and add space for the front and back porches
 * Change the clear screen to set data to 0 on porches, control the h and v syncs, and control the de
 * Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
 
+The following videos showcase the flashing screen along with the clock, vsync, and hysnc.
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4492.mov)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4493.MOV)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4494.MOV)
+
 # 4/23/2022
-The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
+* The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
+* This is actually not accurate, I accidentally swapped the Vdd and GND planes on the connector that caused the backlight to not function (the voltage was right)
+	* Fixed this using insulating tape on the pads and jumper wires
+	* Had to swap the connector with extra and broke original in process
+	* Now the data is not transmitted properly. Probing the spots shows it has the right signals but doesn't seem to receive them.
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
 
 Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
 * Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
@@ -302,3 +320,15 @@ To Do:
 * Print out the block diagram, HL requirements, and RV points
 * Review technical information and plan out tests to do
 
+# 4/24/2022
+* Vertical Stripe Coding shows the frequency of the data transfer but is not shown on the LCD
+* MFRC interface is continually saying CMD reg is 0xbf
+	* This tells us that the chip reads the address properly and sets the data pins for the read
+	* The analog power pin might need 5V (didn't fix it)
+	* The oscillator circuit might be not functional (replaced with waveform didn't fix it)
+	* The value indicates the chip is in startup and cannot properly detect the interface of the device
+	* Final hypothesis for lack of functionality is the improper oscillation setup since it needs stable operation before startup occurs
+* App functionality finished with player decision GUI for blackjack built into terminal app as discussed before
+
+# 4/25/2022
+Demo Today:
