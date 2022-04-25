@@ -93,7 +93,7 @@ All found parts will be in the resources folder along with key points of the par
 * Other low pin number options was MIPI DSI but this protocol is not publicly available and has a large learning curve
 ## New Block Diagram (v5)
 This block diagram is updated with the new communications and display module ideas
-![Full Block v5](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v5.png)
+![Full Block v5](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/Full_Block_Diagram_v5.png)
 
 # 2/22/2022
 ## Design Document Check Presentation Notes
@@ -112,7 +112,7 @@ This block diagram is updated with the new communications and display module ide
 
 ## New Block Diagram (v6)
 This block diagram is adjusted to consider that the power system is going to be designed from scratch so our current and voltage measurements can communicate directly from the battery protection block to the MCU (no additional current measurement needed)
-![Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/figures/Full_Block_Diagram_v6.png)
+![Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/Full_Block_Diagram_v6.png)
 
 # 2/23/2022
 ## Current Requirement Analysis
@@ -134,7 +134,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 
 # 3/1/2022
 ## Design Review
-* Updated version of the Design Document has been included. Major changes provided by me include the block diagram for the MCU firmware and a better parts list for the communications, display, and power subsystems. The current version of the Design Document is available [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/OddsBoosterDesignDocument.pdf). The majority of the changes were made by my partners after they missed their requirements for the original design document deadline.
+* Updated version of the Design Document has been included. Major changes provided by me include the block diagram for the MCU firmware and a better parts list for the communications, display, and power subsystems. The current version of the Design Document is available [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/OddsBoosterDesignDocument.pdf). The majority of the changes were made by my partners after they missed their requirements for the original design document deadline.
 
 ## PCB Review
 The following notes were received at the board review
@@ -165,17 +165,22 @@ I also finalized the parts list to be ordered for the project. This full list is
 # 3/25/2022
 While waiting for the parts and PCB to arrive, more considerations have been made to the development of the App. Each member of the team has an Apple mobile device but does not have an apple computer. This means we cannot develop applications for iOS. We have the software to develop Android apps but do not have any devices to run these Android apps. Reaching out to William Null, there are no available Android devices for us to use. Looking through our requirements and verification table, nothing specifies the app must run on a mobile device. With this in mind, we will move towards an application to run on a computer for showing the functionality of our project. In a real setting, it would be better to have a mobile app, but lack of supplies stopped us here.
 
-We are hoping to look into using a C++ library for developing the GUI of the app called SFML. C++ is a coding language we are all familiar with and can be transfered to Android applications in the case of extending this prototype to a full product. The bluetooth portion of the code will require some baseline to allow for classic bluetooth connections.
+We are hoping to look into using a C++ library for developing the GUI of the app called SFML. C++ is a coding language we are all familiar with and can be transfered to Android applications in the case of extending this prototype to a full product. The bluetooth portion of the code will require some baseline to allow for classic bluetooth connections. The app will run with BlackJack games primarily as this has a stronger suggestion capability than any poker game which would require a sort of learning method to produce successful suggestions.
 
 # 3/29/2022
 The individual progress report was completed today. All the information about my contributions to the project has been expressed. It does not need to be repeated here and instead can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/ProgressReport/TimothyGreenProgressReport.pdf).
 
 # 4/3/2022
-ESP-IDF Visual Studio Code Getting Started
-BLE GATT Server Example Tests
-Kolban github repo failure due to not updated and so many unresolved items (github repo)
-Windows Development App Bluetooth Visual Studio Program
-Pairing Problems
+ESP-IDF
+* The MUC chosen has a set of API functions that can be loaded into Visual Studio Code and used to make the development process possible. The download instructions are found here https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html.
+* The first step in working with the code is to use the devkit to attempt to create a bluetooth connection. From some research, a BLE GATT server seems to be a good option
+	* The BLE GATT server has characteristics with corresponding values which can be updated by the server and retreived by the client
+	* The following esp produced example code is used to get started with the development of a gatt server https://github.com/espressif/esp-idf/tree/97fb98a91b308d4f4db54d6dd1644117607e9692/examples/bluetooth/bluedroid/ble/gatt_server
+* The Bluetooth pairing partner is code run on the laptop from a windows development app created by windows https://github.com/microsoft/Windows-universal-samples/tree/main/Samples/BluetoothLE
+	* This pairing has the problem where the server on the MCU seems to think the pairing is successful but the windows app shows the bluetooth device but says "could not connect. The MCU output is shown below with error code 0x13 being a timeout. ![MCU_GATT_output](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4409.jpg)
+	* The normal Bluetooth searching capabilities on the laptop is not able to see the MCU either when the GAP advertising is running.
+* Too attempt to fix this issue and make the coding slightly easier, a developed bluetooth low energy method is investigated. https://github.com/nkolban/esp32-snippets/tree/master/cpp_utils
+	* This method did not lead to any good developments. The code would not compile due to depricated includes and references.
 
 # 4/5/2022
 Classic Bluetooth Fallback
