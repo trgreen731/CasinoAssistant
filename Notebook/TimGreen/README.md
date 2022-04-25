@@ -190,17 +190,46 @@ The individual progress report was completed today. All the information about my
 * The first successful connection where information could be shared was done with this method. The example is shown in the following image. ![MCU_SPP_Output](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4449.jpg)
 
 # 4/6/2022
-I soldered the components onto the board for the buck converter, the boost converter, and the LDO. I did this soldering because my partners did not feel as confident with soldering some of the small components. An intermediate image of the buck converter size is shown with finger for scale. 
+I soldered the components onto the board for the buck converter, the boost converter, and the LDO. I did this soldering because my partners did not feel as confident with soldering some of the small components. An intermediate image of the buck converter size is shown with finger for scale. ![buck_soldering](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/Buck_Soldering.jpg)
 
 # 4/9/2022
-Testing the LDO, buck, and boost
+The following tests were run today now that the power system soldering was completed. The orginal test notes are [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/4-12-2022-TestResults.txt).
+* 5V input provided from the power source to the USB input pins
+	* 2mV signal measured at the output of the buck
+	* PWM generation delivered to the gate signals of the MOSFETs seems faulty
+	* The duty cycle might be incorrect for some reason
+	* The buck is also tiny so there might be a problem with bridging pins on the device
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4444.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4445.jpg)
+* The battery is connected to the battery terminal. The battery and input pins are connected simulating switching the device on. The LDO output voltage (Vcc) is recorded at various spots on the board.
+	* The battery voltage at the switch is 3.8V as expected
+	* The LDO output is recorded and adjusted using the potentiometer (varies between 3.28V to 3.36V)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4436.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4440.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4438.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4439.jpg)
+* The battery is connected to the battery terminal. The battery and input pins are connected simulating switching the device on. The Boost converter output voltage (Vdd) is recorded at the main output (only connected at one place).
+	* The buck output is recorded and adjusted using the potentiometer (varies between 9.5V to 9.68V).
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4441.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4442.jpg)
 
 # 4/12/2022
-Successful communication between the app and the MCU on the devkit
+* The MCU was soldered onto the board along with the FPC connector. Partners completed all card system RLC components.
+* The bluetooth code running on the devkit was tested on the soldered board for the first time. The following operation notes are recorded:
+	* The file can be successfully loaded to flash
+	* When providing Vcc with the UART pins, BT Init fails because the USB to serial board for programming does not have a strong enough LDO to provide the needed RF communication init current.
+	* Disconnecting Vcc from UART (keep common ground) and using the on-board LDO leads to successful operation
+	* Load through UART by set boot switch to 0, press flash on VSCode ESP-IDF commands, press reset button on board
+	* Load from flash memory by set boot switch to 1 then press reset button
+	* Bluetooth Pairing is successful with existing code
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4447.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4450.jpg)
 
 # 4/14/2022
-Soldering the MCU, MFRC, shift registers on the board
-First test with the soldered board and the bluetooth code
+* Soldering the MFRC chip onto the board
+* The GPIO functionality and interrupt capabilities of the MFRC are important. This functionality is tested by simulating an interrupt on the MCU IRQ pin and a pseudo card value is read at that time. Touching the IRQ pin to Vcc successfully triggers the interrupt operation
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4451.jpg)
+	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4454.jpg)
 
 # 4/15/2022
 Cannot determine method to get both the 52MHz clock and the 6.5 MHz clock
