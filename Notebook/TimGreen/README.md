@@ -266,10 +266,10 @@ Adjusting this code to work with the LCD we have:
 * Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
 
 The following videos showcase the flashing screen along with the clock, vsync, and hysnc.
-![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
-![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4492.mov)
-![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4493.MOV)
-![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4494.MOV)
+[Flash Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
+[Clock Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4492.mov)
+[HSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4493.MOV)
+[VSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4494.MOV)
 
 # 4/23/2022
 * The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
@@ -277,7 +277,7 @@ The following videos showcase the flashing screen along with the clock, vsync, a
 	* Fixed this using insulating tape on the pads and jumper wires
 	* Had to swap the connector with extra and broke original in process
 	* Now the data is not transmitted properly. Probing the spots shows it has the right signals but doesn't seem to receive them.
-	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
+	* [Backlight Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
 
 Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
 * Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
