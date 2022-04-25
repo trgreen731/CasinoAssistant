@@ -266,10 +266,10 @@ Adjusting this code to work with the LCD we have:
 * Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
 
 The following videos showcase the flashing screen along with the clock, vsync, and hysnc.
-[Flash Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
-[Clock Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4492.mov)
-[HSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4493.MOV)
-[VSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4494.MOV)
+* [Flash Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4490.mov)
+* [Clock Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4492.mov)
+* [HSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4493.MOV)
+* [VSYNC Video](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4494.MOV)
 
 # 4/23/2022
 * The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
@@ -329,6 +329,7 @@ To Do:
 	* The value indicates the chip is in startup and cannot properly detect the interface of the device
 	* Final hypothesis for lack of functionality is the improper oscillation setup since it needs stable operation before startup occurs
 * App functionality finished with player decision GUI for blackjack built into terminal app as discussed before
+* Here is our plan for the demo ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4501.jpg)
 
 # 4/25/2022
 Demo Today:
