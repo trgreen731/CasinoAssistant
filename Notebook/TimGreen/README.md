@@ -171,8 +171,8 @@ We are hoping to look into using a C++ library for developing the GUI of the app
 The individual progress report was completed today. All the information about my contributions to the project has been expressed. It does not need to be repeated here and instead can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/ProgressReport/TimothyGreenProgressReport.pdf).
 
 # 4/3/2022
-ESP-IDF
-* The MUC chosen has a set of API functions that can be loaded into Visual Studio Code and used to make the development process possible. The download instructions are found here https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html.
+
+* The ESP32 MCU chosen has a set of API functions (ESP-IDF) that can be loaded into Visual Studio Code and used to make the development process possible. The download instructions are found here https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html.
 * The first step in working with the code is to use the devkit to attempt to create a bluetooth connection. From some research, a BLE GATT server seems to be a good option
 	* The BLE GATT server has characteristics with corresponding values which can be updated by the server and retreived by the client
 	* The following esp produced example code is used to get started with the development of a gatt server https://github.com/espressif/esp-idf/tree/97fb98a91b308d4f4db54d6dd1644117607e9692/examples/bluetooth/bluedroid/ble/gatt_server
@@ -183,14 +183,14 @@ ESP-IDF
 	* This method did not lead to any good developments. The code would not compile due to depricated includes and references.
 
 # 4/5/2022
-Classic Bluetooth Fallback
-First with Arduino
-SPP Acceptor Example Test
-Attempt to Program Own Bluetooth App
-Terminal App (github repo)
+* In efforts to find an example that would properly pair, the classic bluetooth options where discovered. The first example is done using the Arduino IDE based off the following tutorial https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/.
+* This successful development led to the discovery of the SPP (serial port pairing) Accepter testing using Classic Bluetooth. The first example used is shown with the following esp-idf example. Acceptor must be used because this allows the MCU to wait for a connection from the laptop or app and accept the connection then communicate serially. https://github.com/espressif/esp-idf/tree/97fb98a91b308d4f4db54d6dd1644117607e9692/examples/bluetooth/bluedroid/classic_bt/bt_spp_acceptor
+* The Serial Communication was first attempted using windows socket api and serial communication methods. This was a slow process and did not lead to anything fulfilling.
+* The following terminal app establishes a RFCOMM connection and communicates over a serial port. I have discovered now that this is a common way to communicate through bluetooth. The github repo is shown below. This terminal will be used to initialize the bluetooth connection and contain text based output that could be used to communicate information to the user for the app. https://github.com/NSTerminal/terminal. This code uses the MIT license.
+* The first successful connection where information could be shared was done with this method. The example is shown in the following image. ![MCU_SPP_Output](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4449.jpg)
 
 # 4/6/2022
-Started soldering components (buck converter, boost converter, LDO)
+I soldered the components onto the board for the buck converter, the boost converter, and the LDO. I did this soldering because my partners did not feel as confident with soldering some of the small components. An intermediate image of the buck converter size is shown with finger for scale. 
 
 # 4/9/2022
 Testing the LDO, buck, and boost
