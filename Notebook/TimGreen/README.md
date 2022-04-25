@@ -330,6 +330,25 @@ To Do:
 	* Final hypothesis for lack of functionality is the improper oscillation setup since it needs stable operation before startup occurs
 * App functionality finished with player decision GUI for blackjack built into terminal app as discussed before
 * Here is our plan for the demo ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4501.jpg)
+* Notes for the demo
+	* The MCU works as expected (some DRAM partitioning issues, some GPIO issues, some master clock issues, all things I wwould have had to read the entire data sheet to know and would be able to fix if redesigning the project)
+	* Buck Functionality failure likely from the duty cycles on the gate signals 
+		* also supposed to have 500kHz PWM signal but the frequency shown is closer to 500Hz
+		* The device is tiny and easily could have soldering issue
+		* device was set with a current sense limit (these are notoriously inaccurate as it depends on rds on of MOSFET and could prevent any current)
+	* LCD
+		* fixed the backlight
+		* all data signals seem to provided properly but the images are not shown on the screen. It seems as though there may be a disconnect on one of the pins to the connector. The pins that would cause the largest problems if disconnected (clk, syncs, de). So many data pins so would likely see something since all tied
+	* MFRC
+		* AVDD not it
+		* A0-2 ties not it
+		* GND plane connection not it
+		* My guess is oscillator circuitry 
+			* from 453 always seems tough to get Xtals working as expected 
+			* would need to get a new xtal and a testing board to get the component values of the xtal (453 Lab 5 Report)
+			* internal oscillator in module would be better
+			* also smarter to get component with some examples (search for examples before buying)
+		* Communication seems to work at a basic level so digital aspects seem to work
 
 # 4/25/2022
 Demo Today:
