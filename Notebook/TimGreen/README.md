@@ -352,3 +352,22 @@ To Do:
 
 # 4/25/2022
 Demo Today:
+* Things we should talk about during the presentation
+	* battery protection IC removal
+	* brief overview of the things that do work and how they work
+	* buck not working (go in depth on how buck works and theories)
+	* importance of test points (we could measure vcc and gnd pretty well but for things like the hsync signal from the mcu)
+	* importance of spare parts (destroyed the FPC connector taking it off so couldn't take if off again and expect functionality -> third times the charm but didn't have a third part unfortunately)
+	* MCU (gpio pin planning -> confirm the clock signal capabilities and input output capabilities on the devkit before basing our design on it) (overall worked pretty well for our purposes tho)
+	* shift register removal reasoning (just less color depth)
+	* DRAM and DMA with the frame buffer for the LCD
+	* I2S method of controlling a lcd since no rgb functionality
+	* should have gotten an lcd controller chip instead of storing it locally
+	* bluetooth LE vs Classic SPP shows up on list of normal devices
+	* pull down pin 12 for VDD_SPIO or something setup to 3.3V if low for the flash memory (high = 1.8V so flash not functional)
+	* all the stuff we did trying to get the MFRC to work
+	* LCD swapping the VDD and GND
+	* Bit off a little more than we could chew trying to do things from scratch (boost, buck, lcd control, mfrc control)
+* Things to try before the presentation
+	* Resolder the buck
+	* more lcd control work
