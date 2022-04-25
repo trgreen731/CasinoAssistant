@@ -156,17 +156,115 @@ The comms and display layout was adjusted to meet the new trace width requiremen
 ![comms display layout draft 2](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-7-2022-CommsDisplayLayout.PNG)
 
 # 3/12/2022
-Finished PCB
-Parts Ordering and full list
+The full design of the PCB was completed. I was responsible for many of the footprints within the power section while my partners were responsible for much of the wiring and layout shown. Splitting up the specific pieces we each completed is not a good use of time. The finished PCB that is ordered is shown below.
+
+![PCB_Ordered](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/PCB-layout-v2(ordered).PNG)
+
+I also finalized the parts list to be ordered for the project. This full list is ordered through digikey and shown in the Design Document [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Design%20Document/OddsBoosterDesignDocument.pdf). 
 
 # 3/25/2022
-Decisions on android emulation then on computer program only
-Plans for programming
+While waiting for the parts and PCB to arrive, more considerations have been made to the development of the App. Each member of the team has an Apple mobile device but does not have an apple computer. This means we cannot develop applications for iOS. We have the software to develop Android apps but do not have any devices to run these Android apps. Reaching out to William Null, there are no available Android devices for us to use. Looking through our requirements and verification table, nothing specifies the app must run on a mobile device. With this in mind, we will move towards an application to run on a computer for showing the functionality of our project. In a real setting, it would be better to have a mobile app, but lack of supplies stopped us here.
+
+We are hoping to look into using a C++ library for developing the GUI of the app called SFML. C++ is a coding language we are all familiar with and can be transfered to Android applications in the case of extending this prototype to a full product. The bluetooth portion of the code will require some baseline to allow for classic bluetooth connections.
 
 # 3/29/2022
-Wrote the individual progress report which can be linked
+The individual progress report was completed today. All the information about my contributions to the project has been expressed. It does not need to be repeated here and instead can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/ProgressReport/TimothyGreenProgressReport.pdf).
 
 # 4/3/2022
-Working with Visual Studio and Windows samples for bluetooth on computer.
-Working with Visual Studio Code, ESP-IDF extension, and samples for bluetooth on devkit.
-Some problems with the pairing between the two (accessible but timeout on the devkit after seemingly successful pair for devkit and not for pc)
+ESP-IDF Visual Studio Code Getting Started
+BLE GATT Server Example Tests
+Kolban github repo failure due to not updated and so many unresolved items (github repo)
+Windows Development App Bluetooth Visual Studio Program
+Pairing Problems
+
+# 4/5/2022
+Classic Bluetooth Fallback
+First with Arduino
+SPP Acceptor Example Test
+Attempt to Program Own Bluetooth App
+Terminal App (github repo)
+
+# 4/6/2022
+Started soldering components (buck converter, boost converter, LDO)
+
+# 4/9/2022
+Testing the LDO, buck, and boost
+
+# 4/12/2022
+Successful communication between the app and the MCU on the devkit
+
+# 4/14/2022
+Soldering the MCU, MFRC, shift registers on the board
+First test with the soldered board and the bluetooth code
+
+# 4/15/2022
+Cannot determine method to get both the 52MHz clock and the 6.5 MHz clock
+Fallback on the 6.5MHz clock with tied input pins for 8 color options but full functionality
+
+# 4/19/2022
+Problems with the RGB support for the ESP32 chip being used so have to configure the i2s output of the board to work with the LCD (github repo)
+This has been shown to work with the devkit but needs to be configured to meet our needs
+
+# 4/21/2022
+Problems with the loading of new programs onto the MCU
+GPIO 12 needs a pull down resistor or the flash will be configured for a higher input power voltage within the module and will fail. (hasn't been a problem until now)
+
+# 4/22/2022
+Confirmed the operation of the Bluetooth communication (video)
+Confirmed operation of the LDO (video)
+Confirmed operation of the Boost (video)
+
+Work towards functioning LCD
+Utilize the parallel i2s interface with tied color pins to change to monochrome (github)
+* couldn't handle the high clock frequency at the MCU (divide from 80MHz and no decimal so no 52MHz, no synchronization method with a secondary clock, only one clock off the 80MHz master others must be off lower frequency master)
+* Additionally the required setup and hold time on the LCD longer than the period if were to use shift registers and 52MHz clock
+Adjusting this code to work with the LCD we have:
+* Reconfigure DMA to store single pixel value in each byte instead of 4 pixel values
+* Adjust sizing and add space for the front and back porches
+* Change the clear screen to set data to 0 on porches, control the h and v syncs, and control the de
+* Able to get screen flash between black and "white" but the white is dim (maybe wrong backlight voltage)
+
+# 4/23/2022
+The LCD backlight does not work due to a misinterpretation of the data sheet on my part. The 9.6V forward voltage referred to a single LED not to the voltage needed at the LED+ pin of the LCD as I thought. The true voltage needed at this pin is 28.8V because three of these LEDs are placed in series.
+
+Attempting to combine the bluetooth and LCD functionality into a single program that can be loaded onto the MCU. The RAM needed for the allocation of the program exceeds the available size. The board has a PSRAM chip not used for program files but available for dynamic allocation. Perhaps finding a way to use this and dynamically allocate more large data structures will fix this. Methods used to get around this problem:
+* Dynamically allocate the bluetooth stack at runtime instead of statically allocating it
+* Dynamically allocate the frame buffer at runtime instead of statically allocating it (no automatic way of freeing this which is worrying)
+* These steps fixed exceed size problem but caused stack overflow on the CPU 1 with the LCD task running on it (where the frame buffer malloc occurred but malloc should go to heap not stack)
+	* We can place the .bss in the external PSRAM through the sdkconfig ESP32-specifc SPIRAM settings and not dynamically allocate the frame buffer if notice strange behavior
+	* Can also try to allocate WiFi and LWIP in SPIRAM since neither used but might be taking up internal memory
+
+Today's problems:
+* VDD and GND swapped on LCD
+* shorting vcc when resoldered
+* unreliable switch connections means random loss of power
+* connected uart pins while powering leads vdd to drop to 3.9V
+* backlight with reworking of the vdd pins works but now the data signals are getting lost along the way (don't have another connector to redo it again)
+* the synch signals from the mcu still work but don't seem to be controlling the lcd properly as they once did
+* running the bluetooth and lcd code at same time leads to overflow of dram from the frame buffer allocation so need to dynamically allocate it at runtime (still problems because its data and psram isn't dma accessible) (will just run them modularly and can do mfrc and bluetooth together then lcd on its own if needed)
+* mfrc layout has separate ground signal from the ground plane due to different symbols in schematic and separate building of the layout (fix with simple jumper wire)
+
+Today's outcomes:
+* LDO works (most times)
+* Boost works (most times)
+* Buck doesn't work (duty cycle regulation is my theory or small soldering problems)
+* Bluetooth from MCU works (sending is reliable but not up to speed requirements)
+* LCD clock output works (only 6.5MHz not 52 MHz due to MCU and LCD limitations)
+* Writing to the buffer while operating works (show the no backlight test)
+* Output data for LCD can be changed fast enough (fill the buffer with vertical stripes maybe)
+* Interface with MFRC works (doesn't get out of startup phase)
+* ID stored on RFID tags works
+* Reading with the MFRC (in progress)
+* App communication through bluetooth works
+* App calculating best move (in progress)
+* App displaying this move to the user in text (in progress)
+
+To Do:
+* Vertical Stripe LCD coding (maybe)
+* MFRC interface (start with jump wire to the grounds)
+* App Calculation (just get the output in text format)
+* Polish up notebook a little bit
+* Consolidate the testing evidence
+* Print out the block diagram, HL requirements, and RV points
+* Review technical information and plan out tests to do
+
