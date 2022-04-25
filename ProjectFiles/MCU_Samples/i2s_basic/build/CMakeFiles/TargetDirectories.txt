@@ -402,6 +402,7 @@ C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/M
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/asio/CMakeFiles/edit_cache.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/asio/CMakeFiles/rebuild_cache.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/asio/CMakeFiles/list_install_components.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/bt/CMakeFiles/__idf_bt.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/bt/CMakeFiles/install/local.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/bt/CMakeFiles/install.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/i2s_basic/build/esp-idf/bt/CMakeFiles/edit_cache.dir

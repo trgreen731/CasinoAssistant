@@ -30,9 +30,7 @@
 #define SPP_TAG "OddsBooster"
 #define SPP_SERVER_NAME "SPP_SERVER"
 #define EXAMPLE_DEVICE_NAME "OddsBooster_Dev"
-#define SPP_SHOW_DATA 0
 #define SPP_SHOW_SPEED 1
-#define SPP_SHOW_MODE SPP_SHOW_DATA    /*Choose show mode: show data or speed*/
 
 #define GPIO_IRQ 13
 #define MESS_LEN 13
@@ -103,12 +101,11 @@ static void esp_spp_cb(esp_spp_cb_event_t event, esp_spp_cb_param_t *param)
         ESP_LOGI(SPP_TAG, "ESP_SPP_CL_INIT_EVT");
         break;
     case ESP_SPP_DATA_IND_EVT:
-#if (SPP_SHOW_MODE == SPP_SHOW_DATA)
         ESP_LOGI(SPP_TAG, "ESP_SPP_DATA_IND_EVT len=%d handle=%d",
                  param->data_ind.len, param->data_ind.handle);
         esp_log_buffer_hex("",param->data_ind.data,param->data_ind.len);
         write_response(param);
-#else
+#if SPP_SHOW_SPEED
         gettimeofday(&time_new, NULL);
         data_num += param->data_ind.len;
         if (time_new.tv_sec - time_old.tv_sec >= 3) {

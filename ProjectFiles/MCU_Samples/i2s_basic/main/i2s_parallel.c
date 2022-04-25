@@ -103,7 +103,7 @@ static int i2snum(i2s_dev_t *dev) {
 
 void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
     //Figure out which signal numbers to use for routing
-    ESP_LOGI(TAG,"Setting up parallel I2S bus at I2S%d\n", i2snum(dev));
+    ESP_LOGI(TAG,"Setting up parallel I2S bus at I2S%d", i2snum(dev));
     int sig_data_base, sig_clk;
     if (dev == &I2S0) {
         sig_data_base = I2S0O_DATA_OUT0_IDX;
@@ -124,6 +124,8 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
         sig_clk = I2S1O_WS_OUT_IDX;
 		}
     
+    ESP_LOGI(TAG,"Set up Signal Bases Successfully");
+
     //Route the signals
     gpio_setup_out(cfg->gpio_bus[0], sig_data_base+0, false); // D0
     gpio_setup_out(cfg->gpio_bus[1], sig_data_base+1, false); // D1
@@ -136,6 +138,8 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
     //gpio_setup_out(cfg->gpio_clk, sig_clk, true);
     gpio_setup_out(cfg->gpio_clk, sig_clk, false);
     
+    ESP_LOGI(TAG,"Set up GPIOs Successfully");
+
     //Power on dev
     if (dev == &I2S0) {
         periph_module_enable(PERIPH_I2S0_MODULE);
@@ -150,6 +154,8 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
 	dev->conf.tx_reset = 0;
     dma_reset(dev);
     fifo_reset(dev);
+
+    ESP_LOGI(TAG,"Initialize I2S dev Successfully");
     
     //Enable LCD mode
     dev->conf2.val = 0;
@@ -194,6 +200,8 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
     dev->conf.rx_right_first = 1;
     
     dev->timing.val = 0;
+
+    ESP_LOGI(TAG,"Configure dev Successfully");
     
     //Allocate DMA descriptors
     i2s_state[i2snum(dev)] = malloc(sizeof(i2s_parallel_state_t));
@@ -215,6 +223,8 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
     //and fill them
     fill_dma_desc(st->dmadesc, cfg->buf);
 #endif    
+
+    ESP_LOGI(TAG,"DMA Descriptors Allocated Successfully");
 
     //Reset FIFO/DMA -> needed? Doesn't dma_reset/fifo_reset do this?
     dev->lc_conf.in_rst = 1; 
@@ -241,7 +251,7 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
 #endif
     dev->out_link.start = 1;
     dev->conf.tx_start = 1;
-	}
+}
 
 
 #ifdef DOUBLE_BUFFERED

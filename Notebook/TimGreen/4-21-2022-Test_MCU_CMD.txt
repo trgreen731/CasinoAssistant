@@ -1,0 +1,1 @@
+C:\Users\trgre\Documents\UIUC\2021-2022-Senior\ECE445\OddsBooster\ProjectFiles\MCU_Samples\bt_spp_acceptor\build>esptool --port com4 --chip esp32 -b 460800 write_flash -u --flash_mode dio --flash_freq 40m 0x10000 bt_spp_acceptor_demo.bin 0x1000 bootloader/bootloader.bin 0x8000 partition_table/partition-table.bin

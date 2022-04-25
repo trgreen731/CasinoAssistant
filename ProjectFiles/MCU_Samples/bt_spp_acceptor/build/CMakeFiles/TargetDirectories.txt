@@ -610,6 +610,13 @@ C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/M
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/libsodium/CMakeFiles/rebuild_cache.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/libsodium/CMakeFiles/list_install_components.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/libsodium/CMakeFiles/install/strip.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/__idf_lvgl.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/install/local.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/install.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/edit_cache.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/rebuild_cache.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/list_install_components.dir
+C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/lvgl/CMakeFiles/install/strip.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/mqtt/CMakeFiles/install/local.dir
 C:/Users/trgre/Documents/UIUC/2021-2022-Senior/ECE445/OddsBooster/ProjectFiles/MCU_Samples/bt_spp_acceptor/build/esp-idf/mqtt/CMakeFiles/install.dir
