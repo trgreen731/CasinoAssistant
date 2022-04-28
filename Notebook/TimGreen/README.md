@@ -1,3 +1,5 @@
+[[_TOC_]]
+
 # 2/8/2022
 ## Proposal Brainstorming
 ### High Level Requirements
@@ -101,7 +103,7 @@ This block diagram is updated with the new communications and display module ide
 * Include a table of contents
 * Perform power consumption analysis
 
-# Still Needed Items for Thursday
+## Still Needed Items for Thursday
 * Power Subsystem - Jack
 * Card Reader Subsystem - Marco
 * MCU Firmware Diagram
