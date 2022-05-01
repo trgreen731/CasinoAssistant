@@ -211,7 +211,7 @@ The following tests were run today now that the power system soldering was compl
 	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4438.jpg)
 	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4439.jpg)
 * The battery is connected to the battery terminal. The battery and input pins are connected simulating switching the device on. The Boost converter output voltage (Vdd) is recorded at the main output (only connected at one place).
-	* The buck output is recorded and adjusted using the potentiometer (varies between 9.5V to 9.68V).
+	* The buck output is recorded and adjusted using the potentiometer (varies between 3.70 up to 9.5V to 3.81 up to 9.68V).
 	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4441.jpg)
 	* ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/IMG-4442.jpg)
 
