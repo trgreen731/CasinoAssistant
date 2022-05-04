@@ -378,6 +378,15 @@ Demo Today:
 The presentation slides were completed. The finished presentation is here. **
 
 # 5/3/2022
-The final report is being completed. The parts I was responsible for were the intro, the cost and schedule, the power design and design verification, the communications design and design verification, and the display design and design verfication. The final report can be found here. **
+The final report is being completed. The parts I was responsible for were the intro, the cost and schedule, the power design and design verification, the communications design and design verification, the display design and design verfication, and the app design verification. The final report can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/OddsBoosterFinalReport.pdf)
 
 Additionally some testing was done to get some more formal measurements. These include scope reading screen shots and a wider range of boost measurements. The boost showcased a much wider range of functionality than I expected.
+* Boost Output Voltage Table
+
+* LCD Pixel Clock, Alternating Data Signal, H-Sync, V-Sync scope screenshots
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00001.png)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00002.png)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00003.png)
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00005.png)
+* Buck Gate Signals scope screenshots
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00006.png)
