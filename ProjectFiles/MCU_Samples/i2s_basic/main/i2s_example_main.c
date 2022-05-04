@@ -26,11 +26,11 @@
 #include "time.h"
 #include "sys/time.h"
 
-#define BLUETOOTH 1
-#define LCD 0
-#define MFRC 1
+#define BLUETOOTH 0
+#define LCD 1
+#define MFRC 0
 #define CARD_SIM 0
-#define MFRC_CHECK_CONT 1
+#define MFRC_CHECK_CONT 0
 
 #define SPP_TAG "OddsBooster"
 #define SPP_SERVER_NAME "SPP_SERVER"
