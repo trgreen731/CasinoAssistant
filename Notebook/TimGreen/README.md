@@ -1,5 +1,3 @@
-[[_TOC_]]
-
 # 2/8/2022
 ## Proposal Brainstorming
 ### High Level Requirements
@@ -375,14 +373,14 @@ Demo Today:
 	* more lcd control work
 
 # 4/29/2022
-The presentation slides were completed. The finished presentation is here. **
+The presentation slides were completed. The finished presentation can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/OddsBoosterPresentationThemed.pptx)
 
 # 5/3/2022
 The final report is being completed. The parts I was responsible for were the intro, the cost and schedule, the power design and design verification, the communications design and design verification, the display design and design verfication, and the app design verification. The final report can be found [here](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/OddsBoosterFinalReport.pdf)
 
 Additionally some testing was done to get some more formal measurements. These include scope reading screen shots and a wider range of boost measurements. The boost showcased a much wider range of functionality than I expected.
 * Boost Output Voltage Table
-
+![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/Screenshot%202022-05-04%20173909.png)
 * LCD Pixel Clock, Alternating Data Signal, H-Sync, V-Sync scope screenshots
 ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00001.png)
 ![](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/TestEvidence/tek00002.png)
