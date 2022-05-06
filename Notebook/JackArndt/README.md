@@ -329,6 +329,13 @@ int getRecommendedPlayerAction(int *playerCards, int numPlayerCards, int dealerC
 ## Testing
 ![GUI_BlackjackHand](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/UsageDiagram/GUI_BlackjackHand.png)
 
+* Bluetooth communication between application and MCU established
+* Text-Based GUI used to output suggestion of optimal decision to user
+* The figure above shows a test in which the dealer is showing "6 of Clubs" (6) and the user has the "4 of Diamonds" (4) and "5 of Hearts" (5) in his/her hand.
+	* The application uses this information recieved from the MCU to calcuate the optimal decision according to the algorithm shown above. 
+	* Suggested Action: Double
+		* This is the "correct" optimal decision, according to the “Super-Easy Simplified Blackjack Basic Strategy Chart”   
+
 # April 23rd, 2022
 ## Debugging before Demonstration on Monday, April 25th, 2022
 ### LCD Display
@@ -384,7 +391,7 @@ int getRecommendedPlayerAction(int *playerCards, int numPlayerCards, int dealerC
 * Responsible for some sections of the Power subsystem Design and Verification and App Subsystem Design and Verification in the Final Paper. 
 
 ## May 4th, 2022
-### [Final Paper](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/OddsBoosterFinalReport.pdf) due 11:50P.M.
+### [Final Paper](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/OddsBoosterFinalReport.pdf) due 11:59P.M.
 
 
 
