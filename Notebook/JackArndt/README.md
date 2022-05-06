@@ -234,6 +234,24 @@ The following notes were received at the board review
 * Boost Converter works
 * Buck Converter does not work
 
+# April 19th, 2022
+## Phone App Update
+
+### Development
+* As stated previously on March 25th, we ultimately decided that our best approach would be to emulate a phone-based application by writing the software in a computer program using C++. 
+* Blackjack chosen as our primary game implementation
+	* In Blackjack, the user is prompted to take a definitive action (i.e. hit, stand, double), which greatly simplifies the overall experience for new users. Games such as Texas Hold’em poker will output the “strength” of the user’s hand in the form of percentage of “winning” a hand, which could cause initial confusion to players unfamiliar with such decisions. 
+* The algorithm shown below takes inspiration from a “Super-Easy Simplified Blackjack Basic Strategy Chart” that is commonly utilized by many novice Blackjack players, which is also shown below. 
+
+![App_Flow](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/App_Flow.png)
+
+![Super-Easy Simplified Blackjack Basic Strategy Chart](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/UsageDiagram/blackjack-super-easy-basic-strat.png)
+
+
+
+* We chose to only implement one, very basic strategy to appeal to a larger pool of players. However, future considerations and improvement of the application suggest extending user customizability by allowing the players to select their own strategy they would like to employ. This would only require minor modifications to the existing code.
+
+
 
 # April 23rd, 2022
 
