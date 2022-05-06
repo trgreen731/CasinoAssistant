@@ -229,7 +229,7 @@ The following notes were received at the board review
 			* PWM generation delivered to the gate signals of the MOSFET seem faulty
 			* Incorrect duty cycle?	 
 
-## Test Results
+### Test Results
 * LDO works 
 * Boost Converter works
 * Buck Converter does not work
