@@ -24,4 +24,32 @@
 * Define what information will be displayed/hidden to the user
 # February 10th, 2022
 ## Project Proposal due 11:59P.M.
-Project Proposal document in Project 
+Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) found in "ProjectFiles"folder  
+# February 15th, 2022
+## Begin Design of Circuits Schematics and Search for Necessary Components
+* Responsible for Power Subsystem
+* All parts are found in the [Resources Folder](https://github.com/trgreen731/OddsBooster/tree/master/Resources). 
+# February 18th, 2022 
+## Meeting with TA
+* Weekly TA meeting time switched from Tuesday to Friday moving forward
+### Notes from meeting
+* Check overall system power requirements (i.e. power consumption of each subsystem)
+ * This will help in deciding on what battery to select to match the desired specifications
+ * Additional circuitry to regulate output battery voltage and current
+* Designed vs. "Off-the-Shelf" components
+ * Suggested by TA to design Boost converter versus using an "off-the-shelf" component to increase complexity of the design
+ * However, some components such as the RFID Reader IC and Bluetooth IC already exist and are allowed to be purchased separately
+* Try to select component packages with hand-solderable pads, otherwise can lead to many bugs later during construction of PCB
+### To-Do:
+* Finish selecting components for Power subsystem
+* Work on Design Document due Thursday, Feburary 24th, 2022 at 11:59P.M.
+# February 22nd, 2022
+## Updated Block Diagram (v6)
+![Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/Full_Block_Diagram_v6.png)
+### Changes reflected in this updated block diagram
+* Power subsystem components "black-boxed" from Version 5 of the block diagram 
+ * Current and voltage measurement outputs of the battery protection circuitry can directly interface with the MCU, thus eliminating the need for additional current and voltage measurements
+
+
+
+
