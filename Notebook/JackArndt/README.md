@@ -27,8 +27,7 @@
 * Define what information will be displayed/hidden to the user
  
 # February 10th, 2022
-### Project Proposal due 11:59P.M.
-* Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) found in "ProjectFiles"folder  
+### [Project Proposal](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) due 11:59P.M.
 
 # February 15th, 2022
 ### Begin Design of Circuits Schematics and Search for Necessary Components
@@ -80,8 +79,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 * 3.7V output
 
 # February 24nd, 2022
-### Design Document due 11:59P.M. 
-* Finished [Design Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/OddsBoosterDesignDocument.pdf) found in "ProjectFiles"folder  
+### [Design Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/OddsBoosterDesignDocument.pdf) due 11:59P.M. 
 
 ## Design Discussion - Power Subystem
 * The power subsystem consists of a Lithium-Ion battery (and battery protection circuitry capable of overcharge voltage, overdischarge voltage and overcurrent detection), a linear voltage regulator, a boost converter, a buck converter, and USB port for charging. Essentially, this subsystem is responsible for providing the necessary power to all other hardware subsystems in the overall system in a safe manner. **Reference Block Diagram (v6) above**
@@ -241,23 +239,97 @@ The following notes were received at the board review
 * As stated previously on March 25th, we ultimately decided that our best approach would be to emulate a phone-based application by writing the software in a computer program using C++. 
 * Blackjack chosen as our primary game implementation
 	* In Blackjack, the user is prompted to take a definitive action (i.e. hit, stand, double), which greatly simplifies the overall experience for new users. Games such as Texas Hold’em poker will output the “strength” of the user’s hand in the form of percentage of “winning” a hand, which could cause initial confusion to players unfamiliar with such decisions. 
-* The algorithm shown below takes inspiration from a “Super-Easy Simplified Blackjack Basic Strategy Chart” that is commonly utilized by many novice Blackjack players, which is also shown below. 
+* The flow-chart algorithm shown below takes inspiration from a “Super-Easy Simplified Blackjack Basic Strategy Chart” that is commonly utilized by many novice Blackjack players, which is also shown below. 
 
 ![App_Flow](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/App_Flow.png)
 
 ![Super-Easy Simplified Blackjack Basic Strategy Chart](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/UsageDiagram/blackjack-super-easy-basic-strat.png)
 
-
-
 * We chose to only implement one, very basic strategy to appeal to a larger pool of players. However, future considerations and improvement of the application suggest extending user customizability by allowing the players to select their own strategy they would like to employ. This would only require minor modifications to the existing code.
 
+## Final Code
+```
+#include <iostream>
 
+#define HIT 0
+#define STAND 1
+#define DOUBLE 2 
+#define SPLIT 3  
+
+/* NOTE: The strategy implemented in this program is a modified version of the "Super-Easy" Blackjack strategy accessed from http://blackjackcalculation.com/.
+The getRecommendedPlayerAction function follows these guidelines:
+    * [1] If you have a pair of Aces or 8's, split them. 
+    * [2] Double down on 9 or 10 vs. a dealer low card (i.e. 2, 3, 4, 5 , 6) and always double down on 11. 
+    * [3] Hit on soft 17 or less and stand on soft 18 or more. 
+    * [4] Against a dealer low card (i.e. 2, 3, 4, 5, 6), "never bust" (i.e. stand on 12 or more). 
+    * [5] Against a dealer high card (i.e. 7, 8, 9, 10, A), "mimic the dealer" (i.e. hit until you get at least 17). 
+    */ 
+
+/* Function: getRecommendedPlayerAction
+Input(s): 
+    * int *playercards: a pointer to an array of integer values of the player's cards, ranging from 1-10 (A = 1, J = Q = K = 10)
+    * int numPlayerCards: number of cards a player has in his/her hand
+    * int dealerCard: an integer representing the value of the dealer's up card
+Output(s):
+    * HIT, STAND, DOUBLE, SPLIT
+*/
+
+int getRecommendedPlayerAction(int *playerCards, int numPlayerCards, int dealerCard) { 
+    
+    int handValue = 0 // value of player's current hand
+    int softValue = -1 
+
+    for (int i = 0; i < numPlayerCards; i++) {
+        handValue += playerCards[i];
+        if (playerCards[i] == 1) { 
+            softValue = 0;
+        } 
+    }
+
+    if (softValue == 0) { 
+        softValue = handValue + 10
+    }
+
+    // Split
+    if ((playerCards[0] == playersCards[1]) && (numPlayerCards == 2)) {
+        if ((playersCards[0]) == 1) || (playerCards[0] == 8)) 
+        {
+            return SPLIT; // [1]
+        }
+    }
+
+    // Double Down
+    if ((numPlayerCards == 2) && ((handValue >= 0) && (handValue <= 21))){
+        if ((handValue == 9) && (dealerCard < 7) && (dealerCard != 1)) {
+            return DOUBLE; // [2]
+        }
+        if ((handValue == 10) && (dealerCard < 7) && (dealerCard != 1)) {
+            return DOUBLE; // [2]
+        }
+        if ((handValue == 11) {
+            return DOUBLE; // [2]
+        }
+    }
+
+    // Hit and Stand
+    if ((handValue >= 17) || (softValue >= 18)) {
+        return STAND;
+    }
+    else if (handValue <= 11) {
+        return HIT;
+    }
+    else if ((dealerCard < 7) && (dealerCard != 1)) {
+        return STAND;
+    }
+    else {
+        return HIT;
+    }
+}
+```
+## Testing
+![GUI_BlackjackHand](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/UsageDiagram/GUI_BlackjackHand.png)
 
 # April 23rd, 2022
-
-
-
-* LDO works 
 ## Debugging before Demonstration on Monday, April 25th, 2022
 ### LCD Display
 * The LCD Display backlights are not working
@@ -276,6 +348,43 @@ The following notes were received at the board review
 	* The original connections between the switch and the necessary pins were unreliable and resulted in sporatic power loss. 
 * Layout of MFRC uses a separate GND symbol/connection than the ground plane of the PCB.
 	* Easily fixed using jumper wires  
+
+# April 24th, 2022
+### Final Demonstration TOMORROW, Monday, April 25th
+
+### Notes/Talking Points for Demonstration:
+* Removal of battery protection IC from original design
+	* Instead, battery protection circuitry already came included with our selected Lithium-Ion battery
+* Breifly mention about what ended up working and what did not and why
+	* LDO and Boost Converter work
+		* Show off tests used to verify requirements for Power subsystem (Successful) 
+	* Buck Converter did not work (most likely from duty cycles on gate signals, or overlooked soldering issue)
+* RFID tag identification using phone app
+* MFRC Command Register interface (returning bf)
+	* Mention oscillator not generating proper 13.56MHz clock
+	* NCS pin maybe interfering with interface detection
+	* Mention lack of documentation/common use of MFRC531
+* Show all other code pertaining to MFRC and ESP32
+* LCD backlight turning on & clock synchronization
+	* Show switchup of pins on layout, and our troubleshooting of it
+* Blackjack code working
+* Explain jumper wires/insulated tape/pull-down resistor
+
+# April 25th, 2022
+### Final Demonstration TODAY 
+
+# April 29th, 2022
+### [Final Presentation Slides](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/OddsBoosterPresentationThemed.pptx) are completed. 
+
+# May 2rd, 2022
+### Final Presentation TODAY 
+
+# May 3rd-4th, 2022
+## May 3rd, 2022
+* Responsible for some sections of the Power subsystem Design and Verification and App Subsystem Design and Verification in the Final Paper. 
+
+## May 4th, 2022
+### [Final Paper](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/OddsBoosterFinalReport.pdf) due 11:50P.M.
 
 
 
