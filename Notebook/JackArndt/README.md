@@ -28,10 +28,10 @@
  
 # February 10th, 2022
 ### Project Proposal due 11:59P.M.
-Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) found in "ProjectFiles"folder  
+* Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) found in "ProjectFiles"folder  
 
 # February 15th, 2022
-## Begin Design of Circuits Schematics and Search for Necessary Components
+### Begin Design of Circuits Schematics and Search for Necessary Components
 * Responsible for Power Subsystem
 * All parts are found in the [Resources Folder](https://github.com/trgreen731/OddsBooster/tree/master/Resources). 
  
@@ -109,7 +109,7 @@ When overdischarge occurs, the discharge control MOSFET turns off and dischargin
 5. *Power-Down after Overdischarge*
 When overdischarge occurs, the DW01-P will enter into power-down mode, turning off all the timing generation and detection circuitry to reduce the quiescent current to 0.1 [μA] (VCC=2.0V). At the same time, the CS pin is pull-up to VCC through an internal resistor.
 
-## Linear Voltage Regualtor
+### Linear Voltage Regualtor
 * The voltage regulator is what connects the output of Power subsystem to the other three hardware subsystems via a 3.3V DC voltage signal used for CMOS logic powering.
 * Our **linear voltage regulator** ([TI LP3965ESX-ADJ/NOPB](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/Power_Components/lp3962.pdf)) is a low-dropout voltage regulator used to convert the output voltage from the battery protection IC (input to the voltage regulator; 3.0V – 3.7V) to a 3.3V output.
 	* However, if the input voltage is < 3.3V, the output follows it directly, which is an acceptable lower voltage range to all the components requiring this power bus. 
@@ -121,7 +121,7 @@ When overdischarge occurs, the DW01-P will enter into power-down mode, turning o
 * The most important biasing consideration  are the feedback resistors. Following the schematic design as suggested by the datasheet, R1 = 10kΩ and R2 = R1*((V<sub>OUT</sub> / 1.216) - 1), which is approximately 17.14kΩ. 
 	* This is not a value achievable by a single component, therefore two 33kΩ resistors are used in parallel along with a 2kΩ potentiometer to allow for fine tuning of the output voltage to the desired value.
 
-## Boost and Buck Converters
+### Boost and Buck Converters
 * The **Boost Converter** ([ABLIC S-8337ABIA-T8T1U](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/Power_Components/S8337_8338_E.pdf)) is a switching converter that takes the output voltage from the battery protection IC (3.0V – 3.7V) and produces a 9.6V DC voltage output necessary to power the LED backlighting of the LCD display located in the display subsystem. **The Boost Converter schematic is shown below.**
 ![Power_Boost_Schem](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/Power_Boost_Schem.PNG)
 * This boost converter requires a PWM (Pulse-Width Modulation) signal to control a MOSFET, which enables and disables current flow from the input to output. 
@@ -134,7 +134,7 @@ When overdischarge occurs, the DW01-P will enter into power-down mode, turning o
 * A buck converter operates very similarly to a boost converter; however, in reverse. 
 	* This subcircuit includes a second MOSFET for switching to avoid unintended floating effects and is also designed to be tuned using the included potentiometer.
 
-## USB Charging Port
+### USB Charging Port
 * The USB Micro-B Port will solely be used to charge the Lithium-Ion battery when necessary. 
 * The 5V power supplied by the USB port will be down shifted to 4.2V through the implementation of the buck converter, which will be fed into the battery protection circuitry to recharge the battery. 
 
@@ -192,13 +192,53 @@ The following notes were received at the board review
 	* This originally served as our back-up plan if we encountered issues with the phone application development process, as outlined above. However, we will still be able to successfully interface with the MCU as almost all modern computers also have Bluetooth capabilities, so this approach is still well-within our defined requirements of the application. 
 * C++ is our language of choice to write the application due to our familiarity with the programming language and its ability to potentially be integrated into an Android app. 
 
-
 # March 30th, 2022
 ### Individual Progress Report (IPR) due 11:59P.M.
 
+# April 6th, 2022
+## PCB and Components have arrived
+* Team met in ECEB 2070 (Senior Design Lab) to begin soldering components onto the PCB
+* Tim and Marco have the most soldering experience in the group and soldered a large portion of the components onto the board
+* As expected, the Buck Converter IC package and pads were extremely small. This could lead to potential issues down the line.
+
+# April 9th, 2022
+* Power subsystem components soldered onto PCB
+* Tests were carried out according to the Requirements and Verifications for the Power subysystem, shown below.
+
+### Requirements and Verifications for the Power Subsystem
+* **REQUIREMENT**: When the voltage of the lithium ion battery cell exceeds the overcharge protection voltage of 4.25V (within a tolerance of ±0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit charging by turning off the charge control MOSFET.
+	* **VERIFICATION**: _To verify the correction functionality of the overcharge battery protection circuit, we can replace the lithium ion battery cell with a ramp DC voltage source, starting from the nominal 3.7V battery voltage and slowly “ramping up” the voltage by 0.1V increments to the rated 4.25V overcharge protection voltage. During this test, we can probe the gate (voltage measurement), drain and source (current measurement) terminals using an oscilloscope to confirm that the charge control MOSFET enters the cutoff region, as intended. Further, we must also probe the load of this circuit and take a resistance measurement between the two output terminals to confirm there is a very high impedance (i.e. the load is disconnected from the circuitry)._
+* **REQUIREMENT**: When the voltage of the lithium ion battery cell falls below the overdischarge protection voltage of 2.40V (within a tolerance of ±0.05V), the battery protection circuit must be able to disconnect the connected components and inhibit discharging by turning off the discharge control MOSFET.
+	* **VERIFICATION**: _To verify the correction functionality of the overdischarge battery protection circuit, we can replace the lithium ion battery cell with a ramp DC voltage source, starting from the nominal 3.7V battery voltage and slowly “ramping down” the voltage by 0.1V increments to the rated 2.40V overdischarge protection voltage. During this test, we can probe the gate (voltage measurement), drain and source (current measurement) terminals using an oscilloscope to confirm that the discharge control MOSFET enters the cutoff region, as intended. Further, we must also probe the load of this circuit and take a resistance measurement between the two output terminals to confirm there is a very high impedance (i.e. the load is disconnected from the circuitry)._
+* **REQUIREMENT**: The voltage regulator circuit must be able to maintain a voltage within a safe operating range of 3.3V ± 0.1V (safe operating range for average CMOS device). If the input voltage falls below this range, the voltage regulator circuit must then match (follow) the input voltage signal to the LDO regulator (< 3.3V). Otherwise, the LDO regulator must output a constant voltage 3.3V. 
+	* **VERIFICATION**:
+		* Lithium-Ion battery directly connected to PCB as power source
+			* Measurements showed battery voltage to be ~3.8V, as expected 
+		* **Output of LDO showed reading of ~3.3V** (after fine-tuning the feedback resistors using the potentiometer)   
+* **REQUIREMENT**: The boost converter circuit must step up the lithium ion battery voltage of 3.7V to a DC voltage of 9.6V (± 0.2V) as to provide enough power to the LED backlighting of the LCD display.
+	* **VERIFICATION**:
+		* Lithium-Ion battery directly connected to PCB as power source
+			* Measurements showed battery voltage to be ~3.8V, as expected
+		*  **Output of the Boost Converter showed reading of ~9.6V**
+* **REQUIREMENT**: The buck converter circuit must step down the USB charging port DC voltage from 5V to 4.2V ± (0.1V). 
+	* **VERIFICATION**:
+		* 5V input voltage provided from power supply to USB input pins
+		* **2mV output from Buck**
+		* Potential Bugs:
+			* Very small IC, pins could potential be bridged
+			* PWM generation delivered to the gate signals of the MOSFET seem faulty
+			* Incorrect duty cycle?	 
+
+## Test Results
+* LDO works 
+* Boost Converter works
+* Buck Converter does not work
+
+
 # April 23rd, 2022
 
-## Tests and Verifications
+
+
 * LDO works 
 ## Debugging before Demonstration on Monday, April 25th, 2022
 ### LCD Display
