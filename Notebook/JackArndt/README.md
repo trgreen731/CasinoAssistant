@@ -1,6 +1,7 @@
 # ECE 445: Senior Design Laboratory - Lab Notebook
 ### Name: Jack Arndt (jrarndt2)
 ### Team 37 - The Odds Booster
+
 # February 8th, 2022
 ## Initial Meeting with TA
 ### Notes from meeting
@@ -24,13 +25,16 @@
 * Progamming langauge to construct phone app?
 * Texas Hold'em Poker and Blackjack mathematical analysis to start thinking about psuedo-code for the app
 * Define what information will be displayed/hidden to the user
+ 
 # February 10th, 2022
 ### Project Proposal due 11:59P.M.
 Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/Proposal/OddsBoosterProposal.pdf) found in "ProjectFiles"folder  
+
 # February 15th, 2022
 ## Begin Design of Circuits Schematics and Search for Necessary Components
 * Responsible for Power Subsystem
 * All parts are found in the [Resources Folder](https://github.com/trgreen731/OddsBooster/tree/master/Resources). 
+ 
 # February 18th, 2022 
 ## Meeting with TA
 * Weekly TA meeting time switched from Tuesday to Friday moving forward
@@ -45,6 +49,7 @@ Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/b
 ### To-Do:
 * Finish selecting components for Power subsystem
 * Work on Design Document due Thursday, Feburary 24th, 2022 at 11:59P.M.
+
 # February 22nd, 2022
 ## Updated Block Diagram (v6)
 ![Full Block v6](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/Full_Block_Diagram_v6.png)
@@ -59,6 +64,7 @@ Finished [Project Proposal Document](https://github.com/trgreen731/OddsBooster/b
 	* Schedule
 	* Cost Analysis
 	* Tolerance Analysis  	
+	
 # February 23nd, 2022
 ## Current Requirement Analysis
 * ESP32-WROVER-E = 500mA min required (600mA safe)
@@ -72,6 +78,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 * 0.5C continuous discharge (1.5A)
 * 1C peak discharge (3A)
 * 3.7V output
+
 # February 24nd, 2022
 ### Design Document due 11:59P.M. 
 * Finished [Design Document](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/OddsBoosterDesignDocument.pdf) found in "ProjectFiles"folder  
@@ -85,6 +92,7 @@ Suggested Battery: MIKROE-4474 (MLP805660)
 * From the datasheets provided for the ICs we will be using for the MCU ([ESP32- WROVER-E](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/ESP32_Bluetooth_Module/esp32-wrover-e_esp32-wrover-ie_datasheet_en.pdf)), RFID Reader ([NXP MRFC531](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/RFID_Components/MFRC531.pdf)), and the LCD Display ([Orient Display AFY320240A0-3.5N6NTN-R](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/LCD_Components/AFY320240A0-3.5N6NTN-R.pdf)), we find that each draw 500 [mA], 150 [mA], and 210 [mA] maximum current, respectively. Therefore, this leads to a total current draw of 960 [mA].
 * Therefore, our selected Lithium-Ion battery ([Mikro- 4474](https://github.com/trgreen731/OddsBooster/blob/master/Resources/Datasheets/Power_Components/MLP805660%203000mAh%203.7V.pdf)) has a rated output of 1.5 [A] continuous within this range. 
 * The output of the battery will further be connected to a battery protection IC (DW01-P), which has specifically been chosen to match the parameters of this battery cell. The battery protection circuitry serves the purpose to monitor the status of the battery through its output voltage and current draw. Therefore, the battery (and the external hardware subsystems circuitry) is protected from one another in the presence of over/undercharging and overdrawing by being able to cut power connections. **The schematic for the Battery Protection Circuitry is shown below.**
+
 ![BatteryProtection-Schematic.png](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/DesignDocument/figures/BatteryProtection-Schematic.png)
 * As outlined in the IC's datasheet, the five modes of operation are as follows:
 1. *Overcharge Protection*
@@ -131,8 +139,95 @@ When overdischarge occurs, the DW01-P will enter into power-down mode, turning o
 * The 5V power supplied by the USB port will be down shifted to 4.2V through the implementation of the buck converter, which will be fed into the battery protection circuitry to recharge the battery. 
 
 # March 1st, 2022
-## Design Review
 * Updated original Design Document sumbission
+## Design Review
+* Met with Professor Song for Design Review
+	* Key takeaways: 
+		* Given the complexity of the overall system, acheiving full integration and functionality may be difficult.
+		* Consider fall-back plans if something doesn't work as intended
+			* Potential Pitfalls:
+				* Difficulties on obtaining Android device
+				* Dealing with many high-frequency signals
+				* Distribution of power	 
+## PCB Board Review Notes
+The following notes were received at the board review
+* Make sure to add PCBWay DRC check
+* Remove component values from the silkscreen
+* Increase the spacing between components and traces
+* Make sure that data signals are at least 10 mil and power are at least 20 mil.
+	* According to https://www.4pcb.com/trace-width-calculator.html a trace of 20 mil can safely support 1.2A which meets the requirements for the communications and display portion
+	* The power portion may need to have larger traces, but that portion is not assigned to me.
+* Make sure to add test points throughout the layout
+* Upload gerber files to PCBWay for a method of auditing
+* **First Draft for Communications and Display Subsystems PCB Layout shown below.**
+
+![comms display layout draft 1](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/3-1-2022-CommsDisplayLayout.PNG)
+
+# March 7th, 2022
+* Adjustments to PCB Layout were made to pass to PCBWay DRC. 
+* Significant work done by team to create custom footprints of necessary components in EAGLE for PCB board layout
+	* This can be found in the EAGLE library called [OddsBooster](https://github.com/trgreen731/OddsBooster/tree/master/ProjectFiles/EAGLE/ECE445_OddsBooster_Custom). 
+
+# March 12th, 2022
+* Full PCB design and layout completed. 
+* I was responsible for a majority of the layout (i.e. Power subsystem and Card Reader subsystem), while Tim completed the rest.
+* We initially ran into DRC issues as we did not run DRC using the provided file by PCBWay; however, these issues were quickly resolved once the errors were identified.
+* Further, careful consideration was taken in the sizes of the traces, depending on the specific subsystem. 
+	* For example, the Power subsystem was designed to deal with relatively high voltage and current ratings (i.e. ~3V-5V, ~1-2A), which would require thicker traces. 
+* A trace size of 20 mil can safely support 1.2A, which meets the requirements for the Communications and Display subsystem specifications.
+* I elected to use 10 mils for data signal traces and used 32 mils for power signals (i.e. VDD, etc.) to be well within compliance.
+* The finished PCB layout is shown below.
+
+![PCB_Ordered](https://github.com/trgreen731/OddsBooster/blob/master/Notebook/TimGreen/PCB-layout-v2(ordered).PNG)
+
+# March 25th, 2022
+* Waiting for PCB and components to arrive.
+### App Develepment Considerations
+* The two main candidates for mobile app development: Android and iOS. 
+* While there exists a large user base for both platforms, each have posed their respective difficulties. 
+* We had initially proposed to develop the application using the Android Studio IDE and Android SDK because of Android’s open-source nature and application development process promoting compatibility across most, if not all Android devices. 
+	* However, we have been unable to obtain the necessary Android hardware to develop, test, and debug the software. 
+* Apple has many strict guidelines and constraints in place regarding their development process for iOS-based applications that prevented us from adopting this approach. 
+* After discussing, we ultimately decided that our best approach would be to emulate a phone-based application by writing the software in a computer program using C++. 
+	* This originally served as our back-up plan if we encountered issues with the phone application development process, as outlined above. However, we will still be able to successfully interface with the MCU as almost all modern computers also have Bluetooth capabilities, so this approach is still well-within our defined requirements of the application. 
+* C++ is our language of choice to write the application due to our familiarity with the programming language and its ability to potentially be integrated into an Android app. 
+
+
+# March 30th, 2022
+### Individual Progress Report (IPR) due 11:59P.M.
+
+# April 23rd, 2022
+
+## Tests and Verifications
+* LDO works 
+## Debugging before Demonstration on Monday, April 25th, 2022
+### LCD Display
+* The LCD Display backlights are not working
+	* Tim originally concluded that this issue arose due to misinterpretation of the datasheet claiming that 9.6V necessary to power the LED backlights is in fact the forward voltage for a single LED device. This would require 28.8V applied at the LED+ pin of the LCD instead of 9.6V due to three LEDs being placed in series.
+	* This did not seem like a feasible voltage only to power a small LCD display, which led us to believe there was another issue.
+	* Ultimately, we discovered that the *VDD* and *GND* pins on the LCD connector were switched when laying out the PCB.
+		* Our solution was to use insulating tape on these pads and jumper wires to make the correct connections.
+		* In this process, our original LCD Display connector was destroyed and we had to resolder on a spare component.
+		* Ultimately, we were able to sucessfully power the LCD Display backlights using a 9.6V input, as shown below.
+
+![LCD_UnitTest](https://github.com/trgreen731/OddsBooster/blob/master/ProjectFiles/FinalReport/UsageDiagram/LCD_UnitTest.jpeg)
+
+* When resoldering the LCD Display connector, we accidently shorted V<sub>CC</sub> to GND...
+	* Although unintentional, we did confirm the functionality of the battery protection circuitry through this incident by observing the battery's output voltage drop to nearly 0V. 
+* 3-way switch jumper cables were replaced.
+	* The original connections between the switch and the necessary pins were unreliable and resulted in sporatic power loss. 
+* Layout of MFRC uses a separate GND symbol/connection than the ground plane of the PCB.
+	* Easily fixed using jumper wires  
+
+
+
+
+
+
+
+
+	
+
 
 
 
